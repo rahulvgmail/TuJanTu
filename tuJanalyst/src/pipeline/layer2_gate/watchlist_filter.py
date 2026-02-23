@@ -14,9 +14,6 @@ class FilterResult:
     reason: str
     method: str
 
-    def as_dict(self) -> dict[str, str | bool]:
-        return {"passed": self.passed, "reason": self.reason, "method": self.method}
-
 
 class WatchlistFilter:
     """Apply low-cost watchlist and keyword gates before LLM classification."""
@@ -39,7 +36,7 @@ class WatchlistFilter:
         }
         self._global_keywords = {keyword.lower() for keyword in watchlist.global_keywords if keyword.strip()}
 
-    def check(self, trigger: TriggerEvent) -> dict[str, str | bool]:
+    def check(self, trigger: TriggerEvent) -> FilterResult:
         """Return structured pass/reject result for a trigger."""
         symbol = (trigger.company_symbol or "").strip().upper()
         company_name = (trigger.company_name or "").strip().lower()
@@ -53,7 +50,7 @@ class WatchlistFilter:
 
         # 1) Explicit symbol match.
         if symbol and symbol in self._symbols:
-            return FilterResult(True, f"Watched symbol matched: {symbol}", "symbol_match").as_dict()
+            return FilterResult(True, f"Watched symbol matched: {symbol}", "symbol_match")
 
         # 2) Company name / alias substring match.
         if company_name:
@@ -63,7 +60,7 @@ class WatchlistFilter:
                         True,
                         f"Watched company/alias matched: {name_or_alias} ({matched_symbol})",
                         "name_match",
-                    ).as_dict()
+                    )
 
         # 3) Sector-gated keyword check.
         if sector and sector in self._sectors:
@@ -73,8 +70,8 @@ class WatchlistFilter:
                     True,
                     f"Watched sector + keyword matched: {matched_keyword}",
                     "keyword_match",
-                ).as_dict()
-            return FilterResult(False, "Watched sector matched but no relevant keywords found", "sector_no_keyword").as_dict()
+                )
+            return FilterResult(False, "Watched sector matched but no relevant keywords found", "sector_no_keyword")
 
         # 4) Content scan for known company names/aliases/symbols.
         for name_or_alias, matched_symbol in self._names.items():
@@ -83,20 +80,19 @@ class WatchlistFilter:
                     True,
                     f"Company mention in content: {name_or_alias} ({matched_symbol})",
                     "content_scan",
-                ).as_dict()
+                )
         for watched_symbol in self._symbols:
             if watched_symbol.lower() in content:
                 return FilterResult(
                     True,
                     f"Company symbol mention in content: {watched_symbol}",
                     "content_scan",
-                ).as_dict()
+                )
 
-        return FilterResult(False, "No watchlist symbol/name/sector-keyword match", "no_match").as_dict()
+        return FilterResult(False, "No watchlist symbol/name/sector-keyword match", "no_match")
 
     def _find_keyword(self, content: str) -> str | None:
         for keyword in sorted(self._keywords | self._global_keywords):
             if keyword in content:
                 return keyword
         return None
-

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import inspect
 from typing import Any
 
@@ -31,6 +32,7 @@ class PipelineOrchestrator:
         decision_assessor: Any | None = None,
         report_generator: Any | None = None,
         report_deliverer: Any | None = None,
+        report_repo: Any | None = None,
     ):
         self.trigger_repo = trigger_repo
         self.doc_repo = doc_repo
@@ -43,6 +45,7 @@ class PipelineOrchestrator:
         self.decision_assessor = decision_assessor
         self.report_generator = report_generator
         self.report_deliverer = report_deliverer
+        self.report_repo = report_repo
 
     async def process_trigger(self, trigger: TriggerEvent) -> dict[str, str | bool]:
         """Process a single trigger through configured pipeline layers."""
@@ -234,16 +237,26 @@ class PipelineOrchestrator:
                 "model": "n/a",
             }
 
-        filter_result = self.watchlist_filter.check(trigger)
+        filter_result = self._normalize_gate_result(self.watchlist_filter.check(trigger))
         if not bool(filter_result.get("passed")):
             return filter_result
 
-        classification = self.gate_classifier.classify(
-            announcement_text=trigger.raw_content,
-            company_name=trigger.company_name or "",
-            sector=trigger.sector or "",
-        )
-        return await self._maybe_await(classification)
+        classifier_fn = getattr(self.gate_classifier, "classify")
+        if inspect.iscoroutinefunction(classifier_fn):
+            classification = await classifier_fn(
+                announcement_text=trigger.raw_content,
+                company_name=trigger.company_name or "",
+                sector=trigger.sector or "",
+            )
+        else:
+            classification = await asyncio.to_thread(
+                classifier_fn,
+                trigger.raw_content,
+                trigger.company_name or "",
+                trigger.sector or "",
+            )
+
+        return self._normalize_gate_result(await self._maybe_await(classification))
 
     async def _ensure_document_embedded(self, document: RawDocument) -> None:
         if not document.extracted_text:
@@ -289,15 +302,33 @@ class PipelineOrchestrator:
             return str(value.value)
         return str(value)
 
+    def _normalize_gate_result(self, result: Any) -> dict[str, str | bool]:
+        if isinstance(result, dict):
+            normalized = result
+        elif all(hasattr(result, key) for key in ("passed", "reason", "method")):
+            normalized = {
+                "passed": bool(getattr(result, "passed")),
+                "reason": str(getattr(result, "reason", "")),
+                "method": str(getattr(result, "method", "")),
+            }
+        else:
+            raise TypeError(f"Unsupported gate result type: {type(result)!r}")
+
+        return {
+            "passed": bool(normalized.get("passed", False)),
+            "reason": str(normalized.get("reason", "")),
+            "method": str(normalized.get("method", "")),
+            "model": str(normalized.get("model", "")),
+        }
+
     async def _persist_delivery_failure(self, report: Any, error: Exception) -> None:
         report.delivery_status = ReportDeliveryStatus.DELIVERY_FAILED
         report.delivered_via = []
-        report_repo = getattr(self.report_deliverer, "report_repo", None) or getattr(self.report_generator, "report_repo", None)
-        if report_repo is None:
+        if self.report_repo is None:
             logger.warning("report_repo_missing_for_delivery_failure", error=str(error))
             return
         try:
-            await report_repo.save(report)
+            await self.report_repo.save(report)
         except Exception as save_error:  # noqa: BLE001
             logger.warning(
                 "delivery_failure_status_persist_failed",

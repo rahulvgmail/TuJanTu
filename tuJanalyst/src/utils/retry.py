@@ -79,3 +79,19 @@ async def retry_async(
             await asyncio.sleep(base_delay_seconds * (2 ** (attempt - 1)))
 
     raise RuntimeError("retry_async exhausted unexpectedly")
+
+
+async def retry_in_thread(
+    operation: Callable[[], T],
+    *,
+    attempts: int = 3,
+    base_delay_seconds: float = 0.2,
+    should_retry: Callable[[Exception], bool] = is_transient_error,
+) -> T:
+    """Retry a synchronous operation in a worker thread without blocking the event loop."""
+    return await retry_async(
+        lambda: asyncio.to_thread(operation),
+        attempts=attempts,
+        base_delay_seconds=base_delay_seconds,
+        should_retry=should_retry,
+    )

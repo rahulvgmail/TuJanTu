@@ -11,7 +11,8 @@ from src.dspy_modules.report import ReportModule
 from src.models.decision import DecisionAssessment
 from src.models.investigation import HistoricalContext, Investigation
 from src.models.report import AnalysisReport
-from src.utils.retry import is_transient_error, retry_sync
+from src.utils.retry import is_transient_error, retry_in_thread
+from src.utils.token_usage import run_with_dspy_usage
 
 logger = logging.getLogger(__name__)
 
@@ -38,19 +39,22 @@ class ReportGenerator:
         """Create and store an AnalysisReport for a completed assessment."""
         sources_payload = self._build_sources_payload(investigation)
         generation_started = time.time()
-        module_result = retry_sync(
-            lambda: self.report_module.forward(
-                company_symbol=investigation.company_symbol,
-                company_name=investigation.company_name,
-                investigation_summary=investigation.synthesis,
-                key_findings_json=self._to_json(investigation.key_findings),
-                red_flags_json=self._to_json(investigation.red_flags),
-                positive_signals_json=self._to_json(investigation.positive_signals),
-                recommendation=self._enum_to_str(assessment.new_recommendation),
-                confidence=float(assessment.confidence),
-                timeframe=self._enum_to_str(assessment.timeframe),
-                reasoning=assessment.reasoning,
-                sources_json=self._to_json(sources_payload),
+        module_result, input_tokens, output_tokens = await retry_in_thread(
+            lambda: run_with_dspy_usage(
+                lambda: self._invoke_module(
+                    self.report_module,
+                    company_symbol=investigation.company_symbol,
+                    company_name=investigation.company_name,
+                    investigation_summary=investigation.synthesis,
+                    key_findings_json=self._to_json(investigation.key_findings),
+                    red_flags_json=self._to_json(investigation.red_flags),
+                    positive_signals_json=self._to_json(investigation.positive_signals),
+                    recommendation=self._enum_to_str(assessment.new_recommendation),
+                    confidence=float(assessment.confidence),
+                    timeframe=self._enum_to_str(assessment.timeframe),
+                    reasoning=assessment.reasoning,
+                    sources_json=self._to_json(sources_payload),
+                )
             ),
             attempts=3,
             base_delay_seconds=0.2,
@@ -102,8 +106,8 @@ class ReportGenerator:
             report.company_symbol,
             self.model_name,
             time.time() - generation_started,
-            0,
-            0,
+            input_tokens,
+            output_tokens,
         )
         return report
 
@@ -258,3 +262,13 @@ class ReportGenerator:
         if confidence > 1:
             return 1.0
         return confidence
+
+    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
+        if callable(module):
+            return module(**kwargs)
+
+        forward = getattr(module, "forward", None)
+        if callable(forward):
+            return forward(**kwargs)
+
+        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")

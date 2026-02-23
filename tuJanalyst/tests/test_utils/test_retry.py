@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from src.utils.retry import is_transient_error, retry_async, retry_sync
+from src.utils.retry import is_transient_error, retry_async, retry_in_thread, retry_sync
 
 
 def test_retry_sync_retries_transient_error_until_success() -> None:
@@ -46,6 +46,22 @@ async def test_retry_async_retries_transient_error_until_success() -> None:
         return "ok"
 
     result = await retry_async(operation, attempts=3, base_delay_seconds=0)
+
+    assert result == "ok"
+    assert state["calls"] == 3
+
+
+@pytest.mark.asyncio
+async def test_retry_in_thread_retries_transient_error_until_success() -> None:
+    state = {"calls": 0}
+
+    def operation() -> str:
+        state["calls"] += 1
+        if state["calls"] < 3:
+            raise TimeoutError("temporary timeout")
+        return "ok"
+
+    result = await retry_in_thread(operation, attempts=3, base_delay_seconds=0)
 
     assert result == "ok"
     assert state["calls"] == 3

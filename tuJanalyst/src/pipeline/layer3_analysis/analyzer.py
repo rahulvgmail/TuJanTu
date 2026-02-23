@@ -16,7 +16,8 @@ from src.models.investigation import (
     SignificanceLevel,
     WebSearchResult,
 )
-from src.utils.retry import is_transient_error, retry_sync
+from src.utils.retry import is_transient_error, retry_in_thread
+from src.utils.token_usage import run_with_dspy_usage
 
 logger = logging.getLogger(__name__)
 
@@ -69,17 +70,25 @@ class DeepAnalyzer:
                 )
                 investigation.market_data = None
 
-        web_results = await self._run_web_search(trigger=trigger, doc_summary=document_text[:2000])
+        web_results, query_input_tokens, query_output_tokens = await self._run_web_search(
+            trigger=trigger,
+            doc_summary=document_text[:2000],
+        )
         investigation.web_search_results = web_results
 
-        deep_result = retry_sync(
-            lambda: self.pipeline.forward(
-                company_symbol=investigation.company_symbol,
-                company_name=investigation.company_name,
-                document_text=document_text,
-                market_data_json=self._to_json(investigation.market_data.model_dump() if investigation.market_data else {}),
-                historical_context_json=self._to_json(historical_context.model_dump()),
-                web_search_results_json=self._to_json([item.model_dump() for item in web_results]),
+        deep_result, pipeline_input_tokens, pipeline_output_tokens = await retry_in_thread(
+            lambda: run_with_dspy_usage(
+                lambda: self._invoke_module(
+                    self.pipeline,
+                    company_symbol=investigation.company_symbol,
+                    company_name=investigation.company_name,
+                    document_text=document_text,
+                    market_data_json=self._to_json(
+                        investigation.market_data.model_dump() if investigation.market_data else {}
+                    ),
+                    historical_context_json=self._to_json(historical_context.model_dump()),
+                    web_search_results_json=self._to_json([item.model_dump() for item in web_results]),
+                )
             ),
             attempts=3,
             base_delay_seconds=0.2,
@@ -90,8 +99,8 @@ class DeepAnalyzer:
 
         investigation.llm_model_used = self.model_name
         investigation.processing_time_seconds = round(time.time() - started_at, 4)
-        investigation.total_input_tokens = 0
-        investigation.total_output_tokens = 0
+        investigation.total_input_tokens = query_input_tokens + pipeline_input_tokens
+        investigation.total_output_tokens = query_output_tokens + pipeline_output_tokens
 
         await self.investigation_repo.save(investigation)
         logger.info(
@@ -152,13 +161,18 @@ class DeepAnalyzer:
 
         return context
 
-    async def _run_web_search(self, trigger: Any, doc_summary: str) -> list[WebSearchResult]:
+    async def _run_web_search(self, trigger: Any, doc_summary: str) -> tuple[list[WebSearchResult], int, int]:
+        query_input_tokens = 0
+        query_output_tokens = 0
         try:
-            query_prediction = retry_sync(
-                lambda: self.web_search_module.forward(
-                    company_symbol=(trigger.company_symbol or "UNKNOWN").upper(),
-                    company_name=trigger.company_name or "Unknown Company",
-                    trigger_context=doc_summary,
+            query_prediction, query_input_tokens, query_output_tokens = await retry_in_thread(
+                lambda: run_with_dspy_usage(
+                    lambda: self._invoke_module(
+                        self.web_search_module,
+                        company_symbol=(trigger.company_symbol or "UNKNOWN").upper(),
+                        company_name=trigger.company_name or "Unknown Company",
+                        trigger_context=doc_summary,
+                    )
                 ),
                 attempts=3,
                 base_delay_seconds=0.2,
@@ -196,7 +210,7 @@ class DeepAnalyzer:
                         sentiment="neutral",
                     )
                 )
-        return findings
+        return findings, query_input_tokens, query_output_tokens
 
     def _apply_pipeline_result(self, investigation: Investigation, result: DeepAnalysisResult) -> None:
         investigation.extracted_metrics = self._parse_metrics(result.extracted_metrics_json)
@@ -255,3 +269,13 @@ class DeepAnalyzer:
             return json.dumps(payload)
         except Exception:  # noqa: BLE001
             return "{}"
+
+    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
+        if callable(module):
+            return module(**kwargs)
+
+        forward = getattr(module, "forward", None)
+        if callable(forward):
+            return forward(**kwargs)
+
+        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")

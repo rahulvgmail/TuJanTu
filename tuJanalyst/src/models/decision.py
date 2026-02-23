@@ -57,6 +57,8 @@ class DecisionAssessment(BaseModel):
     past_inconclusive_resurrected: list[str] = Field(default_factory=list)
 
     llm_model_used: str = ""
+    total_input_tokens: int = 0
+    total_output_tokens: int = 0
     processing_time_seconds: float = 0.0
 
     created_at: datetime = Field(default_factory=utc_now)

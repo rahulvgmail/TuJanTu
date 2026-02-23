@@ -176,6 +176,7 @@ async def lifespan(app: FastAPI):
             decision_assessor=decision_assessor,
             report_generator=report_generator,
             report_deliverer=report_deliverer,
+            report_repo=report_repo,
         )
         app.state.trigger_repo = trigger_repo
         app.state.document_repo = document_repo

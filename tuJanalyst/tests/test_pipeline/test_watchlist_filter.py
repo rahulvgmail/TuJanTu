@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from src.models.trigger import TriggerEvent, TriggerSource
-from src.pipeline.layer2_gate.watchlist_filter import WatchlistFilter
+from src.pipeline.layer2_gate.watchlist_filter import FilterResult, WatchlistFilter
 
 
 def _make_trigger(**overrides):
@@ -25,8 +25,9 @@ def test_watchlist_filter_symbol_match() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is True
-    assert result["method"] == "symbol_match"
+    assert isinstance(result, FilterResult)
+    assert result.passed is True
+    assert result.method == "symbol_match"
 
 
 def test_watchlist_filter_name_alias_match() -> None:
@@ -35,8 +36,9 @@ def test_watchlist_filter_name_alias_match() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is True
-    assert result["method"] == "name_match"
+    assert isinstance(result, FilterResult)
+    assert result.passed is True
+    assert result.method == "name_match"
 
 
 def test_watchlist_filter_sector_keyword_match() -> None:
@@ -48,8 +50,9 @@ def test_watchlist_filter_sector_keyword_match() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is True
-    assert result["method"] == "keyword_match"
+    assert isinstance(result, FilterResult)
+    assert result.passed is True
+    assert result.method == "keyword_match"
 
 
 def test_watchlist_filter_sector_without_keyword_rejects() -> None:
@@ -61,8 +64,9 @@ def test_watchlist_filter_sector_without_keyword_rejects() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is False
-    assert result["method"] == "sector_no_keyword"
+    assert isinstance(result, FilterResult)
+    assert result.passed is False
+    assert result.method == "sector_no_keyword"
 
 
 def test_watchlist_filter_unwatched_company_rejects() -> None:
@@ -75,8 +79,9 @@ def test_watchlist_filter_unwatched_company_rejects() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is False
-    assert result["method"] == "no_match"
+    assert isinstance(result, FilterResult)
+    assert result.passed is False
+    assert result.method == "no_match"
 
 
 def test_watchlist_filter_content_scan_match() -> None:
@@ -87,6 +92,6 @@ def test_watchlist_filter_content_scan_match() -> None:
 
     result = gate.check(trigger)
 
-    assert result["passed"] is True
-    assert result["method"] == "content_scan"
-
+    assert isinstance(result, FilterResult)
+    assert result.passed is True
+    assert result.method == "content_scan"

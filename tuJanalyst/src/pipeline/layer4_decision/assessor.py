@@ -11,7 +11,8 @@ from typing import Any
 from src.dspy_modules.decision import DecisionModule, DecisionModuleResult
 from src.models.company import CompanyPosition
 from src.models.decision import DecisionAssessment, Recommendation
-from src.utils.retry import is_transient_error, retry_sync
+from src.utils.retry import is_transient_error, retry_in_thread
+from src.utils.token_usage import run_with_dspy_usage
 
 logger = logging.getLogger(__name__)
 
@@ -50,31 +51,34 @@ class DecisionAssessor:
         past_inconclusive = await self.investigation_repo.get_past_inconclusive(symbol)
 
         decision_started = time.time()
-        decision = retry_sync(
-            lambda: self.decision_module.forward(
-                company_symbol=symbol,
-                company_name=name,
-                current_recommendation=(
-                    existing_position.current_recommendation
-                    if existing_position is not None
-                    else Recommendation.NONE
-                ),
-                previous_recommendation_basis=(existing_position.recommendation_basis if existing_position else ""),
-                investigation_summary=investigation.synthesis,
-                key_findings_json=json.dumps(investigation.key_findings),
-                red_flags_json=json.dumps(investigation.red_flags),
-                positive_signals_json=json.dumps(investigation.positive_signals),
-                past_inconclusive_json=json.dumps(
-                    [
-                        {
-                            "investigation_id": item.investigation_id,
-                            "created_at": item.created_at.isoformat(),
-                            "significance": item.significance,
-                            "summary": item.synthesis[:400],
-                        }
-                        for item in past_inconclusive
-                    ]
-                ),
+        decision, input_tokens, output_tokens = await retry_in_thread(
+            lambda: run_with_dspy_usage(
+                lambda: self._invoke_module(
+                    self.decision_module,
+                    company_symbol=symbol,
+                    company_name=name,
+                    current_recommendation=(
+                        existing_position.current_recommendation
+                        if existing_position is not None
+                        else Recommendation.NONE
+                    ),
+                    previous_recommendation_basis=(existing_position.recommendation_basis if existing_position else ""),
+                    investigation_summary=investigation.synthesis,
+                    key_findings_json=json.dumps(investigation.key_findings),
+                    red_flags_json=json.dumps(investigation.red_flags),
+                    positive_signals_json=json.dumps(investigation.positive_signals),
+                    past_inconclusive_json=json.dumps(
+                        [
+                            {
+                                "investigation_id": item.investigation_id,
+                                "created_at": item.created_at.isoformat(),
+                                "significance": item.significance,
+                                "summary": item.synthesis[:400],
+                            }
+                            for item in past_inconclusive
+                        ]
+                    ),
+                )
             ),
             attempts=3,
             base_delay_seconds=0.2,
@@ -85,8 +89,8 @@ class DecisionAssessor:
             symbol,
             self.model_name,
             time.time() - decision_started,
-            0,
-            0,
+            input_tokens,
+            output_tokens,
         )
 
         assessment = self._build_assessment(
@@ -95,6 +99,8 @@ class DecisionAssessor:
             past_investigations=past_investigations,
             past_inconclusive=past_inconclusive,
             decision=decision,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
             processing_time=time.time() - started,
         )
         await self.assessment_repo.save(assessment)
@@ -113,6 +119,8 @@ class DecisionAssessor:
         past_investigations: list[Any],
         past_inconclusive: list[Any],
         decision: DecisionModuleResult,
+        input_tokens: int,
+        output_tokens: int,
         processing_time: float,
     ) -> DecisionAssessment:
         previous_recommendation = (
@@ -145,6 +153,8 @@ class DecisionAssessor:
             past_investigations_used=[item.investigation_id for item in past_investigations],
             past_inconclusive_resurrected=[item.investigation_id for item in past_inconclusive],
             llm_model_used=self.model_name,
+            total_input_tokens=input_tokens,
+            total_output_tokens=output_tokens,
             processing_time_seconds=round(processing_time, 4),
         )
 
@@ -189,3 +199,13 @@ class DecisionAssessor:
 
         position.updated_at = now
         return position
+
+    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
+        if callable(module):
+            return module(**kwargs)
+
+        forward = getattr(module, "forward", None)
+        if callable(forward):
+            return forward(**kwargs)
+
+        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")

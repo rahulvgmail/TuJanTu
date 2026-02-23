@@ -561,6 +561,7 @@ async def test_orchestrator_marks_delivery_failure_and_keeps_reported_status() -
         decision_assessor=FakeDecisionAssessor(assessment),
         report_generator=report_generator,
         report_deliverer=report_deliverer,
+        report_repo=report_repo,
     )
 
     await orchestrator.process_trigger(trigger)
