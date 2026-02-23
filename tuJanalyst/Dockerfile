@@ -1,18 +1,17 @@
-# Stage 1: Build dependencies
+# Stage 1: Install dependencies with uv
 FROM python:3.11-slim AS builder
 
 WORKDIR /build
 
-# Install build dependencies
-RUN pip install --no-cache-dir hatchling
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Copy project definition
-COPY pyproject.toml .
+# Copy dependency definition and lockfile
+COPY pyproject.toml uv.lock* ./
 
 # Install dependencies into a virtual environment
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-RUN pip install --no-cache-dir .
+RUN uv venv /opt/venv && \
+    uv pip install --python /opt/venv/bin/python -r pyproject.toml
 
 # Stage 2: Runtime
 FROM python:3.11-slim AS runtime

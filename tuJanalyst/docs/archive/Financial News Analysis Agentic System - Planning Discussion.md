@@ -1,3 +1,8 @@
+> **ARCHIVED — 2026-02-23**
+> This document has been superseded by **Technology Decisions - tuJanalyst.md** §4 (Agent & Pipeline Architecture).
+> The multi-agent patterns discussed here are part of the north star vision (Iteration 3+), not the MVP.
+> Kept for historical context only.
+
 # tuJanalyst: Financial News Analysis Agentic System Architecture
 
 ## Executive Summary

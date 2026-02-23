@@ -1,0 +1,64 @@
+{
+  "examples": [
+    {
+      "trigger_id": "009d9661-737f-472d-98f3-a024477e66f7",
+      "source": "nse_rss",
+      "company_symbol": null,
+      "company_name": null,
+      "status": "filtered_out",
+      "raw_content_preview": "Polycab India Limited",
+      "review_notes": [
+        "Needs explicit metric extraction with value+period in output JSON.",
+        "Synthesis should reference concrete numerical evidence when available."
+      ]
+    },
+    {
+      "trigger_id": "4bd37f94-5b89-4d18-a393-2a892dbbbc6a",
+      "source": "nse_rss",
+      "company_symbol": null,
+      "company_name": null,
+      "status": "gate_passed",
+      "raw_content_preview": "ABB India Limited",
+      "review_notes": [
+        "Needs explicit metric extraction with value+period in output JSON.",
+        "Synthesis should reference concrete numerical evidence when available."
+      ]
+    },
+    {
+      "trigger_id": "c97f97dc-584c-48e7-ad66-fec559087fd5",
+      "source": "nse_rss",
+      "company_symbol": null,
+      "company_name": null,
+      "status": "filtered_out",
+      "raw_content_preview": "Orient Electric Limited",
+      "review_notes": [
+        "Needs explicit metric extraction with value+period in output JSON.",
+        "Synthesis should reference concrete numerical evidence when available."
+      ]
+    },
+    {
+      "trigger_id": "5af02b25-1634-4fb9-8536-a998f11aeb16",
+      "source": "nse_rss",
+      "company_symbol": null,
+      "company_name": null,
+      "status": "filtered_out",
+      "raw_content_preview": "Schneider Electric Infrastructure Limited",
+      "review_notes": [
+        "Needs explicit metric extraction with value+period in output JSON.",
+        "Synthesis should reference concrete numerical evidence when available."
+      ]
+    },
+    {
+      "trigger_id": "cf92b16b-8427-47d9-8ca1-18ebdd11080f",
+      "source": "nse_rss",
+      "company_symbol": null,
+      "company_name": null,
+      "status": "filtered_out",
+      "raw_content_preview": "One Mobikwik Systems Limited",
+      "review_notes": [
+        "Needs explicit metric extraction with value+period in output JSON.",
+        "Synthesis should reference concrete numerical evidence when available."
+      ]
+    }
+  ]
+}

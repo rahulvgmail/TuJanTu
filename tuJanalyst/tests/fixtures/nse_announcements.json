@@ -1,0 +1,11 @@
+{
+  "data": [
+    {
+      "symbol": "INOXWIND",
+      "sm_name": "Inox Wind Limited",
+      "desc": "Quarterly results approved by board",
+      "attchmntFile": "https://example.test/docs/ann-001.html",
+      "an_dt": "23-Feb-2026"
+    }
+  ]
+}

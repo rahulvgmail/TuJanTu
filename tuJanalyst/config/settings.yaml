@@ -9,7 +9,10 @@ pipeline:
 rss:
   feeds:
     - name: "NSE Corporate Announcements"
-      url: "https://www.nseindia.com/api/corporat-announcements?index=equities"
+      url: "https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml"
+      poll_interval_seconds: 300
+    - name: "BSE Corporate Announcements"
+      url: "https://www.bseindia.com/data/xml/announcements.xml"
       poll_interval_seconds: 300
 
 reports:

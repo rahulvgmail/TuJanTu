@@ -4,11 +4,16 @@ sectors:
     keywords:
       - "quarterly results"
       - "financial results"
+      - "earnings call"
+      - "investor presentation"
       - "order book"
       - "order win"
+      - "new order"
+      - "contract award"
       - "acquisition"
       - "expansion"
       - "capacity"
+      - "capacity addition"
       - "board meeting outcome"
       - "dividend"
       - "stock split"
@@ -18,33 +23,208 @@ sectors:
       - "preferential allotment"
       - "annual general meeting"
       - "credit rating"
+      - "wind turbine"
+      - "transformer"
+      - "substation"
+      - "transmission"
       - "SEBI"
 
 companies:
   - symbol: "INOXWIND"
     name: "Inox Wind Limited"
+    bse_code: "539083"
+    bse_listed: true
     priority: "high"
     aliases: ["Inox Wind", "INOX WIND"]
 
   - symbol: "SUZLON"
     name: "Suzlon Energy Limited"
+    bse_code: "532667"
+    bse_listed: true
     priority: "high"
     aliases: ["Suzlon Energy", "SUZLON ENERGY"]
 
   - symbol: "SIEMENS"
     name: "Siemens Limited"
-    priority: "normal"
+    bse_code: "500550"
+    bse_listed: true
+    priority: "high"
     aliases: ["Siemens"]
 
   - symbol: "ABB"
     name: "ABB India Limited"
-    priority: "normal"
+    bse_code: "500002"
+    bse_listed: true
+    priority: "high"
     aliases: ["ABB India"]
 
   - symbol: "BHEL"
     name: "Bharat Heavy Electricals Limited"
-    priority: "normal"
+    bse_code: "500103"
+    bse_listed: true
+    priority: "high"
     aliases: ["BHEL"]
+
+  - symbol: "CGPOWER"
+    name: "CG Power and Industrial Solutions Limited"
+    bse_code: "500093"
+    bse_listed: true
+    priority: "high"
+    aliases: ["CG Power", "CG Power and Industrial", "CGPI"]
+
+  - symbol: "POWERINDIA"
+    name: "Hitachi Energy India Limited"
+    bse_code: "543187"
+    bse_listed: true
+    priority: "high"
+    aliases: ["Hitachi Energy India", "Hitachi Energy", "ABB Power India"]
+
+  - symbol: "SCHNEIDER"
+    name: "Schneider Electric Infrastructure Limited"
+    bse_code: "534139"
+    bse_listed: true
+    priority: "high"
+    aliases: ["Schneider Electric", "Schneider Infra"]
+
+  - symbol: "GVPIL"
+    name: "GE Power India Limited"
+    bse_code: "532309"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["GE Power", "GE Power India"]
+
+  - symbol: "TDPOWERSYS"
+    name: "TD Power Systems Limited"
+    bse_code: "533553"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["TD Power Systems", "TD Power"]
+
+  - symbol: "TRITURBINE"
+    name: "Triveni Turbine Limited"
+    bse_code: "533655"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Triveni Turbine"]
+
+  - symbol: "VOLTAMP"
+    name: "Voltamp Transformers Limited"
+    bse_code: "532757"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Voltamp Transformers", "Voltamp"]
+
+  - symbol: "QPOWER"
+    name: "Quality Power Electrical Equipments Limited"
+    bse_code: "544367"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Quality Power", "Quality Power Electrical"]
+
+  - symbol: "TARIL"
+    name: "Transformers and Rectifiers (India) Limited"
+    bse_code: "532928"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Transformers and Rectifiers", "T&R India", "TARIL"]
+
+  - symbol: "TRANSRAILL"
+    name: "Transrail Lighting Limited"
+    bse_code: "544317"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Transrail Lighting", "Transrail"]
+
+  - symbol: "GENUSPOWER"
+    name: "Genus Power Infrastructures Limited"
+    bse_code: "530343"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Genus Power", "Genus Power Infra"]
+
+  - symbol: "APARINDS"
+    name: "Apar Industries Limited"
+    bse_code: "532259"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Apar Industries", "APAR"]
+
+  - symbol: "HAVELLS"
+    name: "Havells India Limited"
+    bse_code: "517354"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Havells India", "Havells"]
+
+  - symbol: "POLYCAB"
+    name: "Polycab India Limited"
+    bse_code: "542652"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Polycab India", "Polycab"]
+
+  - symbol: "FINCABLES"
+    name: "Finolex Cables Limited"
+    bse_code: "500144"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Finolex Cables", "Finolex Cable"]
+
+  - symbol: "KEI"
+    name: "KEI Industries Limited"
+    bse_code: "517569"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["KEI Industries", "KEI"]
+
+  - symbol: "RRKABEL"
+    name: "R R Kabel Limited"
+    bse_code: "543981"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["RR Kabel", "R R Kabel"]
+
+  - symbol: "BAJAJELEC"
+    name: "Bajaj Electricals Limited"
+    bse_code: "500031"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Bajaj Electricals"]
+
+  - symbol: "VGUARD"
+    name: "V-Guard Industries Limited"
+    bse_code: "532953"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["V-Guard", "V Guard Industries", "VGUARD"]
+
+  - symbol: "ORIENTELEC"
+    name: "Orient Electric Limited"
+    bse_code: "541301"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Orient Electric"]
+
+  - symbol: "CROMPTON"
+    name: "Crompton Greaves Consumer Electricals Limited"
+    bse_code: "539876"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Crompton", "Crompton Greaves Consumer"]
+
+  - symbol: "SALZERELEC"
+    name: "Salzer Electronics Limited"
+    bse_code: "517059"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Salzer Electronics", "Salzer"]
+
+  - symbol: "CORDSCABLE"
+    name: "Cords Cable Industries Limited"
+    bse_code: "532941"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Cords Cable"]
 
 global_keywords:
   - "insider trading"

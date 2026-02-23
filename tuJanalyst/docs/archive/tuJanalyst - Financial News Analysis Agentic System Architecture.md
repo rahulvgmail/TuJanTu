@@ -1,3 +1,9 @@
+> **ARCHIVED — 2026-02-23**
+> This document has been superseded by **Technology Decisions - tuJanalyst.md** and **Technical Spec - Weeks 1-2/3-4.md**.
+> The architecture described here (20 microservices, Kafka, Neptune, EKS) was intentionally descoped to a single-app pipeline.
+> Note: This file has a structural issue — Section 17 appears before Section 1 due to a copy-paste error in the original.
+> Kept for historical context only.
+
 ## 17. Conclusion and Recommendations
 
 ### 17.1 Architecture Summary

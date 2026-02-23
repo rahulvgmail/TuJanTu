@@ -5,6 +5,11 @@ type: note
 permalink: product-planning/business-requirements-document-financial-news-analysis-agentic-system-final-updated
 ---
 
+> **ARCHIVED — 2026-02-23**
+> This document has been superseded by **MVP Definition - tuJanalyst v1.md** (for scope) and **North Star Vision - tuJanalyst.md** (for long-term direction).
+> Do NOT use this document for build decisions. It describes a 20-microservice architecture that was intentionally descoped.
+> Kept for historical context only.
+
 # Business Requirements Document: Financial News Analysis Agentic System
 
 ## 1. Executive Summary

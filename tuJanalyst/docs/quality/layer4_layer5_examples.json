@@ -1,0 +1,44 @@
+[
+  {
+    "company_symbol": "ABB",
+    "decision_example": {
+      "should_change": true,
+      "new_recommendation": "buy",
+      "timeframe": "medium_term",
+      "confidence": 0.74,
+      "reasoning": "Verdict: upgrade to BUY. Strongest positives are order inflow quality and margin resilience across recent disclosures. Main risk is input-cost volatility, but current execution metrics indicate sufficient buffer. Net balance supports a medium-term positive stance.",
+      "key_factors_json": [
+        "Order inflow quality improved in latest cycle",
+        "Operating-margin trend is stable-to-improving",
+        "Execution conversion remains consistent",
+        "Input-cost pressure remains a watch item"
+      ]
+    },
+    "report_example": {
+      "title": "ABB India (ABB) Update",
+      "executive_summary": "Recommendation remains BUY with medium-term conviction. Latest findings show stronger order momentum and stable margins, while input-cost risk is manageable. Monitor commodity volatility for thesis drift.",
+      "recommendation_summary": "BUY (Confidence: 74%, Timeframe: medium_term)"
+    }
+  },
+  {
+    "company_symbol": "BHEL",
+    "decision_example": {
+      "should_change": false,
+      "new_recommendation": "hold",
+      "timeframe": "medium_term",
+      "confidence": 0.56,
+      "reasoning": "Verdict: keep HOLD. Positive indicators exist but are not yet strong enough to outweigh mixed forward visibility and prior inconclusive patterns. Risks around execution consistency remain material. Net balance does not justify a recommendation change.",
+      "key_factors_json": [
+        "Signals are mixed across recent triggers",
+        "Forward visibility remains uncertain",
+        "Past inconclusive investigations reduce conviction",
+        "Execution consistency needs confirmation"
+      ]
+    },
+    "report_example": {
+      "title": "BHEL (BHEL) Monitoring Update",
+      "executive_summary": "Recommendation stays HOLD due to mixed evidence and moderate confidence. Some operating signals improved, but conviction remains constrained by inconsistent follow-through. Continue monitoring for a stronger directional setup.",
+      "recommendation_summary": "HOLD (Confidence: 56%, Timeframe: medium_term)"
+    }
+  }
+]
