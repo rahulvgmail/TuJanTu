@@ -1,0 +1,24 @@
+# Environment
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Data (local only)
+data/
+mongo_data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Build
+dist/
+*.egg-info/
+
+# Test
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/

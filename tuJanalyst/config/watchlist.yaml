@@ -1,0 +1,54 @@
+sectors:
+  - name: "Capital Goods - Electrical Equipment"
+    nse_industry_code: "ELECTRICALEQUIP"
+    keywords:
+      - "quarterly results"
+      - "financial results"
+      - "order book"
+      - "order win"
+      - "acquisition"
+      - "expansion"
+      - "capacity"
+      - "board meeting outcome"
+      - "dividend"
+      - "stock split"
+      - "rights issue"
+      - "demerger"
+      - "merger"
+      - "preferential allotment"
+      - "annual general meeting"
+      - "credit rating"
+      - "SEBI"
+
+companies:
+  - symbol: "INOXWIND"
+    name: "Inox Wind Limited"
+    priority: "high"
+    aliases: ["Inox Wind", "INOX WIND"]
+
+  - symbol: "SUZLON"
+    name: "Suzlon Energy Limited"
+    priority: "high"
+    aliases: ["Suzlon Energy", "SUZLON ENERGY"]
+
+  - symbol: "SIEMENS"
+    name: "Siemens Limited"
+    priority: "normal"
+    aliases: ["Siemens"]
+
+  - symbol: "ABB"
+    name: "ABB India Limited"
+    priority: "normal"
+    aliases: ["ABB India"]
+
+  - symbol: "BHEL"
+    name: "Bharat Heavy Electricals Limited"
+    priority: "normal"
+    aliases: ["BHEL"]
+
+global_keywords:
+  - "insider trading"
+  - "SEBI order"
+  - "fraud"
+  - "default"
+  - "bankruptcy"

@@ -1,0 +1,17 @@
+# Non-secret application settings
+# Secrets go in .env — this file is for tunable parameters.
+
+pipeline:
+  gate_confidence_threshold: 0.5   # Minimum confidence to pass gate
+  max_concurrent_analyses: 3       # Limit parallel Layer 3 runs
+  past_investigation_lookback_days: 90  # How far back to pull past investigations
+
+rss:
+  feeds:
+    - name: "NSE Corporate Announcements"
+      url: "https://www.nseindia.com/api/corporat-announcements?index=equities"
+      poll_interval_seconds: 300
+
+reports:
+  max_report_length_words: 2000
+  include_raw_sources: true

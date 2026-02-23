@@ -1,0 +1,36 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  detailed:
+    format: "%(asctime)s [%(levelname)s] %(name)s:%(funcName)s:%(lineno)d - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: detailed
+    filename: data/tujanalyst.log
+    maxBytes: 10485760  # 10 MB
+    backupCount: 5
+
+root:
+  level: INFO
+  handlers: [console, file]
+
+loggers:
+  src.pipeline:
+    level: DEBUG
+  src.dspy_modules:
+    level: DEBUG
+  motor:
+    level: WARNING
+  httpx:
+    level: WARNING
