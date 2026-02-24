@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import logging
+import time
 from datetime import datetime, timezone
 from typing import Any, Callable
 
 from src.models.investigation import MarketDataSnapshot
+from src.utils.circuit_breaker import CircuitBreaker
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +26,27 @@ class MarketDataTool:
         *,
         ticker_factory: Callable[[str], Any] | None = None,
         now_fn: Callable[[], datetime] = utc_now,
+        circuit_breaker_failure_threshold: int = 3,
+        circuit_breaker_recovery_seconds: int = 120,
+        circuit_time_fn: Callable[[], float] | None = None,
     ):
         self._ticker_factory = ticker_factory
         self._now_fn = now_fn
+        self._circuit_breaker = CircuitBreaker(
+            failure_threshold=circuit_breaker_failure_threshold,
+            recovery_seconds=float(circuit_breaker_recovery_seconds),
+            time_fn=circuit_time_fn or time.monotonic,
+        )
 
     async def get_snapshot(self, symbol: str) -> MarketDataSnapshot:
         """Return market snapshot for `<symbol>`, trying `.NS` then `.BO`."""
+        if self._circuit_breaker.is_open():
+            logger.warning(
+                "Market data circuit breaker open; skipping request: retry_in=%.1fs",
+                self._circuit_breaker.seconds_until_close(),
+            )
+            return MarketDataSnapshot(data_source="market_data_circuit_open")
+
         normalized = symbol.strip().upper()
         if not normalized:
             return MarketDataSnapshot(data_source="yfinance_unavailable")
@@ -60,9 +77,11 @@ class MarketDataTool:
                 data_timestamp=self._now_fn(),
             )
             self._apply_price_changes_from_history(snapshot, ticker)
+            self._circuit_breaker.record_success()
             return snapshot
 
         except Exception as exc:  # noqa: BLE001
+            self._circuit_breaker.record_failure()
             logger.warning("Market data fetch failed for %s: %s", normalized, exc)
             return MarketDataSnapshot(data_source=f"error: {exc}")
 

@@ -99,3 +99,30 @@ async def test_market_data_tool_keeps_unavailable_fields_as_none() -> None:
     assert snapshot.dii_holding_pct is None
     assert snapshot.promoter_holding_pct is None
     assert snapshot.promoter_pledge_pct is None
+
+
+@pytest.mark.asyncio
+async def test_market_data_tool_circuit_breaker_skips_fetch_until_recovery() -> None:
+    calls = {"count": 0}
+    clock = {"now": 0.0}
+
+    def failing_factory(symbol_code: str):  # noqa: ARG001
+        calls["count"] += 1
+        raise RuntimeError("market data backend unavailable")
+
+    tool = MarketDataTool(
+        ticker_factory=failing_factory,
+        circuit_breaker_failure_threshold=1,
+        circuit_breaker_recovery_seconds=60,
+        circuit_time_fn=lambda: clock["now"],
+    )
+
+    first = await tool.get_snapshot("ABB")
+    second = await tool.get_snapshot("ABB")
+    clock["now"] += 61
+    third = await tool.get_snapshot("ABB")
+
+    assert first.data_source.startswith("error:")
+    assert second.data_source == "market_data_circuit_open"
+    assert third.data_source.startswith("error:")
+    assert calls["count"] == 2

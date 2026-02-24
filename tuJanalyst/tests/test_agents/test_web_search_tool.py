@@ -94,3 +94,34 @@ async def test_web_search_tool_gracefully_handles_provider_errors() -> None:
         results = await tool.search("financial results")
 
     assert results == []
+
+
+@pytest.mark.asyncio
+async def test_web_search_tool_circuit_breaker_skips_requests_until_recovery() -> None:
+    call_counter = {"count": 0}
+    clock = {"now": 0.0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        del request
+        call_counter["count"] += 1
+        return httpx.Response(503, json={"error": "temporarily unavailable"})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
+        tool = WebSearchTool(
+            provider="brave",
+            api_key="brave-key",
+            session=session,
+            circuit_breaker_failure_threshold=1,
+            circuit_breaker_recovery_seconds=60,
+            circuit_time_fn=lambda: clock["now"],
+        )
+
+        first = await tool.search("query one")
+        second = await tool.search("query two")
+        clock["now"] += 61
+        third = await tool.search("query three")
+
+    assert first == []
+    assert second == []
+    assert third == []
+    assert call_counter["count"] == 2

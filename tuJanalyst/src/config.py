@@ -50,16 +50,28 @@ class Settings(BaseSettings):
     tavily_api_key: str | None = None
     web_search_timeout_seconds: int = 15
     web_search_max_results: int = 5
+    web_search_circuit_breaker_failure_threshold: int = 3
+    web_search_circuit_breaker_recovery_seconds: int = 120
 
     # Trigger ingestion
     nse_rss_url: str
     bse_rss_url: str
     polling_interval_seconds: int = 300
     polling_enabled: bool = True
+    rss_dedup_cache_ttl_seconds: int = 1800
+    rss_dedup_lookback_days: int = 14
+    rss_dedup_recent_limit: int = 5000
 
     # Processing controls
     max_document_size_mb: int = 50
     text_extraction_timeout_seconds: int = 60
+    market_data_circuit_breaker_failure_threshold: int = 3
+    market_data_circuit_breaker_recovery_seconds: int = 120
+
+    # Optional layer toggles
+    enable_layer3_analysis: bool = True
+    enable_layer4_decision: bool = True
+    enable_layer5_reporting: bool = True
 
     # Notification controls
     notification_method: NotificationMethod = "none"
@@ -100,6 +112,33 @@ class Settings(BaseSettings):
 
         if self.web_search_max_results <= 0:
             raise ValueError("TUJ_WEB_SEARCH_MAX_RESULTS must be > 0")
+
+        if self.web_search_circuit_breaker_failure_threshold <= 0:
+            raise ValueError("TUJ_WEB_SEARCH_CIRCUIT_BREAKER_FAILURE_THRESHOLD must be > 0")
+
+        if self.web_search_circuit_breaker_recovery_seconds <= 0:
+            raise ValueError("TUJ_WEB_SEARCH_CIRCUIT_BREAKER_RECOVERY_SECONDS must be > 0")
+
+        if self.rss_dedup_cache_ttl_seconds <= 0:
+            raise ValueError("TUJ_RSS_DEDUP_CACHE_TTL_SECONDS must be > 0")
+
+        if self.rss_dedup_lookback_days <= 0:
+            raise ValueError("TUJ_RSS_DEDUP_LOOKBACK_DAYS must be > 0")
+
+        if self.rss_dedup_recent_limit <= 0:
+            raise ValueError("TUJ_RSS_DEDUP_RECENT_LIMIT must be > 0")
+
+        if self.market_data_circuit_breaker_failure_threshold <= 0:
+            raise ValueError("TUJ_MARKET_DATA_CIRCUIT_BREAKER_FAILURE_THRESHOLD must be > 0")
+
+        if self.market_data_circuit_breaker_recovery_seconds <= 0:
+            raise ValueError("TUJ_MARKET_DATA_CIRCUIT_BREAKER_RECOVERY_SECONDS must be > 0")
+
+        if self.enable_layer4_decision and not self.enable_layer3_analysis:
+            raise ValueError("TUJ_ENABLE_LAYER4_DECISION requires TUJ_ENABLE_LAYER3_ANALYSIS=true")
+
+        if self.enable_layer5_reporting and not self.enable_layer4_decision:
+            raise ValueError("TUJ_ENABLE_LAYER5_REPORTING requires TUJ_ENABLE_LAYER4_DECISION=true")
 
         if self.llm_provider in {"anthropic", "openai", "azure"} and not self.resolved_llm_api_key:
             raise ValueError(

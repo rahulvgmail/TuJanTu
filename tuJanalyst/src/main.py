@@ -116,54 +116,83 @@ async def lifespan(app: FastAPI):
             api_key=settings.resolved_llm_api_key,
             base_url=settings.llm_base_url,
         )
-        if settings.web_search_provider == "brave":
-            web_search_tool = WebSearchTool(
-                provider="brave",
-                api_key=settings.brave_api_key or "",
-                max_results=settings.web_search_max_results,
-                timeout_seconds=settings.web_search_timeout_seconds,
+        market_data_tool: MarketDataTool | None = None
+        deep_analyzer: DeepAnalyzer | None = None
+        decision_assessor: DecisionAssessor | None = None
+        report_generator: ReportGenerator | None = None
+        report_deliverer: ReportDeliverer | None = None
+
+        if settings.enable_layer3_analysis:
+            if settings.web_search_provider == "brave":
+                web_search_tool = WebSearchTool(
+                    provider="brave",
+                    api_key=settings.brave_api_key or "",
+                    max_results=settings.web_search_max_results,
+                    timeout_seconds=settings.web_search_timeout_seconds,
+                    circuit_breaker_failure_threshold=settings.web_search_circuit_breaker_failure_threshold,
+                    circuit_breaker_recovery_seconds=settings.web_search_circuit_breaker_recovery_seconds,
+                )
+            elif settings.web_search_provider == "tavily":
+                web_search_tool = WebSearchTool(
+                    provider="tavily",
+                    api_key=settings.tavily_api_key or "",
+                    max_results=settings.web_search_max_results,
+                    timeout_seconds=settings.web_search_timeout_seconds,
+                    circuit_breaker_failure_threshold=settings.web_search_circuit_breaker_failure_threshold,
+                    circuit_breaker_recovery_seconds=settings.web_search_circuit_breaker_recovery_seconds,
+                )
+            else:
+                web_search_tool = _NoopWebSearchTool()
+
+            market_data_tool = MarketDataTool(
+                circuit_breaker_failure_threshold=settings.market_data_circuit_breaker_failure_threshold,
+                circuit_breaker_recovery_seconds=settings.market_data_circuit_breaker_recovery_seconds,
             )
-        elif settings.web_search_provider == "tavily":
-            web_search_tool = WebSearchTool(
-                provider="tavily",
-                api_key=settings.tavily_api_key or "",
-                max_results=settings.web_search_max_results,
-                timeout_seconds=settings.web_search_timeout_seconds,
+            deep_analyzer = DeepAnalyzer(
+                investigation_repo=investigation_repo,
+                vector_repo=vector_repo,
+                doc_repo=document_repo,
+                web_search=web_search_tool,
+                market_data=market_data_tool,
+                model_name=settings.analysis_model,
             )
         else:
             web_search_tool = _NoopWebSearchTool()
+            logger.info("Layer 3 analysis disabled by configuration.")
 
-        market_data_tool = MarketDataTool()
-        deep_analyzer = DeepAnalyzer(
-            investigation_repo=investigation_repo,
-            vector_repo=vector_repo,
-            doc_repo=document_repo,
-            web_search=web_search_tool,
-            market_data=market_data_tool,
-            model_name=settings.analysis_model,
-        )
-        decision_assessor = DecisionAssessor(
-            assessment_repo=assessment_repo,
-            investigation_repo=investigation_repo,
-            position_repo=position_repo,
-            model_name=settings.decision_model,
-        )
-        report_generator = ReportGenerator(
-            report_repo=report_repo,
-            model_name=settings.analysis_model,
-        )
-        smtp_config = {}
-        if settings.notification_method == "email":
-            smtp_config = {
-                "host": settings.smtp_host,
-                "port": settings.smtp_port,
-                "to": settings.notification_email,
-            }
-        report_deliverer = ReportDeliverer(
-            slack_webhook_url=settings.slack_webhook_url if settings.notification_method == "slack" else None,
-            smtp_config=smtp_config,
-            report_repo=report_repo,
-        )
+        if settings.enable_layer4_decision and deep_analyzer is not None:
+            decision_assessor = DecisionAssessor(
+                assessment_repo=assessment_repo,
+                investigation_repo=investigation_repo,
+                position_repo=position_repo,
+                model_name=settings.decision_model,
+            )
+        elif settings.enable_layer4_decision:
+            logger.warning("Layer 4 decision enabled but Layer 3 is unavailable; skipping Layer 4.")
+        else:
+            logger.info("Layer 4 decision disabled by configuration.")
+
+        if settings.enable_layer5_reporting and decision_assessor is not None:
+            report_generator = ReportGenerator(
+                report_repo=report_repo,
+                model_name=settings.analysis_model,
+            )
+            smtp_config = {}
+            if settings.notification_method == "email":
+                smtp_config = {
+                    "host": settings.smtp_host,
+                    "port": settings.smtp_port,
+                    "to": settings.notification_email,
+                }
+            report_deliverer = ReportDeliverer(
+                slack_webhook_url=settings.slack_webhook_url if settings.notification_method == "slack" else None,
+                smtp_config=smtp_config,
+                report_repo=report_repo,
+            )
+        elif settings.enable_layer5_reporting:
+            logger.warning("Layer 5 reporting enabled but Layer 4 is unavailable; skipping Layer 5.")
+        else:
+            logger.info("Layer 5 reporting disabled by configuration.")
         orchestrator = PipelineOrchestrator(
             trigger_repo=trigger_repo,
             doc_repo=document_repo,
@@ -201,6 +230,9 @@ async def lifespan(app: FastAPI):
             trigger_repo=trigger_repo,
             nse_url=settings.nse_rss_url,
             bse_url=settings.bse_rss_url,
+            dedup_cache_ttl_seconds=settings.rss_dedup_cache_ttl_seconds,
+            dedup_lookback_days=settings.rss_dedup_lookback_days,
+            dedup_recent_limit=settings.rss_dedup_recent_limit,
         )
 
         scheduler = AsyncIOScheduler()

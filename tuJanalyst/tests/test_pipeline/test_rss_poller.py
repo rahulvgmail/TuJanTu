@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 
 import httpx
 import pytest
 
-from src.models.trigger import TriggerEvent
+from src.models.trigger import TriggerEvent, TriggerSource
 from src.pipeline.layer1_triggers.rss_poller import ExchangeRSSPoller
 
 
@@ -17,6 +18,8 @@ class InMemoryTriggerRepo:
     def __init__(self) -> None:
         self.items: list[TriggerEvent] = []
         self.seen_urls: set[str] = set()
+        self.exists_by_url_calls = 0
+        self.recent_override: list[TriggerEvent] | None = None
 
     async def save(self, trigger: TriggerEvent) -> str:
         self.items.append(trigger)
@@ -25,6 +28,7 @@ class InMemoryTriggerRepo:
         return trigger.trigger_id
 
     async def exists_by_url(self, source_url: str) -> bool:
+        self.exists_by_url_calls += 1
         return source_url in self.seen_urls
 
     async def get(self, trigger_id: str):  # pragma: no cover
@@ -41,6 +45,20 @@ class InMemoryTriggerRepo:
 
     async def get_by_company(self, company_symbol: str, limit: int = 20):  # pragma: no cover
         return []
+
+    async def list_recent(
+        self,
+        limit: int = 20,
+        offset: int = 0,
+        status=None,
+        company_symbol: str | None = None,
+        source: str | None = None,
+        since: datetime | None = None,
+    ) -> list[TriggerEvent]:
+        del offset, status, company_symbol, source, since
+        if self.recent_override is not None:
+            return self.recent_override[:limit]
+        return list(reversed(self.items))[:limit]
 
 
 @pytest.mark.asyncio
@@ -120,7 +138,15 @@ async def test_poll_skips_duplicate_urls() -> None:
 
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
         repo = InMemoryTriggerRepo()
-        repo.seen_urls.add("https://nse.example/already-seen.pdf")
+        existing = TriggerEvent(
+            source=TriggerSource.NSE_RSS,
+            source_url="https://nse.example/already-seen.pdf",
+            raw_content="Board meeting outcome",
+            company_symbol="SUZLON",
+            company_name="Suzlon Energy Limited",
+            source_feed_title="Board meeting outcome",
+        )
+        repo.recent_override = [existing]
         poller = ExchangeRSSPoller(trigger_repo=repo, nse_url=nse_url, bse_url=bse_url, session=session)
 
         created = await poller.poll()
@@ -161,3 +187,76 @@ async def test_poll_continues_when_one_source_fails() -> None:
     assert created[0].source == "bse_rss"
     assert created[0].company_symbol == "500114"
 
+
+@pytest.mark.asyncio
+async def test_poll_deduplicates_canonicalized_urls_with_tracking_params() -> None:
+    nse_url = "https://example.test/nse"
+    payload = {
+        "data": [
+            {
+                "symbol": "ABB",
+                "sm_name": "ABB India",
+                "desc": "Capacity expansion update",
+                "attchmntFile": "https://nse.example/doc.pdf?utm_source=x&a=1",
+                "an_dt": "23-Feb-2026",
+            },
+            {
+                "symbol": "ABB",
+                "sm_name": "ABB India",
+                "desc": "Capacity expansion update",
+                "attchmntFile": "https://nse.example/doc.pdf?a=1&utm_medium=y",
+                "an_dt": "23-Feb-2026",
+            },
+        ]
+    }
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        del request
+        return httpx.Response(200, json=payload, headers={"content-type": "application/json"})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
+        repo = InMemoryTriggerRepo()
+        poller = ExchangeRSSPoller(trigger_repo=repo, nse_url=nse_url, session=session)
+        created = await poller.poll()
+
+    assert len(created) == 1
+    assert created[0].source_url == "https://nse.example/doc.pdf?a=1"
+
+
+@pytest.mark.asyncio
+async def test_poll_uses_recent_cache_for_content_based_dedup() -> None:
+    nse_url = "https://example.test/nse"
+    payload = {
+        "data": [
+            {
+                "symbol": "ABB",
+                "sm_name": "ABB India",
+                "desc": "Capacity expansion update",
+                "attchmntFile": "https://nse.example/new-location.pdf",
+                "an_dt": "23-Feb-2026",
+            }
+        ]
+    }
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        del request
+        return httpx.Response(200, json=payload, headers={"content-type": "application/json"})
+
+    existing = TriggerEvent(
+        source=TriggerSource.NSE_RSS,
+        source_url="https://nse.example/old-location.pdf",
+        source_feed_title="Capacity expansion update",
+        source_feed_published=datetime(2026, 2, 23, tzinfo=timezone.utc),
+        company_symbol="ABB",
+        company_name="ABB India",
+        raw_content="Capacity expansion update",
+    )
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
+        repo = InMemoryTriggerRepo()
+        repo.recent_override = [existing]
+        poller = ExchangeRSSPoller(trigger_repo=repo, nse_url=nse_url, session=session)
+        created = await poller.poll()
+
+    assert created == []
+    assert repo.exists_by_url_calls == 0

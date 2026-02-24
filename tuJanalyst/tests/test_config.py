@@ -111,3 +111,15 @@ global_keywords:
     assert len(watchlist.companies) == 1
     assert watchlist.companies[0].symbol == "INOXWIND"
     assert watchlist.global_keywords == ["fraud"]
+
+
+def test_settings_validate_layer_dependency_chain(monkeypatch: pytest.MonkeyPatch) -> None:
+    _set_base_env(monkeypatch)
+    monkeypatch.setenv("TUJ_LLM_PROVIDER", "anthropic")
+    monkeypatch.setenv("TUJ_ANTHROPIC_API_KEY", "test-anthropic-key")
+    monkeypatch.setenv("TUJ_ENABLE_LAYER3_ANALYSIS", "false")
+    monkeypatch.setenv("TUJ_ENABLE_LAYER4_DECISION", "true")
+    monkeypatch.setenv("TUJ_ENABLE_LAYER5_REPORTING", "true")
+
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None)

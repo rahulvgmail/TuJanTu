@@ -6,9 +6,9 @@ import hashlib
 import json
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
 
 import feedparser
 import httpx
@@ -17,6 +17,17 @@ from src.models.trigger import TriggerEvent, TriggerPriority, TriggerSource
 from src.repositories.base import TriggerRepository
 
 logger = logging.getLogger(__name__)
+
+_TRACKING_QUERY_PREFIXES = ("utm_",)
+_TRACKING_QUERY_KEYS = {
+    "fbclid",
+    "gclid",
+    "mc_cid",
+    "mc_eid",
+    "ref",
+    "ref_src",
+    "source",
+}
 
 
 @dataclass
@@ -43,10 +54,19 @@ class ExchangeRSSPoller:
         nse_url: str,
         bse_url: str | None = None,
         session: httpx.AsyncClient | None = None,
+        dedup_cache_ttl_seconds: int = 1800,
+        dedup_lookback_days: int = 14,
+        dedup_recent_limit: int = 5000,
     ):
         self.trigger_repo = trigger_repo
         self.nse_url = nse_url
         self.bse_url = bse_url
+        self.dedup_cache_ttl_seconds = max(1, int(dedup_cache_ttl_seconds))
+        self.dedup_lookback_days = max(1, int(dedup_lookback_days))
+        self.dedup_recent_limit = max(1, int(dedup_recent_limit))
+        self._known_dedup_keys: set[str] = set()
+        self._dedup_cache_seeded_at: datetime | None = None
+        self._supports_recent_listing = callable(getattr(trigger_repo, "list_recent", None))
         self.session = session or httpx.AsyncClient(
             headers={
                 "User-Agent": "Mozilla/5.0",
@@ -59,6 +79,7 @@ class ExchangeRSSPoller:
     async def poll(self) -> list[TriggerEvent]:
         """Fetch latest exchange announcements and create triggers for unseen items."""
         created_triggers: list[TriggerEvent] = []
+        await self._refresh_dedup_cache_if_needed()
         sources: list[tuple[TriggerSource, str]] = [(TriggerSource.NSE_RSS, self.nse_url)]
         if self.bse_url:
             sources.append((TriggerSource.BSE_RSS, self.bse_url))
@@ -161,6 +182,7 @@ class ExchangeRSSPoller:
             default="",
         )
         source_url = urljoin(base_url, source_url) if source_url else self._synthetic_source_url(source, row)
+        source_url = self._canonicalize_url(source_url)
         published_at = self._parse_date(
             self._pick_str(
                 row,
@@ -185,7 +207,8 @@ class ExchangeRSSPoller:
     async def _create_new_triggers(self, announcements: list[NormalizedAnnouncement]) -> list[TriggerEvent]:
         created: list[TriggerEvent] = []
         for announcement in announcements:
-            if await self.trigger_repo.exists_by_url(announcement.source_url):
+            dedup_keys = self._announcement_dedup_keys(announcement)
+            if await self._is_duplicate(dedup_keys):
                 continue
 
             trigger = TriggerEvent(
@@ -200,6 +223,7 @@ class ExchangeRSSPoller:
                 priority=TriggerPriority.NORMAL,
             )
             await self.trigger_repo.save(trigger)
+            self._remember_dedup_keys(dedup_keys)
             created.append(trigger)
         return created
 
@@ -208,15 +232,15 @@ class ExchangeRSSPoller:
         for key in ("attchmntFile", "link", "url", "attachment", "Attachment", "attachments"):
             value = row.get(key)
             if isinstance(value, str) and value.strip():
-                urls.append(urljoin(base_url, value.strip()))
+                urls.append(self._canonicalize_url(urljoin(base_url, value.strip())))
             elif isinstance(value, list):
                 for item in value:
                     if isinstance(item, str) and item.strip():
-                        urls.append(urljoin(base_url, item.strip()))
+                        urls.append(self._canonicalize_url(urljoin(base_url, item.strip())))
                     elif isinstance(item, dict):
                         nested = self._pick_str(item, ["url", "link", "href"], default=None)
                         if nested:
-                            urls.append(urljoin(base_url, nested))
+                            urls.append(self._canonicalize_url(urljoin(base_url, nested)))
 
         # Remove duplicates while preserving order.
         seen: set[str] = set()
@@ -238,6 +262,155 @@ class ExchangeRSSPoller:
         )
         digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
         return f"urn:tuj:{source.value}:{digest}"
+
+    async def _refresh_dedup_cache_if_needed(self) -> None:
+        if not self._supports_recent_listing:
+            return
+
+        now = datetime.now(timezone.utc)
+        if self._dedup_cache_seeded_at is not None:
+            elapsed = (now - self._dedup_cache_seeded_at).total_seconds()
+            if elapsed < self.dedup_cache_ttl_seconds:
+                return
+
+        try:
+            list_recent = getattr(self.trigger_repo, "list_recent")
+            recent = await list_recent(
+                limit=self.dedup_recent_limit,
+                since=now - timedelta(days=self.dedup_lookback_days),
+            )
+            keys: set[str] = set()
+            for trigger in recent:
+                keys.update(self._trigger_dedup_keys(trigger))
+            self._known_dedup_keys = keys
+            self._dedup_cache_seeded_at = now
+            logger.info("RSS dedup cache refreshed: keys=%s", len(keys))
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("RSS dedup cache refresh failed; falling back to per-item checks: %s", exc)
+            self._supports_recent_listing = False
+
+    async def _is_duplicate(self, dedup_keys: set[str]) -> bool:
+        if dedup_keys & self._known_dedup_keys:
+            return True
+
+        if not self._supports_recent_listing:
+            for key in dedup_keys:
+                if not key:
+                    continue
+                if await self.trigger_repo.exists_by_url(key):
+                    self._remember_dedup_keys(dedup_keys)
+                    return True
+
+        return False
+
+    def _remember_dedup_keys(self, dedup_keys: set[str]) -> None:
+        self._known_dedup_keys.update(dedup_keys)
+
+    def _announcement_dedup_keys(self, announcement: NormalizedAnnouncement) -> set[str]:
+        keys: set[str] = set()
+        if announcement.source_url:
+            keys.add(announcement.source_url)
+            base_url = self._base_url_without_query(announcement.source_url)
+            if base_url:
+                keys.add(base_url)
+
+        for url in announcement.document_urls:
+            if not url:
+                continue
+            keys.add(url)
+            base_url = self._base_url_without_query(url)
+            if base_url:
+                keys.add(base_url)
+
+        keys.add(
+            self._content_dedup_key(
+                source=str(announcement.source.value),
+                title=announcement.title,
+                raw_content=announcement.raw_content,
+                company_symbol=announcement.company_symbol,
+                published_at=announcement.published_at,
+            )
+        )
+        return {key for key in keys if key}
+
+    def _trigger_dedup_keys(self, trigger: TriggerEvent) -> set[str]:
+        keys: set[str] = set()
+        source_url = self._canonicalize_url(trigger.source_url or "")
+        if source_url:
+            keys.add(source_url)
+            base_url = self._base_url_without_query(source_url)
+            if base_url:
+                keys.add(base_url)
+
+        keys.add(
+            self._content_dedup_key(
+                source=str(trigger.source),
+                title=trigger.source_feed_title or "",
+                raw_content=trigger.raw_content or "",
+                company_symbol=trigger.company_symbol,
+                published_at=trigger.source_feed_published,
+            )
+        )
+        return {key for key in keys if key}
+
+    def _content_dedup_key(
+        self,
+        *,
+        source: str,
+        title: str,
+        raw_content: str,
+        company_symbol: str | None,
+        published_at: datetime | None,
+    ) -> str:
+        canonical = "|".join(
+            [
+                source.strip().lower(),
+                (company_symbol or "").strip().upper(),
+                (published_at.isoformat() if published_at else ""),
+                " ".join((title or "").split()).lower(),
+                " ".join((raw_content or "").split()).lower()[:512],
+            ]
+        )
+        digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:20]
+        return f"urn:tuj:dedup:{digest}"
+
+    def _canonicalize_url(self, value: str) -> str:
+        url = (value or "").strip()
+        if not url:
+            return ""
+
+        parsed = urlparse(url)
+        if parsed.scheme not in {"http", "https"}:
+            return url
+
+        clean_query_pairs: list[tuple[str, str]] = []
+        for key, item in parse_qsl(parsed.query, keep_blank_values=False):
+            lowered = key.lower()
+            if lowered.startswith(_TRACKING_QUERY_PREFIXES) or lowered in _TRACKING_QUERY_KEYS:
+                continue
+            clean_query_pairs.append((key, item))
+        clean_query_pairs.sort()
+
+        path = parsed.path or "/"
+        if path != "/" and path.endswith("/"):
+            path = path.rstrip("/")
+
+        return urlunparse(
+            (
+                parsed.scheme.lower(),
+                parsed.netloc.lower(),
+                path,
+                "",
+                urlencode(clean_query_pairs, doseq=True),
+                "",
+            )
+        )
+
+    def _base_url_without_query(self, value: str) -> str:
+        parsed = urlparse(value)
+        if parsed.scheme not in {"http", "https"}:
+            return value
+        return urlunparse((parsed.scheme, parsed.netloc, parsed.path, "", "", ""))
 
     def _pick_str(self, row: dict[str, Any], keys: list[str], default: str | None = "") -> str | None:
         for key in keys:
