@@ -260,3 +260,30 @@ async def test_poll_uses_recent_cache_for_content_based_dedup() -> None:
 
     assert created == []
     assert repo.exists_by_url_calls == 0
+
+
+@pytest.mark.asyncio
+async def test_poll_infers_nse_scrip_code_and_company_name_when_symbol_missing() -> None:
+    nse_url = "https://example.test/nse"
+    payload = {
+        "data": [
+            {
+                "desc": "JSW Energy Limited - Notice of Shareholders Meeting",
+                "attchmntFile": "https://nsearchives.nseindia.com/corporate/xbrl/NOTICE_OF_SHAREHOLDERS_MEETINGS_1629332_24022026010002_WEB.xml",
+                "an_dt": "24-Feb-2026",
+            }
+        ]
+    }
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        del request
+        return httpx.Response(200, json=payload, headers={"content-type": "application/json"})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
+        repo = InMemoryTriggerRepo()
+        poller = ExchangeRSSPoller(trigger_repo=repo, nse_url=nse_url, session=session)
+        created = await poller.poll()
+
+    assert len(created) == 1
+    assert created[0].company_symbol == "1629332"
+    assert created[0].company_name == "JSW Energy Limited"

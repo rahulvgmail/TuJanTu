@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -59,9 +60,10 @@ class ChromaVectorRepository:
 
     async def add_document(self, document_id: str, text: str, metadata: dict) -> str:
         chunks = self._chunk_text(text)
+        clean_metadata = self._sanitize_metadata(metadata)
         for chunk_index, chunk in enumerate(chunks):
             chunk_id = f"{document_id}_chunk_{chunk_index}"
-            chunk_metadata = dict(metadata)
+            chunk_metadata = dict(clean_metadata)
             chunk_metadata["document_id"] = document_id
             chunk_metadata["chunk_index"] = chunk_index
             self._collection.add(
@@ -132,3 +134,25 @@ class ChromaVectorRepository:
             start += step
 
         return chunks
+
+    def _sanitize_metadata(self, metadata: dict[str, Any]) -> dict[str, str | int | float | bool]:
+        clean: dict[str, str | int | float | bool] = {}
+        for key, value in metadata.items():
+            if value is None:
+                continue
+
+            if isinstance(value, bool | int | float | str):
+                clean[str(key)] = value
+                continue
+
+            if hasattr(value, "value"):
+                clean[str(key)] = str(getattr(value, "value"))
+                continue
+
+            if isinstance(value, datetime | date):
+                clean[str(key)] = value.isoformat()
+                continue
+
+            clean[str(key)] = str(value)
+
+        return clean

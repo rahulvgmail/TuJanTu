@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date
+from enum import Enum
 from math import sqrt
 from typing import Any
 
@@ -109,6 +111,10 @@ def _build_repo(fake_client: _FakeClient) -> ChromaVectorRepository:
     )
 
 
+class _DocType(Enum):
+    PDF = "pdf"
+
+
 @pytest.mark.asyncio
 async def test_vector_add_and_search_returns_result(fake_client: _FakeClient) -> None:
     repo = _build_repo(fake_client)
@@ -203,3 +209,26 @@ def test_vector_chunk_configuration_validation(fake_client: _FakeClient) -> None
             chunk_size=1000,
             chunk_overlap=1000,
         )
+
+
+@pytest.mark.asyncio
+async def test_vector_sanitizes_metadata_values_for_chroma(fake_client: _FakeClient) -> None:
+    repo = _build_repo(fake_client)
+    await repo.add_document(
+        document_id="doc-meta",
+        text="Important update",
+        metadata={
+            "company_symbol": None,
+            "reporting_date": date(2026, 2, 24),
+            "doc_type": _DocType.PDF,
+            "details": {"key": "value"},
+            "flag": True,
+        },
+    )
+
+    saved = fake_client.collections["documents"].store["doc-meta_chunk_0"]["metadata"]
+    assert "company_symbol" not in saved
+    assert saved["reporting_date"] == "2026-02-24"
+    assert saved["doc_type"] == "pdf"
+    assert saved["details"] == "{'key': 'value'}"
+    assert saved["flag"] is True

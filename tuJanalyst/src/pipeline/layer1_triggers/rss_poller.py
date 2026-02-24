@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -28,6 +29,8 @@ _TRACKING_QUERY_KEYS = {
     "ref_src",
     "source",
 }
+_NSE_SCRIP_CODE_FROM_URL = re.compile(r"(?:^|_)(\d{5,10})(?:_|\.|$)")
+_TITLE_COMPANY_SEPARATORS = (" - ", " – ", ":")
 
 
 @dataclass
@@ -138,8 +141,20 @@ class ExchangeRSSPoller:
                         "desc": entry.get("title", ""),
                         "attchmntFile": entry.get("link", ""),
                         "an_dt": entry.get("published", ""),
-                        "symbol": entry.get("symbol"),
-                        "sm_name": entry.get("company"),
+                        "symbol": (
+                            entry.get("symbol")
+                            or entry.get("sm_symbol")
+                            or entry.get("nse_symbol")
+                            or entry.get("nseSymbol")
+                            or entry.get("scrip_cd")
+                            or entry.get("scripCode")
+                        ),
+                        "sm_name": (
+                            entry.get("company")
+                            or entry.get("sm_name")
+                            or entry.get("company_name")
+                            or entry.get("author")
+                        ),
                     }
                 )
             return entries
@@ -167,12 +182,24 @@ class ExchangeRSSPoller:
         )
         company_symbol = self._pick_str(
             row,
-            ["symbol", "sm_symbol", "SCRIP_CD", "scrip_cd", "scripcode"],
+            [
+                "symbol",
+                "sm_symbol",
+                "smSymbol",
+                "nse_symbol",
+                "nseSymbol",
+                "SCRIP_CD",
+                "scrip_cd",
+                "scripcode",
+                "scripCode",
+                "script_code",
+                "scriptCode",
+            ],
             default=None,
         )
         company_name = self._pick_str(
             row,
-            ["sm_name", "companyName", "company_name", "CompanyName", "scripname"],
+            ["sm_name", "company", "companyName", "company_name", "CompanyName", "scripname", "name"],
             default=None,
         )
         sector = self._pick_str(row, ["industry", "sector"], default=None)
@@ -183,6 +210,15 @@ class ExchangeRSSPoller:
         )
         source_url = urljoin(base_url, source_url) if source_url else self._synthetic_source_url(source, row)
         source_url = self._canonicalize_url(source_url)
+        company_symbol = self._infer_company_symbol(
+            source=source,
+            row=row,
+            source_url=source_url,
+            title=title,
+            raw_content=raw_content,
+            existing_symbol=company_symbol,
+        )
+        company_name = self._infer_company_name(title=title, existing_name=company_name)
         published_at = self._parse_date(
             self._pick_str(
                 row,
@@ -262,6 +298,78 @@ class ExchangeRSSPoller:
         )
         digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
         return f"urn:tuj:{source.value}:{digest}"
+
+    def _infer_company_symbol(
+        self,
+        *,
+        source: TriggerSource,
+        row: dict[str, Any],
+        source_url: str,
+        title: str,
+        raw_content: str,
+        existing_symbol: str | None,
+    ) -> str | None:
+        if existing_symbol:
+            return existing_symbol.strip().upper()
+
+        row_symbol = self._pick_str(
+            row,
+            [
+                "symbol",
+                "sm_symbol",
+                "smSymbol",
+                "nse_symbol",
+                "nseSymbol",
+                "SCRIP_CD",
+                "scrip_cd",
+                "scripcode",
+                "scripCode",
+                "script_code",
+                "scriptCode",
+            ],
+            default=None,
+        )
+        if row_symbol:
+            return row_symbol.strip().upper()
+
+        if source == TriggerSource.NSE_RSS:
+            inferred_scrip = self._extract_nse_scrip_code_from_url(source_url)
+            if inferred_scrip:
+                return inferred_scrip
+
+        inline_symbol = self._extract_inline_symbol(text=f"{title} {raw_content}")
+        if inline_symbol:
+            return inline_symbol
+        return None
+
+    def _infer_company_name(self, *, title: str, existing_name: str | None) -> str | None:
+        if existing_name:
+            return existing_name.strip()
+
+        for separator in _TITLE_COMPANY_SEPARATORS:
+            if separator not in title:
+                continue
+            candidate = title.split(separator, 1)[0].strip()
+            if candidate:
+                return candidate
+        return None
+
+    def _extract_nse_scrip_code_from_url(self, source_url: str) -> str | None:
+        parsed = urlparse(source_url)
+        file_name = parsed.path.rsplit("/", 1)[-1]
+        for value in (file_name, parsed.path):
+            if not value:
+                continue
+            match = _NSE_SCRIP_CODE_FROM_URL.search(value)
+            if match:
+                return match.group(1)
+        return None
+
+    def _extract_inline_symbol(self, text: str) -> str | None:
+        match = re.search(r"\b(?:nse\s*symbol|symbol)\s*[:\-]\s*([A-Z0-9]{2,15})\b", text, flags=re.IGNORECASE)
+        if not match:
+            return None
+        return match.group(1).upper()
 
     async def _refresh_dedup_cache_if_needed(self) -> None:
         if not self._supports_recent_listing:
