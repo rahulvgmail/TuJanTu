@@ -2249,6 +2249,47 @@ These decisions are locked unless explicitly changed:
 
 ---
 
+### T-412: Runtime Setup & Operator Playbook
+
+| Field | Detail |
+|-------|--------|
+| **ID** | T-412 |
+| **Name** | Environment Keys, RSS Onboarding, Watchlist Filters, and UI Access Guide |
+| **Status** | ✅ |
+| **Prerequisites** | T-407 |
+| **Description** | Create an operator-facing setup task that clearly defines required API keys, how to configure NSE/BSE feeds, how to control stock/sector filters, and what UI is currently available. |
+
+**TODOs**:
+- [x] Added required/optional API key matrix and runtime keys in `.env.example` (`LLM`, `web search`, `Slack/email`)
+- [x] Added/validated configuration examples for `Tavily` and `Brave` web-search providers
+- [x] Added NSE/BSE RSS feed setup + override variables (`TUJ_NSE_RSS_URL`, `TUJ_BSE_RSS_URL`, `TUJ_POLLING_INTERVAL_SECONDS`, `TUJ_POLLING_ENABLED`)
+- [x] Added stock/sector filtering guidance via `config/watchlist.yaml` (companies, aliases, sector keywords, global keywords)
+- [x] Documented current UI access (`/docs`, `/redoc`) and confirmed dashboard remains Week 5-6 scope
+- [x] Added operator quick-start verification steps for first-time setup
+
+**Definition of Done**:
+- Team can configure environment variables without guesswork
+- Team can switch RSS feed URLs and polling settings safely
+- Team can update watchlist filters and understand matching behavior
+- Team can access available UI endpoints and know current UI limitations
+- A single setup doc is available for onboarding
+
+**Testing Steps**:
+1. Fill `.env` for one LLM provider + optional web search provider and start app.
+2. Verify `/api/v1/health` returns healthy status.
+3. Run one manual trigger and confirm it appears in trigger APIs.
+4. Change watchlist config (symbol/keyword) and verify filter behavior changes as expected.
+5. Open `/docs` and verify routes for triggers/investigations/reports/positions are visible.
+
+**Files Created/Modified**:
+- `tuJanalyst/.env.example` — runtime key matrix + provider variables
+- `tuJanalyst/docs/PROJECT_PLAN.md` — operator setup/playbook task and checklist
+
+**Test Cases Written**:
+- No new automated tests; operator checklist verified manually through runtime preflight and API surface checks.
+
+---
+
 ## Week 5-6: Dashboard + Polish (Outline)
 
 > Detailed specs for Weeks 5-6 will be written after Weeks 3-4 are underway. High-level tasks listed here for planning visibility.
