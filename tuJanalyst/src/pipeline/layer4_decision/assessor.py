@@ -8,7 +8,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
-from src.dspy_modules.decision import DecisionModule, DecisionModuleResult
+from src.dspy_modules.decision import DecisionModule, ParsedDecisionResult, parse_decision_result
 from src.models.company import CompanyPosition
 from src.models.decision import DecisionAssessment, Recommendation
 from src.utils.retry import is_transient_error, retry_in_thread
@@ -51,10 +51,9 @@ class DecisionAssessor:
         past_inconclusive = await self.investigation_repo.get_past_inconclusive(symbol)
 
         decision_started = time.time()
-        decision, input_tokens, output_tokens = await retry_in_thread(
+        prediction, input_tokens, output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
-                lambda: self._invoke_module(
-                    self.decision_module,
+                lambda: self.decision_module(
                     company_symbol=symbol,
                     company_name=name,
                     current_recommendation=(
@@ -93,6 +92,8 @@ class DecisionAssessor:
             output_tokens,
         )
 
+        decision = parse_decision_result(prediction)
+
         assessment = self._build_assessment(
             investigation=investigation,
             existing_position=existing_position,
@@ -118,7 +119,7 @@ class DecisionAssessor:
         existing_position: CompanyPosition | None,
         past_investigations: list[Any],
         past_inconclusive: list[Any],
-        decision: DecisionModuleResult,
+        decision: ParsedDecisionResult,
         input_tokens: int,
         output_tokens: int,
         processing_time: float,
@@ -200,12 +201,3 @@ class DecisionAssessor:
         position.updated_at = now
         return position
 
-    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
-        if callable(module):
-            return module(**kwargs)
-
-        forward = getattr(module, "forward", None)
-        if callable(forward):
-            return forward(**kwargs)
-
-        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")

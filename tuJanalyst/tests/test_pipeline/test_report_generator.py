@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import json
+from types import SimpleNamespace
 
 import pytest
 
-from src.dspy_modules.report import ReportModuleResult
 from src.models.decision import DecisionAssessment, Recommendation, RecommendationTimeframe
 from src.models.investigation import HistoricalContext, Investigation, WebSearchResult
 from src.pipeline.layer5_report.generator import ReportGenerator
@@ -22,22 +22,22 @@ class _ReportRepo:
 
 
 class _ReportModule:
-    def __init__(self, result: ReportModuleResult):
+    def __init__(self, result):
         self.result = result
         self.calls = []
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         self.calls.append(kwargs)
         return self.result
 
 
 class _FlakyReportModule:
-    def __init__(self, result: ReportModuleResult, failures_before_success: int):
+    def __init__(self, result, failures_before_success: int):
         self.result = result
         self.failures_before_success = failures_before_success
         self.calls = 0
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         del kwargs
         self.calls += 1
         if self.calls <= self.failures_before_success:
@@ -108,7 +108,7 @@ def _make_assessment() -> DecisionAssessment:
 async def test_report_generator_creates_and_persists_report() -> None:
     repo = _ReportRepo()
     module = _ReportModule(
-        ReportModuleResult(
+        SimpleNamespace(
             title="Inox Wind Deep-Dive",
             executive_summary="Momentum has improved with manageable downside risk.",
             report_body_markdown="# Findings\n\nStructured markdown body.",
@@ -135,7 +135,7 @@ async def test_report_generator_creates_and_persists_report() -> None:
 async def test_report_generator_falls_back_when_module_output_is_empty() -> None:
     repo = _ReportRepo()
     module = _ReportModule(
-        ReportModuleResult(
+        SimpleNamespace(
             title="",
             executive_summary="",
             report_body_markdown="",
@@ -158,7 +158,7 @@ async def test_report_generator_falls_back_when_module_output_is_empty() -> None
 async def test_report_generator_retries_transient_generation_failures() -> None:
     repo = _ReportRepo()
     module = _FlakyReportModule(
-        ReportModuleResult(
+        SimpleNamespace(
             title="Recovered report",
             executive_summary="Recovered summary",
             report_body_markdown="# Recovered",

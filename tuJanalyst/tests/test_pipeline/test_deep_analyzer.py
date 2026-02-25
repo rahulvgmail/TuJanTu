@@ -63,7 +63,7 @@ class _FailingMarketDataTool:
 
 
 class _WebSearchModule:
-    def forward(self, company_symbol: str, company_name: str, trigger_context: str):  # noqa: ARG002
+    def __call__(self, company_symbol: str = "", company_name: str = "", trigger_context: str = ""):  # noqa: ARG002
         return SimpleNamespace(search_queries_json='["INOXWIND quarterly results", "Inox Wind order book"]')
 
 
@@ -72,7 +72,7 @@ class _AnalysisPipeline:
         self.result = result
         self.calls: list[dict] = []
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         self.calls.append(kwargs)
         return self.result
 
@@ -83,7 +83,7 @@ class _FlakyAnalysisPipeline:
         self.failures_before_success = failures_before_success
         self.calls = 0
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         del kwargs
         self.calls += 1
         if self.calls <= self.failures_before_success:

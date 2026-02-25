@@ -79,8 +79,7 @@ class DeepAnalyzer:
 
         deep_result, pipeline_input_tokens, pipeline_output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
-                lambda: self._invoke_module(
-                    self.pipeline,
+                lambda: self.pipeline(
                     company_symbol=investigation.company_symbol,
                     company_name=investigation.company_name,
                     document_text=document_text,
@@ -168,8 +167,7 @@ class DeepAnalyzer:
         try:
             query_prediction, query_input_tokens, query_output_tokens = await retry_in_thread(
                 lambda: run_with_dspy_usage(
-                    lambda: self._invoke_module(
-                        self.web_search_module,
+                    lambda: self.web_search_module(
                         company_symbol=(trigger.company_symbol or "UNKNOWN").upper(),
                         company_name=trigger.company_name or "Unknown Company",
                         trigger_context=doc_summary,
@@ -273,12 +271,3 @@ class DeepAnalyzer:
         except Exception:  # noqa: BLE001
             return "{}"
 
-    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
-        if callable(module):
-            return module(**kwargs)
-
-        forward = getattr(module, "forward", None)
-        if callable(forward):
-            return forward(**kwargs)
-
-        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")

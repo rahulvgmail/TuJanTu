@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Any
 
 import dspy
@@ -43,14 +42,6 @@ def configure_dspy_lm(
     return lm
 
 
-@dataclass
-class GateDecision:
-    """Structured gate output used by the pipeline layer."""
-
-    is_worth_investigating: bool
-    reason: str
-
-
 class GateModule(dspy.Module):
     """DSPy module wrapper around the gate classification signature."""
 
@@ -58,14 +49,10 @@ class GateModule(dspy.Module):
         super().__init__()
         self.classifier = dspy.Predict(GateClassification)
 
-    def forward(self, announcement_text: str, company_name: str, sector: str) -> GateDecision:
-        prediction = self.classifier(
+    def forward(self, announcement_text: str, company_name: str, sector: str):
+        return self.classifier(
             announcement_text=announcement_text,
             company_name=company_name,
             sector=sector,
-        )
-        return GateDecision(
-            is_worth_investigating=bool(prediction.is_worth_investigating),
-            reason=str(prediction.reason),
         )
 

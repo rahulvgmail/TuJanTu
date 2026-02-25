@@ -26,7 +26,7 @@ def test_metrics_extraction_module_forward(monkeypatch: pytest.MonkeyPatch) -> N
         ),
     )
 
-    result = module.forward(company_symbol="INOXWIND", company_name="Inox Wind", document_text="Quarterly results")
+    result = module(company_symbol="INOXWIND", company_name="Inox Wind", document_text="Quarterly results")
 
     assert "Revenue" in result.extracted_metrics_json
     assert "Guidance" in result.forward_statements_json
@@ -40,7 +40,7 @@ def test_web_search_module_forward(monkeypatch: pytest.MonkeyPatch) -> None:
         lambda **_: SimpleNamespace(search_queries_json='["INOXWIND Q3 FY26 results"]'),
     )
 
-    result = module.forward(company_symbol="INOXWIND", company_name="Inox Wind", trigger_context="Q3 update")
+    result = module(company_symbol="INOXWIND", company_name="Inox Wind", trigger_context="Q3 update")
 
     assert "INOXWIND" in result.search_queries_json
 
@@ -61,7 +61,7 @@ def test_synthesis_module_forward(monkeypatch: pytest.MonkeyPatch) -> None:
         ),
     )
 
-    result = module.forward(
+    result = module(
         company_symbol="INOXWIND",
         company_name="Inox Wind",
         extracted_metrics_json="[]",
@@ -77,7 +77,7 @@ def test_synthesis_module_forward(monkeypatch: pytest.MonkeyPatch) -> None:
 
 def test_deep_analysis_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch) -> None:
     class _FakeMetrics:
-        def forward(self, **kwargs):  # noqa: ARG002
+        def __call__(self, **kwargs):  # noqa: ARG002
             return SimpleNamespace(
                 extracted_metrics_json='[{"name":"Revenue"}]',
                 forward_statements_json='[{"statement":"Expansion"}]',
@@ -85,11 +85,11 @@ def test_deep_analysis_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch) -> N
             )
 
     class _FakeSearch:
-        def forward(self, **kwargs):  # noqa: ARG002
+        def __call__(self, **kwargs):  # noqa: ARG002
             return SimpleNamespace(search_queries_json='["INOXWIND order book update"]')
 
     class _FakeSynthesis:
-        def forward(self, **kwargs):  # noqa: ARG002
+        def __call__(self, **kwargs):  # noqa: ARG002
             return SimpleNamespace(
                 synthesis="Synthesis text",
                 key_findings_json='["Finding"]',
@@ -111,7 +111,7 @@ def test_deep_analysis_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch) -> N
         lambda **_: SimpleNamespace(synthesized_findings_json='[{"summary":"Useful web signal"}]'),
     )
 
-    result = pipeline.forward(
+    result = pipeline(
         company_symbol="INOXWIND",
         company_name="Inox Wind",
         document_text="Quarterly results with order update",
@@ -128,7 +128,7 @@ def test_deep_analysis_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch) -> N
 
 def test_deep_analysis_pipeline_handles_web_failure_but_continues(monkeypatch: pytest.MonkeyPatch) -> None:
     class _FakeMetrics:
-        def forward(self, **kwargs):  # noqa: ARG002
+        def __call__(self, **kwargs):  # noqa: ARG002
             return SimpleNamespace(
                 extracted_metrics_json="[]",
                 forward_statements_json="[]",
@@ -136,14 +136,14 @@ def test_deep_analysis_pipeline_handles_web_failure_but_continues(monkeypatch: p
             )
 
     class _FakeSearch:
-        def forward(self, **kwargs):  # noqa: ARG002
+        def __call__(self, **kwargs):  # noqa: ARG002
             return SimpleNamespace(search_queries_json='["query"]')
 
     class _FakeSynthesis:
         def __init__(self):
             self.last_kwargs = None
 
-        def forward(self, **kwargs):
+        def __call__(self, **kwargs):
             self.last_kwargs = kwargs
             return SimpleNamespace(
                 synthesis="Fallback synthesis",
@@ -167,7 +167,7 @@ def test_deep_analysis_pipeline_handles_web_failure_but_continues(monkeypatch: p
 
     monkeypatch.setattr(pipeline, "web_result_synthesizer", _raise_web_failure)
 
-    result = pipeline.forward(
+    result = pipeline(
         company_symbol="ABB",
         company_name="ABB India",
         document_text="Routine disclosure",

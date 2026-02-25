@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from src.dspy_modules.gate import GateDecision, GateModule, build_dspy_model_identifier, configure_dspy_lm
+from src.dspy_modules.gate import GateModule, build_dspy_model_identifier, configure_dspy_lm
 
 
 def test_build_dspy_model_identifier() -> None:
@@ -45,7 +45,7 @@ def test_configure_dspy_lm_invokes_dspy(monkeypatch: pytest.MonkeyPatch) -> None
     assert captured["configured_lm"] is lm
 
 
-def test_gate_module_forward_returns_structured_decision(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_gate_module_returns_prediction(monkeypatch: pytest.MonkeyPatch) -> None:
     module = GateModule()
     monkeypatch.setattr(
         module,
@@ -53,13 +53,12 @@ def test_gate_module_forward_returns_structured_decision(monkeypatch: pytest.Mon
         lambda **_: SimpleNamespace(is_worth_investigating=True, reason="Quarterly results with metrics"),
     )
 
-    result = module.forward(
+    result = module(
         announcement_text="Q3 financial results released",
         company_name="Inox Wind Limited",
         sector="Capital Goods",
     )
 
-    assert isinstance(result, GateDecision)
     assert result.is_worth_investigating is True
     assert "Quarterly results" in result.reason
 

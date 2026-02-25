@@ -8,9 +8,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from src.dspy_modules.decision import DecisionModuleResult
 from src.models.company import CompanyPosition
-from src.models.decision import Recommendation, RecommendationTimeframe
+from src.models.decision import Recommendation
 from src.models.investigation import Investigation
 from src.pipeline.layer4_decision.assessor import DecisionAssessor
 
@@ -50,22 +49,22 @@ class _PositionRepo:
 
 
 class _DecisionModule:
-    def __init__(self, result: DecisionModuleResult):
+    def __init__(self, result):
         self.result = result
         self.calls = []
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         self.calls.append(kwargs)
         return self.result
 
 
 class _FlakyDecisionModule:
-    def __init__(self, result: DecisionModuleResult, failures_before_success: int):
+    def __init__(self, result, failures_before_success: int):
         self.result = result
         self.failures_before_success = failures_before_success
         self.calls = 0
 
-    def forward(self, **kwargs):
+    def __call__(self, **kwargs):
         del kwargs
         self.calls += 1
         if self.calls <= self.failures_before_success:
@@ -92,13 +91,13 @@ async def test_decision_assessor_creates_initial_company_position() -> None:
     investigation_repo = _InvestigationRepo()
     position_repo = _PositionRepo()
     decision_module = _DecisionModule(
-        DecisionModuleResult(
+        SimpleNamespace(
             should_change=True,
-            new_recommendation=Recommendation.BUY,
-            timeframe=RecommendationTimeframe.MEDIUM_TERM,
+            new_recommendation="buy",
+            timeframe="medium_term",
             confidence=0.78,
             reasoning="Strong positive momentum.",
-            key_factors=["Order growth", "Margin expansion"],
+            key_factors_json='["Order growth", "Margin expansion"]',
         )
     )
     assessor = DecisionAssessor(
@@ -131,13 +130,13 @@ async def test_decision_assessor_keeps_recommendation_when_not_changed() -> None
         total_investigations=2,
     )
     decision_module = _DecisionModule(
-        DecisionModuleResult(
+        SimpleNamespace(
             should_change=False,
-            new_recommendation=Recommendation.BUY,
-            timeframe=RecommendationTimeframe.LONG_TERM,
+            new_recommendation="buy",
+            timeframe="long_term",
             confidence=0.6,
             reasoning="Thesis remains valid.",
-            key_factors=["Stable execution"],
+            key_factors_json='["Stable execution"]',
         )
     )
     assessor = DecisionAssessor(
@@ -169,13 +168,13 @@ async def test_decision_assessor_tracks_history_when_recommendation_changes() ->
         total_investigations=4,
     )
     decision_module = _DecisionModule(
-        DecisionModuleResult(
+        SimpleNamespace(
             should_change=True,
-            new_recommendation=Recommendation.SELL,
-            timeframe=RecommendationTimeframe.SHORT_TERM,
+            new_recommendation="sell",
+            timeframe="short_term",
             confidence=0.74,
             reasoning="Adverse evidence outweighs positives.",
-            key_factors=["Margin compression", "Order slowdown"],
+            key_factors_json='["Margin compression", "Order slowdown"]',
         )
     )
     assessor = DecisionAssessor(
@@ -203,13 +202,13 @@ async def test_decision_assessor_passes_past_inconclusive_context_to_module() ->
     past_item = _make_investigation("BHEL", "BHEL")
     investigation_repo.inconclusive["BHEL"] = [past_item]
     decision_module = _DecisionModule(
-        DecisionModuleResult(
+        SimpleNamespace(
             should_change=False,
-            new_recommendation=Recommendation.HOLD,
-            timeframe=RecommendationTimeframe.MEDIUM_TERM,
+            new_recommendation="hold",
+            timeframe="medium_term",
             confidence=0.52,
             reasoning="Mixed signals.",
-            key_factors=["Insufficient trend clarity"],
+            key_factors_json='["Insufficient trend clarity"]',
         )
     )
     assessor = DecisionAssessor(
@@ -233,13 +232,13 @@ async def test_decision_assessor_retries_transient_decision_failures() -> None:
     investigation_repo = _InvestigationRepo()
     position_repo = _PositionRepo()
     decision_module = _FlakyDecisionModule(
-        DecisionModuleResult(
+        SimpleNamespace(
             should_change=True,
-            new_recommendation=Recommendation.BUY,
-            timeframe=RecommendationTimeframe.MEDIUM_TERM,
+            new_recommendation="buy",
+            timeframe="medium_term",
             confidence=0.7,
             reasoning="Recovered decision call",
-            key_factors=["Resilient demand"],
+            key_factors_json='["Resilient demand"]',
         ),
         failures_before_success=2,
     )

@@ -3,13 +3,10 @@
 from __future__ import annotations
 
 import time
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
-
-from src.dspy_modules.decision import DecisionModuleResult
-from src.dspy_modules.report import ReportModuleResult
-from src.models.decision import Recommendation, RecommendationTimeframe
 from src.models.investigation import Investigation, SignificanceLevel
 from src.models.report import ReportDeliveryStatus
 from src.models.trigger import TriggerEvent, TriggerSource, TriggerStatus
@@ -92,26 +89,26 @@ class _FakeDeepAnalyzer:
 
 
 class _FakeDecisionModule:
-    def forward(self, **kwargs: Any) -> DecisionModuleResult:
+    def __call__(self, **kwargs: Any):
         del kwargs
-        return DecisionModuleResult(
+        return SimpleNamespace(
             should_change=True,
-            new_recommendation=Recommendation.BUY,
-            timeframe=RecommendationTimeframe.MEDIUM_TERM,
+            new_recommendation="buy",
+            timeframe="medium_term",
             confidence=0.73,
             reasoning="Evidence supports a positive medium-term stance.",
-            key_factors=["Order momentum", "Margin stability"],
+            key_factors_json='["Order momentum", "Margin stability"]',
         )
 
 
 class _FakeReportModule:
-    def forward(self, **kwargs: Any) -> ReportModuleResult:
+    def __call__(self, **kwargs: Any):
         company_name = kwargs.get("company_name", "Company")
         symbol = kwargs.get("company_symbol", "")
         recommendation = str(kwargs.get("recommendation", "hold")).upper()
         confidence = float(kwargs.get("confidence", 0.0))
         timeframe = str(kwargs.get("timeframe", "medium_term"))
-        return ReportModuleResult(
+        return SimpleNamespace(
             title=f"{company_name} ({symbol}) Update",
             executive_summary="Summary generated for investment-team review.",
             report_body_markdown="# Report\n\nKey findings and recommendation.",

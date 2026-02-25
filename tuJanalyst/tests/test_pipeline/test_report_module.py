@@ -22,7 +22,7 @@ def test_report_module_returns_structured_sections(monkeypatch: pytest.MonkeyPat
         ),
     )
 
-    result = module.forward(
+    result = module(
         company_symbol="INOXWIND",
         company_name="Inox Wind Limited",
         investigation_summary="Layer 3 synthesis",

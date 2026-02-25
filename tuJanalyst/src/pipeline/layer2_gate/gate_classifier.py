@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import time
 
-from src.dspy_modules.gate import GateDecision, GateModule, configure_dspy_lm
+from src.dspy_modules.gate import GateModule, configure_dspy_lm
 from src.utils.retry import is_transient_error, retry_sync
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class GateClassifier:
         api_key: str | None = None,
         base_url: str | None = None,
         max_input_chars: int = 2000,
-        module: GateModule | None = None,
+        gate_module: GateModule | None = None,
         configure_lm: bool = True,
     ):
         self.model = model
@@ -31,7 +31,7 @@ class GateClassifier:
         if configure_lm:
             configure_dspy_lm(provider=provider, model=model, api_key=api_key, base_url=base_url)
 
-        self.module = module or GateModule()
+        self.gate_module = gate_module or GateModule()
 
     def classify(self, announcement_text: str, company_name: str = "", sector: str = "") -> dict[str, str | bool]:
         """Return pass/reject gate decision with method and reason."""
@@ -41,8 +41,8 @@ class GateClassifier:
 
         try:
             started = time.time()
-            decision: GateDecision = retry_sync(
-                lambda: self.module.forward(
+            prediction = retry_sync(
+                lambda: self.gate_module(
                     announcement_text=text,
                     company_name=company,
                     sector=sector_value,
@@ -52,8 +52,8 @@ class GateClassifier:
                 should_retry=is_transient_error,
             )
             result = {
-                "passed": bool(decision.is_worth_investigating),
-                "reason": decision.reason.strip() or "No reason provided",
+                "passed": bool(prediction.is_worth_investigating),
+                "reason": str(prediction.reason).strip() or "No reason provided",
                 "method": "llm_classification",
                 "model": self.model,
             }
