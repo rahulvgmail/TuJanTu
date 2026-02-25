@@ -2321,22 +2321,81 @@ These decisions are locked unless explicitly changed:
 10. **Company analysis chat**: deferred from Weeks 5-6 to a post-MVP iteration.
 
 ### T-501: Admin Dashboard — Trigger Funnel + Cost KPIs
-| **Status** | ⬜ | **Prerequisites** | T-407 |
+| **Status** | ✅ | **Prerequisites** | T-407 |
+
+**Completed Scope (2026-02-25)**:
+- Admin surface added in Streamlit with trigger totals, status/source distributions, stage progression, and cost-per-report KPI.
+- Data wired to `/api/v1/triggers/stats`, `/api/v1/costs/summary`, and `/api/v1/watchlist/overview`.
+
+**Test Cases Written**:
+- `tests/test_api/test_triggers.py`
+- `tests/test_api/test_costs.py`
+- `tests/test_dashboard/test_app_helpers.py`
 
 ### T-502: Investor/Analyst Dashboard — Recommendations + Report View
-| **Status** | ⬜ | **Prerequisites** | T-407 |
+| **Status** | ✅ | **Prerequisites** | T-407 |
+
+**Completed Scope (2026-02-25)**:
+- Recommendation list and report-detail view shipped for Investor/Analyst surface.
+- Default recommendation sorting supports impact-first ordering, with newest-first fallback.
+
+**Test Cases Written**:
+- `tests/test_api/test_reports.py`
+- `tests/test_dashboard/test_recommendation_utils.py`
+- `tests/test_dashboard/test_app_helpers.py`
 
 ### T-503: Investor/Analyst — Manual Trigger Form
-| **Status** | ⬜ | **Prerequisites** | T-407 |
+| **Status** | ✅ | **Prerequisites** | T-407 |
+
+**Completed Scope (2026-02-25)**:
+- Manual trigger form added with required fields `company` and `event_summary`.
+- Trigger submission and follow-up status refresh integrated with trigger APIs.
+
+**Test Cases Written**:
+- `tests/test_api/test_triggers.py`
+- `tests/test_dashboard/test_manual_trigger_utils.py`
+- `tests/test_dashboard/test_app_helpers.py`
 
 ### T-504: Investor/Analyst — Historical Performance Overview
-| **Status** | ⬜ | **Prerequisites** | T-407 |
+| **Status** | ✅ | **Prerequisites** | T-407 |
+
+**Completed Scope (2026-02-25)**:
+- Historical performance dashboard shipped with win-rate metrics, best/worst calls, and recommendation outcome table.
+- Supports stored-price mode and optional live-price snapshot mode.
+
+**Test Cases Written**:
+- `tests/test_api/test_performance.py`
+- `tests/test_dashboard/test_app_helpers.py`
 
 ### T-505: Investor/Analyst — Shared Notes and In-App Notifications
-| **Status** | ⬜ | **Prerequisites** | T-407 |
+| **Status** | ✅ | **Prerequisites** | T-407 |
+
+**Completed Scope (2026-02-25)**:
+- Shared notes view/form and in-app notifications feed shipped in dashboard.
+- Notes are indexed by company context and optional report/investigation linkage.
+
+**Test Cases Written**:
+- `tests/test_api/test_notes.py`
+- `tests/test_api/test_notifications.py`
+- `tests/test_dashboard/test_app_helpers.py`
 
 ### T-506: Admin — Watchlist Management + Agent Access Policy Placeholder
-| **Status** | ⬜ | **Prerequisites** | T-501 |
+| **Status** | ✅ | **Prerequisites** | T-501 |
+
+**Completed Scope (2026-02-25)**:
+- Watchlist overview (read-only) added to Admin surface.
+- Agent access policy placeholder added, reflecting domain+action permission model from config.
+
+**Test Cases Written**:
+- `tests/test_api/test_watchlist.py`
+- `tests/test_dashboard/test_app_helpers.py`
+
+**Implementation Notes / Deviations**:
+- Dashboard import/runtime hardening completed after first release:
+  - `PYTHONPATH` wiring for Streamlit container.
+  - API timeout increased and empty-state confidence metric guarded.
+  - Trigger-processor scheduler batch limit reduced to stabilize API responsiveness.
+- Deferred by product decision: analysis chat and strict auth/RBAC enforcement.
 
 ### T-507: Production Deployment (Docker Compose on EC2)
 | **Status** | ⬜ | **Prerequisites** | T-408 |
