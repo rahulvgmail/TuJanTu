@@ -123,7 +123,7 @@ class DeepAnalysisPipeline(dspy.Module):
         result = DeepAnalysisResult()
 
         try:
-            metrics_prediction = self.metrics_module.forward(
+            metrics_prediction = self.metrics_module(
                 company_symbol=company_symbol,
                 company_name=company_name,
                 document_text=document_text,
@@ -135,7 +135,7 @@ class DeepAnalysisPipeline(dspy.Module):
             result.errors.append(f"metrics_extraction_failed: {exc}")
 
         try:
-            search_prediction = self.web_search_module.forward(
+            search_prediction = self.web_search_module(
                 company_symbol=company_symbol,
                 company_name=company_name,
                 trigger_context=document_text[:2000],
@@ -156,7 +156,7 @@ class DeepAnalysisPipeline(dspy.Module):
             result.web_findings_json = "[]"
 
         try:
-            synthesis_prediction = self.synthesis_module.forward(
+            synthesis_prediction = self.synthesis_module(
                 company_symbol=company_symbol,
                 company_name=company_name,
                 extracted_metrics_json=result.extracted_metrics_json,

@@ -7,9 +7,9 @@ from src.dspy_modules.analysis import (
     SynthesisModule,
     WebSearchModule,
 )
-from src.dspy_modules.decision import DecisionModule, DecisionModuleResult
-from src.dspy_modules.gate import GateDecision, GateModule, build_dspy_model_identifier, configure_dspy_lm
-from src.dspy_modules.report import ReportModule, ReportModuleResult
+from src.dspy_modules.decision import DecisionModule, ParsedDecisionResult, parse_decision_result
+from src.dspy_modules.gate import GateModule, build_dspy_model_identifier, configure_dspy_lm
+from src.dspy_modules.report import ReportModule
 from src.dspy_modules.signatures import (
     DecisionEvaluation,
     GateClassification,
@@ -25,19 +25,18 @@ __all__ = [
     "DeepAnalysisResult",
     "DecisionEvaluation",
     "DecisionModule",
-    "DecisionModuleResult",
+    "ParsedDecisionResult",
+    "parse_decision_result",
     "GateClassification",
     "InvestigationSynthesis",
     "MetricsExtractionModule",
     "ReportGeneration",
     "ReportModule",
-    "ReportModuleResult",
     "MetricsExtraction",
     "SynthesisModule",
     "WebResultSynthesis",
     "WebSearchModule",
     "WebSearchQueryGeneration",
-    "GateDecision",
     "GateModule",
     "build_dspy_model_identifier",
     "configure_dspy_lm",

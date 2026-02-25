@@ -41,8 +41,7 @@ class ReportGenerator:
         generation_started = time.time()
         module_result, input_tokens, output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
-                lambda: self._invoke_module(
-                    self.report_module,
+                lambda: self.report_module(
                     company_symbol=investigation.company_symbol,
                     company_name=investigation.company_name,
                     investigation_summary=investigation.synthesis,
@@ -263,12 +262,3 @@ class ReportGenerator:
             return 1.0
         return confidence
 
-    def _invoke_module(self, module: Any, **kwargs: Any) -> Any:
-        if callable(module):
-            return module(**kwargs)
-
-        forward = getattr(module, "forward", None)
-        if callable(forward):
-            return forward(**kwargs)
-
-        raise TypeError(f"Unsupported module type for invocation: {type(module)!r}")
