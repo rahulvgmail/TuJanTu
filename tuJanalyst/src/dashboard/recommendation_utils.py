@@ -68,3 +68,11 @@ def expected_impact_score(report: dict[str, Any]) -> float:
 def sort_reports_by_expected_impact(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Return reports sorted by expected impact score descending."""
     return sorted(reports, key=expected_impact_score, reverse=True)
+
+
+def average_confidence_pct(rows: list[dict[str, Any]]) -> float:
+    """Return average confidence percentage across recommendation rows."""
+    if not rows:
+        return 0.0
+    values = [float(row.get("confidence_pct", 0.0)) for row in rows]
+    return round(sum(values) / len(values), 1)

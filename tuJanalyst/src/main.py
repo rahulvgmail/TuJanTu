@@ -51,6 +51,7 @@ from src.repositories.mongo import (
 )
 
 logger = logging.getLogger(__name__)
+_TRIGGER_PROCESSOR_BATCH_LIMIT = 5
 
 
 class _NoopWebSearchTool:
@@ -267,6 +268,7 @@ async def lifespan(app: FastAPI):
                 orchestrator.process_pending_triggers,
                 trigger="interval",
                 seconds=30,
+                kwargs={"limit": _TRIGGER_PROCESSOR_BATCH_LIMIT},
                 id="trigger_processor",
                 replace_existing=True,
                 coalesce=True,

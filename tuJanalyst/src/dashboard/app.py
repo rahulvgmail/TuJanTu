@@ -11,6 +11,7 @@ import streamlit as st
 
 from src.dashboard.manual_trigger_utils import build_manual_trigger_payload
 from src.dashboard.recommendation_utils import (
+    average_confidence_pct,
     expected_impact_score,
     extract_confidence_pct,
     infer_recommendation_signal,
@@ -24,7 +25,7 @@ DEFAULT_PERFORMANCE_LIMIT = 100
 DEFAULT_NOTES_LIMIT = 100
 DEFAULT_NOTIFICATION_LIMIT = 50
 DEFAULT_ADMIN_WINDOW_DAYS = 7
-HTTP_TIMEOUT_SECONDS = 12.0
+HTTP_TIMEOUT_SECONDS = 30.0
 
 
 def _api_get(base_url: str, path: str, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -576,8 +577,7 @@ def main() -> None:
         c1, c2, c3 = st.columns(3)
         c1.metric("Loaded Reports", len(recommendation_rows))
         c2.metric("BUY/SELL Signals", sum(1 for row in recommendation_rows if row["recommendation"] in {"BUY", "SELL"}))
-        avg_confidence = round(sum(row["confidence_pct"] for row in recommendation_rows) / len(recommendation_rows), 1)
-        c3.metric("Avg Confidence", avg_confidence if recommendation_rows else 0.0)
+        c3.metric("Avg Confidence", average_confidence_pct(recommendation_rows))
 
         if not recommendation_rows:
             st.info("No reports found.")
