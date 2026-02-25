@@ -70,11 +70,12 @@ class DeepAnalyzer:
                 )
                 investigation.market_data = None
 
-        web_results, query_input_tokens, query_output_tokens = await self._run_web_search(
+        web_results, web_search_calls, query_input_tokens, query_output_tokens = await self._run_web_search(
             trigger=trigger,
             doc_summary=document_text[:2000],
         )
         investigation.web_search_results = web_results
+        investigation.web_search_calls = web_search_calls
 
         deep_result, pipeline_input_tokens, pipeline_output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
@@ -161,7 +162,7 @@ class DeepAnalyzer:
 
         return context
 
-    async def _run_web_search(self, trigger: Any, doc_summary: str) -> tuple[list[WebSearchResult], int, int]:
+    async def _run_web_search(self, trigger: Any, doc_summary: str) -> tuple[list[WebSearchResult], int, int, int]:
         query_input_tokens = 0
         query_output_tokens = 0
         try:
@@ -184,11 +185,13 @@ class DeepAnalyzer:
             queries = []
 
         findings: list[WebSearchResult] = []
+        call_count = 0
         for raw_query in queries:
             query = str(raw_query).strip()
             if not query:
                 continue
             try:
+                call_count += 1
                 rows = await self.web_search.search(query)
             except Exception as exc:  # noqa: BLE001
                 logger.warning("Web search execution failed: query=%s error=%s", query, exc)
@@ -210,7 +213,7 @@ class DeepAnalyzer:
                         sentiment="neutral",
                     )
                 )
-        return findings, query_input_tokens, query_output_tokens
+        return findings, call_count, query_input_tokens, query_output_tokens
 
     def _apply_pipeline_result(self, investigation: Investigation, result: DeepAnalysisResult) -> None:
         investigation.extracted_metrics = self._parse_metrics(result.extracted_metrics_json)
