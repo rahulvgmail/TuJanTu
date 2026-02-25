@@ -1,6 +1,17 @@
 """FastAPI route modules."""
 
-from src.api import costs, health, investigations, notes, notifications, performance, positions, reports, triggers
+from src.api import (
+    costs,
+    health,
+    investigations,
+    notes,
+    notifications,
+    performance,
+    positions,
+    reports,
+    triggers,
+    watchlist,
+)
 
 __all__ = [
     "costs",
@@ -12,4 +23,5 @@ __all__ = [
     "positions",
     "reports",
     "triggers",
+    "watchlist",
 ]

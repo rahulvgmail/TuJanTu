@@ -2,7 +2,9 @@
 
 import logging
 import logging.config
+import os
 from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -10,7 +12,18 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 
 from src.agents.tools import MarketDataTool, WebSearchTool
-from src.api import costs, health, investigations, notes, notifications, performance, positions, reports, triggers
+from src.api import (
+    costs,
+    health,
+    investigations,
+    notes,
+    notifications,
+    performance,
+    positions,
+    reports,
+    triggers,
+    watchlist,
+)
 from src.config import get_settings, load_watchlist_config
 from src.logging_setup import configure_structured_logging
 from src.pipeline.layer1_triggers.document_fetcher import DocumentFetcher
@@ -93,6 +106,9 @@ async def lifespan(app: FastAPI):
         app.state.mongo_db = mongo_db
         app.state.settings = settings
         app.state.watchlist = watchlist
+        app.state.watchlist_path = str(settings.watchlist_config_path)
+        app.state.watchlist_loaded_at = datetime.now(UTC)
+        app.state.agent_policy_path = os.getenv("TUJ_AGENT_POLICY_PATH", "config/agent_access_policy.yaml")
 
         trigger_repo = MongoTriggerRepository(mongo_db)
         document_repo = MongoDocumentRepository(mongo_db)
@@ -291,6 +307,7 @@ app.include_router(costs.router)
 app.include_router(performance.router)
 app.include_router(notes.router)
 app.include_router(notifications.router)
+app.include_router(watchlist.router)
 app.include_router(investigations.router)
 app.include_router(reports.router)
 app.include_router(positions.router)

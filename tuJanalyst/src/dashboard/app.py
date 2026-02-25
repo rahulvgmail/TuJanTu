@@ -1,9 +1,9 @@
-"""Streamlit dashboard for investor/analyst workflows."""
+"""Streamlit dashboard for investor/analyst and admin workflows."""
 
 from __future__ import annotations
 
 import os
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import httpx
@@ -23,6 +23,7 @@ DEFAULT_REPORT_LIMIT = 50
 DEFAULT_PERFORMANCE_LIMIT = 100
 DEFAULT_NOTES_LIMIT = 100
 DEFAULT_NOTIFICATION_LIMIT = 50
+DEFAULT_ADMIN_WINDOW_DAYS = 7
 HTTP_TIMEOUT_SECONDS = 12.0
 
 
@@ -95,13 +96,7 @@ def _fetch_performance_recommendations(base_url: str, limit: int, *, include_liv
     return [item for item in items if isinstance(item, dict)]
 
 
-def _fetch_notes(
-    base_url: str,
-    *,
-    company: str,
-    tag: str,
-    limit: int,
-) -> list[dict[str, Any]]:
+def _fetch_notes(base_url: str, *, company: str, tag: str, limit: int) -> list[dict[str, Any]]:
     params: dict[str, Any] = {"limit": limit}
     if company.strip():
         params["company"] = company.strip().upper()
@@ -131,6 +126,22 @@ def _fetch_notifications(base_url: str, *, since: str, limit: int) -> list[dict[
     if not isinstance(items, list):
         return []
     return [item for item in items if isinstance(item, dict)]
+
+
+def _fetch_watchlist_overview(base_url: str) -> dict[str, Any]:
+    return _api_get(base_url, "/api/v1/watchlist/overview")
+
+
+def _fetch_agent_policy(base_url: str) -> dict[str, Any]:
+    return _api_get(base_url, "/api/v1/watchlist/agent-policy")
+
+
+def _fetch_trigger_stats(base_url: str, since: str) -> dict[str, Any]:
+    return _api_get(base_url, "/api/v1/triggers/stats", params={"since": since})
+
+
+def _fetch_cost_summary(base_url: str, since: str) -> dict[str, Any]:
+    return _api_get(base_url, "/api/v1/costs/summary", params={"since": since})
 
 
 def _parse_tag_list(value: str) -> list[str]:
@@ -182,19 +193,23 @@ def _format_return_pct(value: Any) -> str:
         return "-"
 
 
+def _format_datetime(value: Any) -> str:
+    text = str(value or "")
+    return text[:19] if text else ""
+
+
 def _build_performance_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for item in items:
         company_symbol = str(item.get("company_symbol") or "UNKNOWN")
         company_name = str(item.get("company_name") or "")
-        recommendation_date = str(item.get("recommendation_date") or "")[:19]
         recommendation = str(item.get("recommendation") or "none").upper()
         timeframe = str(item.get("timeframe") or "medium_term").replace("_", " ").upper()
         status = str(item.get("status") or "unknown").replace("_", " ").title()
         outcome = str(item.get("outcome") or "unknown").upper()
         rows.append(
             {
-                "date": recommendation_date,
+                "date": _format_datetime(item.get("recommendation_date")),
                 "company": f"{company_symbol} | {company_name}".strip(" |"),
                 "action": recommendation,
                 "price_at_recommendation": _format_price(item.get("price_at_recommendation")),
@@ -216,7 +231,7 @@ def _build_note_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         tags_text = ", ".join(str(tag) for tag in tags) if isinstance(tags, list) else ""
         rows.append(
             {
-                "updated_at": str(item.get("updated_at") or "")[:19],
+                "updated_at": _format_datetime(item.get("updated_at")),
                 "company_symbol": str(item.get("company_symbol") or "UNKNOWN"),
                 "author": str(item.get("created_by") or "analyst"),
                 "tags": tags_text,
@@ -234,12 +249,64 @@ def _build_notification_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]
     for item in items:
         rows.append(
             {
-                "time": str(item.get("created_at") or "")[:19],
+                "time": _format_datetime(item.get("created_at")),
                 "type": str(item.get("kind") or ""),
                 "company": str(item.get("company_symbol") or "UNKNOWN"),
                 "title": str(item.get("title") or ""),
                 "message": str(item.get("message") or ""),
                 "entity_id": str(item.get("entity_id") or ""),
+            }
+        )
+    return rows
+
+
+def _build_watchlist_company_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        aliases = item.get("aliases")
+        alias_text = ", ".join(str(alias) for alias in aliases) if isinstance(aliases, list) else ""
+        recommendation = str(item.get("current_recommendation") or "none").upper()
+        rows.append(
+            {
+                "symbol": str(item.get("symbol") or ""),
+                "name": str(item.get("name") or ""),
+                "sector": str(item.get("sector") or ""),
+                "priority": str(item.get("priority") or ""),
+                "aliases": alias_text,
+                "status": str(item.get("status") or "").title(),
+                "last_trigger": _format_datetime(item.get("last_trigger")),
+                "total_investigations": int(item.get("total_investigations") or 0),
+                "current_recommendation": recommendation,
+            }
+        )
+    return rows
+
+
+def _build_sector_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        keywords = item.get("keywords")
+        keyword_text = ", ".join(str(keyword) for keyword in keywords) if isinstance(keywords, list) else ""
+        rows.append(
+            {
+                "sector_name": str(item.get("sector_name") or ""),
+                "keywords": keyword_text,
+                "companies_count": int(item.get("companies_count") or 0),
+            }
+        )
+    return rows
+
+
+def _build_policy_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        actions = item.get("actions")
+        action_text = ", ".join(str(action) for action in actions) if isinstance(actions, list) else ""
+        rows.append(
+            {
+                "agent": str(item.get("agent") or ""),
+                "domain": str(item.get("domain") or ""),
+                "actions": action_text,
             }
         )
     return rows
@@ -264,7 +331,7 @@ def _display_report_detail(base_url: str, report_id: str) -> None:
     meta_cols[0].metric("Company", str(detail.get("company_symbol") or "UNKNOWN"))
     meta_cols[1].metric("Report ID", str(detail.get("report_id") or ""))
     meta_cols[2].metric("Delivery", str(detail.get("delivery_status") or "unknown").upper())
-    meta_cols[3].metric("Created", str(detail.get("created_at") or "")[:19])
+    meta_cols[3].metric("Created", _format_datetime(detail.get("created_at")))
 
     st.markdown("**Recommendation Summary**")
     st.write(detail.get("recommendation_summary") or "_No recommendation summary_")
@@ -282,21 +349,17 @@ def _display_report_detail(base_url: str, report_id: str) -> None:
 
 def main() -> None:
     st.set_page_config(
-        page_title="tuJanalyst Investor Dashboard",
+        page_title="tuJanalyst Dashboard",
         page_icon=":bar_chart:",
         layout="wide",
-    )
-    st.title("Investor / Analyst Dashboard")
-    st.caption(
-        "T-502/T-503/T-504/T-505 MVP: recommendations, report detail, manual triggers, "
-        "performance tracking, shared notes, and in-app notifications"
     )
 
     if "notifications_since" not in st.session_state:
         st.session_state["notifications_since"] = datetime.now(UTC).isoformat()
 
     with st.sidebar:
-        st.header("Data Source")
+        st.header("Workspace")
+        view_mode = st.selectbox("UI Surface", options=["Investor/Analyst", "Admin"], index=0)
         api_base_url = st.text_input("API Base URL", value=DEFAULT_API_BASE_URL, help="FastAPI base URL")
         report_limit = st.slider("Reports to load", min_value=10, max_value=200, value=DEFAULT_REPORT_LIMIT, step=10)
         performance_limit = st.slider(
@@ -314,8 +377,15 @@ def main() -> None:
             value=DEFAULT_NOTIFICATION_LIMIT,
             step=10,
         )
+        admin_window_days = st.slider(
+            "Admin lookback (days)",
+            min_value=1,
+            max_value=30,
+            value=DEFAULT_ADMIN_WINDOW_DAYS,
+            step=1,
+        )
         sort_mode = st.selectbox(
-            "Default Sort",
+            "Recommendation Sort",
             options=["Expected Impact", "Newest"],
             index=0,
             help="Expected Impact ranks BUY/SELL > HOLD > NONE, then confidence, then recency.",
@@ -343,6 +413,134 @@ def main() -> None:
     def cached_notifications(base_url: str, since: str, limit: int) -> list[dict[str, Any]]:
         return _fetch_notifications(base_url, since=since, limit=limit)
 
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_watchlist_overview(base_url: str) -> dict[str, Any]:
+        return _fetch_watchlist_overview(base_url)
+
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_agent_policy(base_url: str) -> dict[str, Any]:
+        return _fetch_agent_policy(base_url)
+
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_trigger_stats(base_url: str, since: str) -> dict[str, Any]:
+        return _fetch_trigger_stats(base_url, since)
+
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_cost_summary(base_url: str, since: str) -> dict[str, Any]:
+        return _fetch_cost_summary(base_url, since)
+
+    if view_mode == "Admin":
+        st.title("Admin Dashboard")
+        st.caption("T-506 MVP: watchlist management (read-only) and agent access policy placeholder")
+
+        since_iso = (datetime.now(UTC) - timedelta(days=admin_window_days)).isoformat()
+        try:
+            watchlist_overview = cached_watchlist_overview(api_base_url)
+            agent_policy = cached_agent_policy(api_base_url)
+            trigger_stats = cached_trigger_stats(api_base_url, since_iso)
+            cost_summary = cached_cost_summary(api_base_url, since_iso)
+        except httpx.HTTPStatusError as exc:
+            st.error(f"Failed to fetch admin data (HTTP {exc.response.status_code}).")
+            return
+        except Exception as exc:  # noqa: BLE001
+            st.error(f"Failed to fetch admin data: {exc}")
+            return
+
+        company_rows = _build_watchlist_company_rows(watchlist_overview.get("companies", []))
+        sector_rows = _build_sector_rows(watchlist_overview.get("sectors", []))
+        active_recommendations = sum(
+            1 for row in company_rows if str(row.get("current_recommendation") or "NONE") != "NONE"
+        )
+
+        metric_cols = st.columns(5)
+        metric_cols[0].metric("Tracked Companies", len(company_rows))
+        metric_cols[1].metric("Tracked Sectors", len(sector_rows))
+        metric_cols[2].metric("Active Recos", active_recommendations)
+        metric_cols[3].metric("Triggers (Window)", int(trigger_stats.get("total") or 0))
+        metric_cols[4].metric(
+            "Cost / Report",
+            f"${float(cost_summary.get('cost_per_completed_report_usd') or 0.0):.4f}",
+        )
+
+        overview_tab, policy_tab = st.tabs(["Watchlist", "Agent Policy Placeholder"])
+
+        with overview_tab:
+            st.caption(
+                f"Watchlist source: {watchlist_overview.get('watchlist_path', '-')}, "
+                f"loaded at {str(watchlist_overview.get('watchlist_loaded_at') or '-')[:19]}"
+            )
+
+            counts_col_1, counts_col_2 = st.columns(2)
+            counts_col_1.markdown("**Trigger Status Split**")
+            counts_col_1.json(trigger_stats.get("counts_by_status") or {})
+            counts_col_2.markdown("**Trigger Source Split**")
+            counts_col_2.json(trigger_stats.get("counts_by_source") or {})
+
+            if not company_rows:
+                st.info("No watchlist company records found.")
+            else:
+                st.markdown("**Tracked Companies**")
+                st.dataframe(
+                    company_rows,
+                    hide_index=True,
+                    use_container_width=True,
+                    column_order=[
+                        "symbol",
+                        "name",
+                        "sector",
+                        "priority",
+                        "aliases",
+                        "status",
+                        "last_trigger",
+                        "total_investigations",
+                        "current_recommendation",
+                    ],
+                )
+
+            if not sector_rows:
+                st.info("No watchlist sectors found.")
+            else:
+                st.markdown("**Tracked Sectors**")
+                st.dataframe(
+                    sector_rows,
+                    hide_index=True,
+                    use_container_width=True,
+                    column_order=["sector_name", "companies_count", "keywords"],
+                )
+
+        with policy_tab:
+            st.info("MVP placeholder: policy editing remains config-file driven and read-only in UI.")
+            policy_meta_cols = st.columns(3)
+            policy_meta_cols[0].metric("Policy Exists", "Yes" if agent_policy.get("exists") else "No")
+            policy_meta_cols[1].metric("Editable In UI", "Yes" if agent_policy.get("editable_in_ui") else "No")
+            policy_meta_cols[2].metric("Permissions", len(agent_policy.get("permissions") or []))
+
+            st.code(str(agent_policy.get("policy_path") or "-"), language="text")
+            st.caption(f"Last loaded: {_format_datetime(agent_policy.get('last_loaded_at')) or '-'}")
+            st.caption(
+                f"Domains: {', '.join(agent_policy.get('domains') or [])} | "
+                f"Actions: {', '.join(agent_policy.get('actions') or [])}"
+            )
+
+            policy_rows = _build_policy_rows(agent_policy.get("permissions") or [])
+            if not policy_rows:
+                st.info("No explicit agent permission rows configured.")
+            else:
+                st.dataframe(
+                    policy_rows,
+                    hide_index=True,
+                    use_container_width=True,
+                    column_order=["agent", "domain", "actions"],
+                )
+
+        return
+
+    st.title("Investor / Analyst Dashboard")
+    st.caption(
+        "T-502/T-503/T-504/T-505 MVP: recommendations, report detail, manual triggers, "
+        "performance tracking, shared notes, and in-app notifications"
+    )
+
     try:
         reports = cached_reports(api_base_url, report_limit)
     except httpx.HTTPStatusError as exc:
@@ -362,14 +560,16 @@ def main() -> None:
         )
 
     recommendation_rows = _build_recommendation_rows(ordered_reports)
-    tabs = st.tabs([
-        "Recommendations",
-        "Report View",
-        "Manual Trigger",
-        "Performance",
-        "Notes",
-        "Notifications",
-    ])
+    tabs = st.tabs(
+        [
+            "Recommendations",
+            "Report View",
+            "Manual Trigger",
+            "Performance",
+            "Notes",
+            "Notifications",
+        ]
+    )
     recommendations_tab, report_tab, manual_tab, performance_tab, notes_tab, notifications_tab = tabs
 
     with recommendations_tab:
