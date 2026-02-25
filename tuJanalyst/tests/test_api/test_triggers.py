@@ -88,6 +88,14 @@ class InMemoryTriggerRepo:
             counts[item.status] = counts.get(item.status, 0) + 1
         return counts
 
+    async def counts_by_source(self, since: datetime | None = None) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for item in self.items.values():
+            if since is not None and item.created_at < since:
+                continue
+            counts[item.source] = counts.get(item.source, 0) + 1
+        return counts
+
 
 def build_test_client() -> tuple[TestClient, InMemoryTriggerRepo]:
     app = FastAPI()
@@ -234,3 +242,30 @@ def test_trigger_stats_endpoint_returns_counts_by_status() -> None:
     assert payload["total"] == 3
     assert payload["counts_by_status"]["gate_passed"] == 2
     assert payload["counts_by_status"]["filtered_out"] == 1
+    assert payload["counts_by_source"]["nse_rss"] == 2
+    assert payload["counts_by_source"]["bse_rss"] == 1
+
+
+def test_get_trigger_status_can_include_details_and_preview() -> None:
+    client, repo = build_test_client()
+    trigger = TriggerEvent(
+        source=TriggerSource.NSE_RSS,
+        raw_content="Very long content that should be truncated for preview display",
+        company_symbol="SIEMENS",
+    )
+    trigger.set_status(TriggerStatus.GATE_PASSED, "Gate passed")
+    trigger.gate_result = {"passed": True, "reason": "Matched watchlist", "method": "watchlist_filter"}
+    repo.items[trigger.trigger_id] = trigger
+
+    response = client.get(
+        f"/api/v1/triggers/{trigger.trigger_id}",
+        params={"include_details": "true", "include_content_preview": "true", "content_preview_chars": 24},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["trigger_id"] == trigger.trigger_id
+    assert payload["updated_at"] is not None
+    assert payload["status_history"][0]["reason"] == "Gate passed"
+    assert payload["gate_result"]["method"] == "watchlist_filter"
+    assert payload["raw_content_preview"].endswith("...")

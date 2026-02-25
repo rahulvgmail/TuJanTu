@@ -48,6 +48,8 @@ class TriggerRepository(Protocol):
 
     async def counts_by_status(self, since: datetime | None = None) -> dict[str, int]: ...
 
+    async def counts_by_source(self, since: datetime | None = None) -> dict[str, int]: ...
+
 
 class DocumentRepository(Protocol):
     """Data access contract for raw/processed documents."""

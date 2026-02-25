@@ -112,6 +112,7 @@ class Investigation(BaseModel):
     forward_statements: list[ForwardStatement] = Field(default_factory=list)
     management_highlights: list[str] = Field(default_factory=list)
     web_search_results: list[WebSearchResult] = Field(default_factory=list)
+    web_search_calls: int = 0
     market_data: MarketDataSnapshot | None = None
     historical_context: HistoricalContext | None = None
 

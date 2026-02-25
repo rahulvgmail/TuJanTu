@@ -192,6 +192,40 @@ async def test_trigger_counts_by_status_with_since_filter(trigger_repo: MongoTri
 
 
 @pytest.mark.asyncio
+async def test_trigger_counts_by_source_with_since_filter(trigger_repo: MongoTriggerRepository) -> None:
+    now = _utc_now()
+    old_trigger = TriggerEvent(
+        source=TriggerSource.NSE_RSS,
+        source_url="https://example.com/old-source",
+        raw_content="old-source",
+        created_at=now - timedelta(days=2),
+        updated_at=now - timedelta(days=2),
+    )
+    recent_a = TriggerEvent(
+        source=TriggerSource.NSE_RSS,
+        source_url="https://example.com/recent-source-a",
+        raw_content="recent-source-a",
+        created_at=now - timedelta(hours=4),
+        updated_at=now - timedelta(hours=4),
+    )
+    recent_b = TriggerEvent(
+        source=TriggerSource.BSE_RSS,
+        source_url="https://example.com/recent-source-b",
+        raw_content="recent-source-b",
+        created_at=now - timedelta(hours=3),
+        updated_at=now - timedelta(hours=3),
+    )
+
+    for trigger in [old_trigger, recent_a, recent_b]:
+        await trigger_repo.save(trigger)
+
+    counts = await trigger_repo.counts_by_source(since=now - timedelta(days=1))
+    assert counts["nse_rss"] == 1
+    assert counts["bse_rss"] == 1
+    assert counts.get("human", 0) == 0
+
+
+@pytest.mark.asyncio
 async def test_document_save_get_and_update(document_repo: MongoDocumentRepository) -> None:
     document = RawDocument(
         trigger_id="trigger-123",

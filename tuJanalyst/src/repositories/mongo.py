@@ -222,6 +222,18 @@ class MongoTriggerRepository:
             result[status] = int(row.get("count", 0))
         return result
 
+    async def counts_by_source(self, since: datetime | None = None) -> dict[str, int]:
+        pipeline: list[dict[str, Any]] = []
+        if since is not None:
+            pipeline.append({"$match": {"created_at": {"$gte": since}}})
+        pipeline.append({"$group": {"_id": "$source", "count": {"$sum": 1}}})
+
+        result: dict[str, int] = {}
+        async for row in self.collection.aggregate(pipeline):
+            source = str(row.get("_id") or "unknown")
+            result[source] = int(row.get("count", 0))
+        return result
+
     def _build_query(
         self,
         *,
