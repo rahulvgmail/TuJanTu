@@ -1,8 +1,9 @@
-"""Streamlit dashboard for investor/analyst recommendations and report view."""
+"""Streamlit dashboard for investor/analyst workflows."""
 
 from __future__ import annotations
 
 import os
+from datetime import UTC, datetime
 from typing import Any
 
 import httpx
@@ -20,6 +21,8 @@ from src.dashboard.recommendation_utils import (
 DEFAULT_API_BASE_URL = os.getenv("TUJ_API_BASE_URL", "http://localhost:8000")
 DEFAULT_REPORT_LIMIT = 50
 DEFAULT_PERFORMANCE_LIMIT = 100
+DEFAULT_NOTES_LIMIT = 100
+DEFAULT_NOTIFICATION_LIMIT = 50
 HTTP_TIMEOUT_SECONDS = 12.0
 
 
@@ -92,6 +95,56 @@ def _fetch_performance_recommendations(base_url: str, limit: int, *, include_liv
     return [item for item in items if isinstance(item, dict)]
 
 
+def _fetch_notes(
+    base_url: str,
+    *,
+    company: str,
+    tag: str,
+    limit: int,
+) -> list[dict[str, Any]]:
+    params: dict[str, Any] = {"limit": limit}
+    if company.strip():
+        params["company"] = company.strip().upper()
+    if tag.strip():
+        params["tag"] = tag.strip().lower()
+    payload = _api_get(base_url, "/api/v1/notes", params=params)
+    items = payload.get("items", [])
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
+def _create_note(base_url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    return _api_post(base_url, "/api/v1/notes", json_payload=payload)
+
+
+def _fetch_notifications(base_url: str, *, since: str, limit: int) -> list[dict[str, Any]]:
+    payload = _api_get(
+        base_url,
+        "/api/v1/notifications/feed",
+        params={
+            "since": since,
+            "limit": limit,
+        },
+    )
+    items = payload.get("items", [])
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
+def _parse_tag_list(value: str) -> list[str]:
+    seen: set[str] = set()
+    tags: list[str] = []
+    for part in value.split(","):
+        tag = part.strip().lower()
+        if not tag or tag in seen:
+            continue
+        seen.add(tag)
+        tags.append(tag)
+    return tags
+
+
 def _build_recommendation_rows(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for report in reports:
@@ -156,6 +209,42 @@ def _build_performance_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]
     return rows
 
 
+def _build_note_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        tags = item.get("tags")
+        tags_text = ", ".join(str(tag) for tag in tags) if isinstance(tags, list) else ""
+        rows.append(
+            {
+                "updated_at": str(item.get("updated_at") or "")[:19],
+                "company_symbol": str(item.get("company_symbol") or "UNKNOWN"),
+                "author": str(item.get("created_by") or "analyst"),
+                "tags": tags_text,
+                "content": str(item.get("content") or ""),
+                "report_id": str(item.get("report_id") or ""),
+                "investigation_id": str(item.get("investigation_id") or ""),
+                "note_id": str(item.get("note_id") or ""),
+            }
+        )
+    return rows
+
+
+def _build_notification_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        rows.append(
+            {
+                "time": str(item.get("created_at") or "")[:19],
+                "type": str(item.get("kind") or ""),
+                "company": str(item.get("company_symbol") or "UNKNOWN"),
+                "title": str(item.get("title") or ""),
+                "message": str(item.get("message") or ""),
+                "entity_id": str(item.get("entity_id") or ""),
+            }
+        )
+    return rows
+
+
 def _display_report_detail(base_url: str, report_id: str) -> None:
     if not report_id:
         st.info("Select a report from Recommendations to view details.")
@@ -164,8 +253,7 @@ def _display_report_detail(base_url: str, report_id: str) -> None:
     try:
         detail = _fetch_report_detail(base_url, report_id)
     except httpx.HTTPStatusError as exc:
-        status = exc.response.status_code
-        st.error(f"Could not load report `{report_id}` (HTTP {status}).")
+        st.error(f"Could not load report `{report_id}` (HTTP {exc.response.status_code}).")
         return
     except Exception as exc:  # noqa: BLE001
         st.error(f"Could not load report `{report_id}`: {exc}")
@@ -199,7 +287,13 @@ def main() -> None:
         layout="wide",
     )
     st.title("Investor / Analyst Dashboard")
-    st.caption("T-502/T-503/T-504 MVP: recommendations, report detail, manual triggers, and performance tracking")
+    st.caption(
+        "T-502/T-503/T-504/T-505 MVP: recommendations, report detail, manual triggers, "
+        "performance tracking, shared notes, and in-app notifications"
+    )
+
+    if "notifications_since" not in st.session_state:
+        st.session_state["notifications_since"] = datetime.now(UTC).isoformat()
 
     with st.sidebar:
         st.header("Data Source")
@@ -212,14 +306,21 @@ def main() -> None:
             value=DEFAULT_PERFORMANCE_LIMIT,
             step=20,
         )
+        notes_limit = st.slider("Notes rows", min_value=20, max_value=300, value=DEFAULT_NOTES_LIMIT, step=20)
+        notification_limit = st.slider(
+            "Notification rows",
+            min_value=10,
+            max_value=200,
+            value=DEFAULT_NOTIFICATION_LIMIT,
+            step=10,
+        )
         sort_mode = st.selectbox(
             "Default Sort",
             options=["Expected Impact", "Newest"],
             index=0,
             help="Expected Impact ranks BUY/SELL > HOLD > NONE, then confidence, then recency.",
         )
-        reload_clicked = st.button("Reload")
-        if reload_clicked:
+        if st.button("Reload"):
             st.cache_data.clear()
 
     @st.cache_data(ttl=30, show_spinner=False)
@@ -233,6 +334,14 @@ def main() -> None:
     @st.cache_data(ttl=30, show_spinner=False)
     def cached_performance_rows(base_url: str, limit: int, include_live_price: bool) -> list[dict[str, Any]]:
         return _fetch_performance_recommendations(base_url, limit, include_live_price=include_live_price)
+
+    @st.cache_data(ttl=15, show_spinner=False)
+    def cached_notes(base_url: str, company: str, tag: str, limit: int) -> list[dict[str, Any]]:
+        return _fetch_notes(base_url, company=company, tag=tag, limit=limit)
+
+    @st.cache_data(ttl=15, show_spinner=False)
+    def cached_notifications(base_url: str, since: str, limit: int) -> list[dict[str, Any]]:
+        return _fetch_notifications(base_url, since=since, limit=limit)
 
     try:
         reports = cached_reports(api_base_url, report_limit)
@@ -252,22 +361,29 @@ def main() -> None:
             reverse=True,
         )
 
-    rows = _build_recommendation_rows(ordered_reports)
-    recommendations_tab, report_tab, manual_tab, performance_tab = st.tabs(
-        ["Recommendations", "Report View", "Manual Trigger", "Performance"]
-    )
+    recommendation_rows = _build_recommendation_rows(ordered_reports)
+    tabs = st.tabs([
+        "Recommendations",
+        "Report View",
+        "Manual Trigger",
+        "Performance",
+        "Notes",
+        "Notifications",
+    ])
+    recommendations_tab, report_tab, manual_tab, performance_tab, notes_tab, notifications_tab = tabs
 
     with recommendations_tab:
         c1, c2, c3 = st.columns(3)
-        c1.metric("Loaded Reports", len(rows))
-        c2.metric("BUY/SELL Signals", sum(1 for row in rows if row["recommendation"] in {"BUY", "SELL"}))
-        c3.metric("Avg Confidence", round(sum(row["confidence_pct"] for row in rows) / len(rows), 1) if rows else 0.0)
+        c1.metric("Loaded Reports", len(recommendation_rows))
+        c2.metric("BUY/SELL Signals", sum(1 for row in recommendation_rows if row["recommendation"] in {"BUY", "SELL"}))
+        avg_confidence = round(sum(row["confidence_pct"] for row in recommendation_rows) / len(recommendation_rows), 1)
+        c3.metric("Avg Confidence", avg_confidence if recommendation_rows else 0.0)
 
-        if not rows:
+        if not recommendation_rows:
             st.info("No reports found.")
         else:
             st.dataframe(
-                rows,
+                recommendation_rows,
                 hide_index=True,
                 use_container_width=True,
                 column_order=[
@@ -281,15 +397,15 @@ def main() -> None:
                 ],
             )
 
-            selected_default = rows[0]["report_id"]
+            selected_default = recommendation_rows[0]["report_id"]
             selected_report_id = st.selectbox(
                 "Open report",
-                options=[row["report_id"] for row in rows],
+                options=[row["report_id"] for row in recommendation_rows],
                 index=0,
                 format_func=lambda value: next(
                     (
                         f'{row["company"]} | {row["recommendation"]} | {row["title"][:80]}'
-                        for row in rows
+                        for row in recommendation_rows
                         if row["report_id"] == value
                     ),
                     value,
@@ -344,8 +460,7 @@ def main() -> None:
             st.markdown("### Latest Trigger Status")
             status_cols = st.columns([3, 1])
             status_cols[0].code(last_trigger_id)
-            refresh = status_cols[1].button("Refresh Status")
-            if refresh:
+            if status_cols[1].button("Refresh Status"):
                 try:
                     status_payload = _fetch_trigger_status(api_base_url, last_trigger_id)
                     st.json(status_payload)
@@ -385,18 +500,14 @@ def main() -> None:
             best_symbol = best_call.get("company_symbol", "-")
             best_reco = str(best_call.get("recommendation", "-")).upper()
             best_return = _format_return_pct(best_call.get("return_pct"))
-            call_cols[0].info(
-                f"Best Call: {best_symbol} {best_reco} ({best_return})"
-            )
+            call_cols[0].info(f"Best Call: {best_symbol} {best_reco} ({best_return})")
         else:
             call_cols[0].info("Best Call: -")
         if isinstance(worst_call, dict):
             worst_symbol = worst_call.get("company_symbol", "-")
             worst_reco = str(worst_call.get("recommendation", "-")).upper()
             worst_return = _format_return_pct(worst_call.get("return_pct"))
-            call_cols[1].info(
-                f"Worst Call: {worst_symbol} {worst_reco} ({worst_return})"
-            )
+            call_cols[1].info(f"Worst Call: {worst_symbol} {worst_reco} ({worst_return})")
         else:
             call_cols[1].info("Worst Call: -")
 
@@ -420,6 +531,107 @@ def main() -> None:
                     "outcome",
                     "assessment_id",
                 ],
+            )
+
+    with notes_tab:
+        st.subheader("Shared Notes")
+        st.caption("Notes are organization-shared and indexed with company context.")
+
+        filter_cols = st.columns(3)
+        notes_company_filter = filter_cols[0].text_input("Filter Company", placeholder="e.g., SUZLON")
+        notes_tag_filter = filter_cols[1].text_input("Filter Tag", placeholder="e.g., thesis")
+        if filter_cols[2].button("Refresh Notes"):
+            st.cache_data.clear()
+
+        with st.form("shared_note_form", clear_on_submit=False):
+            note_company_symbol = st.text_input("Company Symbol *", placeholder="e.g., SUZLON")
+            note_content = st.text_area("Note *", height=120, placeholder="Add context for future analyses...")
+            note_tags_csv = st.text_input("Tags (comma-separated)", placeholder="risk, thesis, management")
+            note_company_name = st.text_input("Company Name (optional)")
+            note_report_id = st.text_input("Related Report ID (optional)")
+            note_investigation_id = st.text_input("Related Investigation ID (optional)")
+            note_author = st.text_input("Author (optional)", value="analyst")
+            note_submitted = st.form_submit_button("Add Shared Note", type="primary")
+
+        if note_submitted:
+            try:
+                payload = {
+                    "company_symbol": note_company_symbol,
+                    "company_name": note_company_name,
+                    "content": note_content,
+                    "tags": _parse_tag_list(note_tags_csv),
+                    "report_id": note_report_id,
+                    "investigation_id": note_investigation_id,
+                    "created_by": note_author,
+                }
+                created = _create_note(api_base_url, payload)
+                st.success(f"Note saved. Note ID: {created.get('note_id', '')}")
+                st.cache_data.clear()
+            except httpx.HTTPStatusError as exc:
+                st.error(f"Note save failed (HTTP {exc.response.status_code}).")
+            except Exception as exc:  # noqa: BLE001
+                st.error(f"Note save failed: {exc}")
+
+        try:
+            notes_items = cached_notes(api_base_url, notes_company_filter, notes_tag_filter, notes_limit)
+        except httpx.HTTPStatusError as exc:
+            st.error(f"Failed to fetch notes (HTTP {exc.response.status_code}).")
+            return
+        except Exception as exc:  # noqa: BLE001
+            st.error(f"Failed to fetch notes: {exc}")
+            return
+
+        note_rows = _build_note_rows(notes_items)
+        if not note_rows:
+            st.info("No notes found for current filters.")
+        else:
+            st.dataframe(
+                note_rows,
+                hide_index=True,
+                use_container_width=True,
+                column_order=[
+                    "updated_at",
+                    "company_symbol",
+                    "author",
+                    "tags",
+                    "content",
+                    "report_id",
+                    "investigation_id",
+                    "note_id",
+                ],
+            )
+
+    with notifications_tab:
+        st.subheader("Notifications")
+        st.caption("In-app feed since your current dashboard session started.")
+
+        notifications_since = str(st.session_state.get("notifications_since") or datetime.now(UTC).isoformat())
+        header_cols = st.columns(3)
+        header_cols[0].code(f"Since: {notifications_since[:19]}")
+        if header_cols[1].button("Mark All Read"):
+            st.session_state["notifications_since"] = datetime.now(UTC).isoformat()
+            st.cache_data.clear()
+            notifications_since = str(st.session_state["notifications_since"])
+
+        try:
+            notification_items = cached_notifications(api_base_url, notifications_since, notification_limit)
+        except httpx.HTTPStatusError as exc:
+            st.error(f"Failed to fetch notifications (HTTP {exc.response.status_code}).")
+            return
+        except Exception as exc:  # noqa: BLE001
+            st.error(f"Failed to fetch notifications: {exc}")
+            return
+
+        header_cols[2].metric("Unread", len(notification_items))
+        notification_rows = _build_notification_rows(notification_items)
+        if not notification_rows:
+            st.info("No new notifications in this session.")
+        else:
+            st.dataframe(
+                notification_rows,
+                hide_index=True,
+                use_container_width=True,
+                column_order=["time", "type", "company", "title", "message", "entity_id"],
             )
 
 

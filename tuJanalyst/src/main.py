@@ -5,12 +5,12 @@ import logging.config
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import yaml
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 
 from src.agents.tools import MarketDataTool, WebSearchTool
-from src.api import costs, health, investigations, performance, positions, reports, triggers
+from src.api import costs, health, investigations, notes, notifications, performance, positions, reports, triggers
 from src.config import get_settings, load_watchlist_config
 from src.logging_setup import configure_structured_logging
 from src.pipeline.layer1_triggers.document_fetcher import DocumentFetcher
@@ -289,6 +289,8 @@ app.include_router(triggers.router)
 app.include_router(health.router)
 app.include_router(costs.router)
 app.include_router(performance.router)
+app.include_router(notes.router)
+app.include_router(notifications.router)
 app.include_router(investigations.router)
 app.include_router(reports.router)
 app.include_router(positions.router)

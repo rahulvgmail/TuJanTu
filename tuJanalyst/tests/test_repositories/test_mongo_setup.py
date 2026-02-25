@@ -10,6 +10,7 @@ from src.repositories.mongo import (
     ASSESSMENTS_COLLECTION,
     DOCUMENTS_COLLECTION,
     INVESTIGATIONS_COLLECTION,
+    NOTES_COLLECTION,
     POSITIONS_COLLECTION,
     REPORTS_COLLECTION,
     TRIGGERS_COLLECTION,
@@ -34,6 +35,7 @@ class _FakeDatabase:
             ASSESSMENTS_COLLECTION: _FakeCollection(),
             POSITIONS_COLLECTION: _FakeCollection(),
             REPORTS_COLLECTION: _FakeCollection(),
+            NOTES_COLLECTION: _FakeCollection(),
         }
 
     def __getitem__(self, name: str) -> _FakeCollection:
@@ -51,6 +53,7 @@ async def test_ensure_indexes_creates_expected_indexes() -> None:
     assessment_index_names = {call["name"] for call in db.collections[ASSESSMENTS_COLLECTION].index_calls}
     position_index_names = {call["name"] for call in db.collections[POSITIONS_COLLECTION].index_calls}
     report_index_names = {call["name"] for call in db.collections[REPORTS_COLLECTION].index_calls}
+    note_index_names = {call["name"] for call in db.collections[NOTES_COLLECTION].index_calls}
 
     assert trigger_index_names == {
         "uq_trigger_id",
@@ -81,4 +84,9 @@ async def test_ensure_indexes_creates_expected_indexes() -> None:
         "uq_report_id",
         "idx_report_created_at",
         "idx_report_company_symbol",
+    }
+    assert note_index_names == {
+        "uq_note_id",
+        "idx_note_company_updated",
+        "idx_note_tags",
     }
