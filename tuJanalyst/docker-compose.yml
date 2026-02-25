@@ -12,6 +12,28 @@ services:
       - mongodb
     restart: unless-stopped
 
+  dashboard:
+    build: .
+    command:
+      - streamlit
+      - run
+      - src/dashboard/app.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      TUJ_API_BASE_URL: http://app:8000
+      PYTHONPATH: /app
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+    depends_on:
+      - app
+    restart: unless-stopped
+
   mongodb:
     image: mongo:7
     ports:
