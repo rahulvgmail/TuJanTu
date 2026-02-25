@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import threading
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -40,6 +42,7 @@ class ChromaVectorRepository:
             metadata={"hnsw:space": "cosine"},
         )
         self._embedder = embedder or self._create_embedder(embedding_model)
+        self._io_lock = threading.Lock()
 
     @staticmethod
     def _create_client(persist_dir: Path) -> Any:
@@ -59,29 +62,37 @@ class ChromaVectorRepository:
         return SentenceTransformer(embedding_model)
 
     async def add_document(self, document_id: str, text: str, metadata: dict) -> str:
+        return await asyncio.to_thread(self._add_document_sync, document_id, text, metadata)
+
+    def _add_document_sync(self, document_id: str, text: str, metadata: dict) -> str:
         chunks = self._chunk_text(text)
         clean_metadata = self._sanitize_metadata(metadata)
-        for chunk_index, chunk in enumerate(chunks):
-            chunk_id = f"{document_id}_chunk_{chunk_index}"
-            chunk_metadata = dict(clean_metadata)
-            chunk_metadata["document_id"] = document_id
-            chunk_metadata["chunk_index"] = chunk_index
-            self._collection.add(
-                ids=[chunk_id],
-                embeddings=[self._encode(chunk)],
-                documents=[chunk],
-                metadatas=[chunk_metadata],
-            )
+        with self._io_lock:
+            for chunk_index, chunk in enumerate(chunks):
+                chunk_id = f"{document_id}_chunk_{chunk_index}"
+                chunk_metadata = dict(clean_metadata)
+                chunk_metadata["document_id"] = document_id
+                chunk_metadata["chunk_index"] = chunk_index
+                self._collection.add(
+                    ids=[chunk_id],
+                    embeddings=[self._encode(chunk)],
+                    documents=[chunk],
+                    metadatas=[chunk_metadata],
+                )
         return document_id
 
     async def search(self, query: str, n_results: int = 5, where: dict | None = None) -> list[dict]:
+        return await asyncio.to_thread(self._search_sync, query, n_results, where)
+
+    def _search_sync(self, query: str, n_results: int = 5, where: dict | None = None) -> list[dict]:
         where_clause = where or None
-        results = self._collection.query(
-            query_embeddings=[self._encode(query)],
-            n_results=n_results,
-            where=where_clause,
-            include=["documents", "metadatas", "distances"],
-        )
+        with self._io_lock:
+            results = self._collection.query(
+                query_embeddings=[self._encode(query)],
+                n_results=n_results,
+                where=where_clause,
+                include=["documents", "metadatas", "distances"],
+            )
 
         ids = results.get("ids", [[]])
         documents = results.get("documents", [[]])
@@ -103,16 +114,20 @@ class ChromaVectorRepository:
         return rows
 
     async def delete_document(self, document_id: str) -> None:
-        try:
-            self._collection.delete(where={"document_id": document_id})
-            return
-        except Exception:  # noqa: BLE001
-            pass
+        await asyncio.to_thread(self._delete_document_sync, document_id)
 
-        matches = self._collection.get(where={"document_id": document_id}, include=[])
-        ids = matches.get("ids", [])
-        if ids:
-            self._collection.delete(ids=ids)
+    def _delete_document_sync(self, document_id: str) -> None:
+        with self._io_lock:
+            try:
+                self._collection.delete(where={"document_id": document_id})
+                return
+            except Exception:  # noqa: BLE001
+                pass
+
+            matches = self._collection.get(where={"document_id": document_id}, include=[])
+            ids = matches.get("ids", [])
+            if ids:
+                self._collection.delete(ids=ids)
 
     def _encode(self, text: str) -> list[float]:
         raw_vector = self._embedder.encode(text)

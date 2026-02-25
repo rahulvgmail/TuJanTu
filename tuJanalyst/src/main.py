@@ -125,7 +125,11 @@ async def lifespan(app: FastAPI):
             doc_repo=document_repo,
             max_size_mb=settings.max_document_size_mb,
         )
-        text_extractor = TextExtractor(doc_repo=document_repo, vector_repo=vector_repo)
+        text_extractor = TextExtractor(
+            doc_repo=document_repo,
+            vector_repo=vector_repo,
+            extraction_timeout_seconds=float(settings.text_extraction_timeout_seconds),
+        )
         watchlist_filter = WatchlistFilter(str(settings.watchlist_config_path))
         gate_classifier = GateClassifier(
             model=settings.gate_model,

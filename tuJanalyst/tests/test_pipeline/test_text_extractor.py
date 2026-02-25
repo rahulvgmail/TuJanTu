@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from pathlib import Path
 from typing import Any
 
@@ -225,3 +226,35 @@ async def test_extract_handles_embedding_failure_without_losing_text(tmp_path: P
     assert extracted.extracted_text == "Material update for investors"
     assert extracted.processing_status == ProcessingStatus.ERROR.value
     assert any("Embedding error:" in message for message in extracted.processing_errors)
+
+
+@pytest.mark.asyncio
+async def test_extract_times_out_when_extraction_exceeds_limit(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    file_path = tmp_path / "slow.txt"
+    file_path.write_text("slow content", encoding="utf-8")
+
+    repo = InMemoryDocumentRepo()
+    document = RawDocument(
+        trigger_id="trigger-6",
+        source_url="https://example.test/slow.txt",
+        file_path=str(file_path),
+        document_type=DocumentType.TEXT,
+    )
+    await repo.save(document)
+
+    def _slow_extract_text(self: TextExtractor, path: Path) -> tuple[str, str, dict]:
+        del path
+        time.sleep(0.2)
+        return "slow content", "plain_text", {"char_count": 12}
+
+    monkeypatch.setattr(TextExtractor, "_extract_text", _slow_extract_text)
+
+    extractor = TextExtractor(repo, extraction_timeout_seconds=0.05)
+    result = await extractor.extract(document.document_id)
+
+    assert result is not None
+    assert result.processing_status == ProcessingStatus.ERROR.value
+    assert any("Text extraction exceeded 0.05s timeout." in message for message in result.processing_errors)

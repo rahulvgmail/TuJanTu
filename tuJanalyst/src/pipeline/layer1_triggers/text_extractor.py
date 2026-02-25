@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from pathlib import Path
 
@@ -17,9 +18,17 @@ logger = logging.getLogger(__name__)
 class TextExtractor:
     """Extract text from PDF, HTML, and plaintext documents."""
 
-    def __init__(self, doc_repo: DocumentRepository, vector_repo: VectorRepository | None = None):
+    def __init__(
+        self,
+        doc_repo: DocumentRepository,
+        vector_repo: VectorRepository | None = None,
+        extraction_timeout_seconds: float | None = 60.0,
+    ):
+        if extraction_timeout_seconds is not None and extraction_timeout_seconds <= 0:
+            raise ValueError("extraction_timeout_seconds must be > 0 or None")
         self.doc_repo = doc_repo
         self.vector_repo = vector_repo
+        self.extraction_timeout_seconds = extraction_timeout_seconds
 
     async def extract(self, document_id: str) -> RawDocument | None:
         """Extract text for a stored RawDocument and persist extraction output."""
@@ -40,12 +49,19 @@ class TextExtractor:
                 raise FileNotFoundError(f"File not found: {document.file_path}")
 
             effective_type = self._resolve_document_type(document, path)
-            if effective_type == DocumentType.PDF:
-                text, method, metadata = self._extract_pdf(path)
-            elif effective_type == DocumentType.HTML:
-                text, method, metadata = self._extract_html(path)
+            extraction_task = asyncio.to_thread(self._extract_by_type, effective_type, path)
+            if self.extraction_timeout_seconds is not None:
+                try:
+                    text, method, metadata = await asyncio.wait_for(
+                        extraction_task,
+                        timeout=self.extraction_timeout_seconds,
+                    )
+                except TimeoutError as exc:
+                    raise TimeoutError(
+                        f"Text extraction exceeded {self.extraction_timeout_seconds:g}s timeout."
+                    ) from exc
             else:
-                text, method, metadata = self._extract_text(path)
+                text, method, metadata = await extraction_task
 
             await self.doc_repo.update_extracted_text(
                 document_id=document.document_id,
@@ -65,6 +81,13 @@ class TextExtractor:
             await self.doc_repo.save(document)
             logger.error("Text extraction failed: document_id=%s error=%s", document_id, exc)
             return document
+
+    def _extract_by_type(self, document_type: DocumentType, path: Path) -> tuple[str, str, dict]:
+        if document_type == DocumentType.PDF:
+            return self._extract_pdf(path)
+        if document_type == DocumentType.HTML:
+            return self._extract_html(path)
+        return self._extract_text(path)
 
     def _resolve_document_type(self, document: RawDocument, path: Path) -> DocumentType:
         if document.document_type != DocumentType.UNKNOWN.value:
