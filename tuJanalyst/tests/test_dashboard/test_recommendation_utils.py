@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from src.dashboard.recommendation_utils import (
+    average_confidence_pct,
     expected_impact_score,
     extract_confidence_pct,
     infer_recommendation_signal,
@@ -55,3 +56,9 @@ def test_sort_reports_by_expected_impact_descending() -> None:
     ]
     sorted_reports = sort_reports_by_expected_impact(reports)
     assert [item["report_id"] for item in sorted_reports] == ["r1", "r2", "r3"]
+
+
+def test_average_confidence_pct_handles_empty_and_non_empty_rows() -> None:
+    assert average_confidence_pct([]) == 0.0
+    rows = [{"confidence_pct": 70}, {"confidence_pct": 80}, {"confidence_pct": 65}]
+    assert average_confidence_pct(rows) == 71.7

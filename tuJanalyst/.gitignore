@@ -12,6 +12,7 @@ mongo_data/
 .idea/
 .vscode/
 *.swp
+.DS_Store
 
 # Build
 dist/

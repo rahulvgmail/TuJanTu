@@ -1,0 +1,56 @@
+version: 1
+source: "config_file"
+
+domains:
+  - triggers
+  - documents
+  - reports
+  - notes
+  - users
+  - licenses
+
+actions:
+  - read
+  - create
+  - update
+  - delete
+
+agents:
+  - agent: "rss_poller"
+    permissions:
+      - domain: "triggers"
+        actions: ["create", "read"]
+
+  - agent: "document_fetcher"
+    permissions:
+      - domain: "documents"
+        actions: ["create", "update", "read"]
+      - domain: "triggers"
+        actions: ["read"]
+
+  - agent: "text_extractor"
+    permissions:
+      - domain: "documents"
+        actions: ["read", "update"]
+
+  - agent: "deep_analyzer"
+    permissions:
+      - domain: "documents"
+        actions: ["read"]
+      - domain: "reports"
+        actions: ["read"]
+
+  - agent: "decision_assessor"
+    permissions:
+      - domain: "reports"
+        actions: ["read", "update"]
+
+  - agent: "report_generator"
+    permissions:
+      - domain: "reports"
+        actions: ["create", "update", "read"]
+
+  - agent: "report_deliverer"
+    permissions:
+      - domain: "reports"
+        actions: ["read", "update"]

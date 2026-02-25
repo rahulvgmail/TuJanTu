@@ -2290,26 +2290,52 @@ These decisions are locked unless explicitly changed:
 
 ---
 
-## Week 5-6: Dashboard + Polish (Outline)
+## Week 5-6: Dashboard + Polish (Refined Scope)
 
-> Detailed specs for Weeks 5-6 will be written after Weeks 3-4 are underway. High-level tasks listed here for planning visibility.
+> Scope refined on 2026-02-25 from product planning decisions.
 
-### T-501: Streamlit Dashboard — Trigger View
+### Locked MVP Product Decisions (2026-02-25)
+
+1. **Two UI surfaces**: `Admin` and `Investor/Analyst`.
+2. **Human roles**: `admin`, `analyst`, `investor`.
+3. **Investor-area permissions (MVP)**: `analyst` and `investor` start with identical permissions; can diverge later.
+4. **Agent access control model (MVP)**:
+   - Permission model must include both data-domain scopes and action scopes.
+   - Actions: `read`, `create`, `update`, `delete`.
+   - Initial domains: `triggers`, `documents`, `reports`, `notes`, `users`, `licenses`.
+   - Source of truth is config-file based in MVP; admin UI will show a placeholder for this capability.
+5. **Required Admin KPIs (MVP)**:
+   - total triggers processed
+   - trigger distribution by source/type
+   - stage conversion funnel
+   - failure rate by stage/reason
+   - cost per completed report
+6. **Cost accounting scope (MVP)**: include `LLM` + `web search` API costs only.
+7. **Investor defaults and behaviors (MVP)**:
+   - recommendation list default sort = highest expected impact first
+   - manual trigger required fields = `company`, `event_summary`
+   - analysis notes are organization-shared and indexed with stock context
+   - notifications are in-app only
+8. **Explicitly deferred from Admin dashboard MVP**: dedicated latency dashboard (telemetry remains a separate page).
+9. **Authentication/RBAC enforcement**: deferred unless a low-effort implementation materially improves delivery; MVP can run in trusted-team mode with soft role switching.
+10. **Company analysis chat**: deferred from Weeks 5-6 to a post-MVP iteration.
+
+### T-501: Admin Dashboard — Trigger Funnel + Cost KPIs
 | **Status** | ⬜ | **Prerequisites** | T-407 |
 
-### T-502: Streamlit Dashboard — Report View
+### T-502: Investor/Analyst Dashboard — Recommendations + Report View
 | **Status** | ⬜ | **Prerequisites** | T-407 |
 
-### T-503: Streamlit Dashboard — Human Trigger Form
+### T-503: Investor/Analyst — Manual Trigger Form
 | **Status** | ⬜ | **Prerequisites** | T-407 |
 
-### T-504: Streamlit Dashboard — Positions Overview
+### T-504: Investor/Analyst — Historical Performance Overview
 | **Status** | ⬜ | **Prerequisites** | T-407 |
 
-### T-505: Streamlit Dashboard — Feedback Interface
+### T-505: Investor/Analyst — Shared Notes and In-App Notifications
 | **Status** | ⬜ | **Prerequisites** | T-407 |
 
-### T-506: Watchlist Management UI
+### T-506: Admin — Watchlist Management + Agent Access Policy Placeholder
 | **Status** | ⬜ | **Prerequisites** | T-501 |
 
 ### T-507: Production Deployment (Docker Compose on EC2)

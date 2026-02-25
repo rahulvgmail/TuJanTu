@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from pymongo import ASCENDING
-from pymongo.errors import DuplicateKeyError
-from pymongo.errors import PyMongoError
+from pymongo.errors import DuplicateKeyError, PyMongoError
 
 from src.models.company import CompanyPosition
 from src.models.decision import DecisionAssessment
@@ -23,6 +22,7 @@ INVESTIGATIONS_COLLECTION = "investigations"
 ASSESSMENTS_COLLECTION = "assessments"
 POSITIONS_COLLECTION = "positions"
 REPORTS_COLLECTION = "reports"
+NOTES_COLLECTION = "notes"
 
 
 async def create_mongo_client(mongodb_uri: str) -> AsyncIOMotorClient:
@@ -90,12 +90,22 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
             [("company_symbol", ASCENDING)],
             name="idx_report_company_symbol",
         )
+
+        await db[NOTES_COLLECTION].create_index([("note_id", ASCENDING)], unique=True, name="uq_note_id")
+        await db[NOTES_COLLECTION].create_index(
+            [("company_symbol", ASCENDING), ("updated_at", ASCENDING)],
+            name="idx_note_company_updated",
+        )
+        await db[NOTES_COLLECTION].create_index(
+            [("tags", ASCENDING)],
+            name="idx_note_tags",
+        )
     except PyMongoError as exc:
         raise RuntimeError(f"Failed to ensure MongoDB indexes: {exc}") from exc
 
 
 def _utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _strip_mongo_id(document: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -145,7 +155,11 @@ class MongoTriggerRepository:
         )
 
     async def get_pending(self, limit: int = 50) -> list[TriggerEvent]:
-        cursor = self.collection.find({"status": TriggerStatus.PENDING.value}).sort("created_at", ASCENDING).limit(limit)
+        cursor = (
+            self.collection.find({"status": TriggerStatus.PENDING.value})
+            .sort("created_at", ASCENDING)
+            .limit(limit)
+        )
         items: list[TriggerEvent] = []
         async for document in cursor:
             cleaned = _strip_mongo_id(document)

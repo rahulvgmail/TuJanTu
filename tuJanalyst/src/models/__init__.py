@@ -12,6 +12,7 @@ from src.models.investigation import (
     SignificanceLevel,
     WebSearchResult,
 )
+from src.models.note import AnalysisNote
 from src.models.report import AnalysisReport, ReportDeliveryStatus
 from src.models.trigger import (
     StatusTransition,
@@ -23,6 +24,7 @@ from src.models.trigger import (
 
 __all__ = [
     "AnalysisReport",
+    "AnalysisNote",
     "Company",
     "CompanyPosition",
     "DecisionAssessment",

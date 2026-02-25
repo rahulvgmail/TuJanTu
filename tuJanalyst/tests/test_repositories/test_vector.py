@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import time
 from datetime import date
 from enum import Enum
 from math import sqrt
@@ -16,6 +18,15 @@ class _FakeEmbedder:
     def encode(self, text: str) -> list[float]:
         alpha_sum = sum(ord(char) for char in text.lower() if char.isalpha())
         return [float(alpha_sum), float(len(text))]
+
+
+class _SlowFakeEmbedder(_FakeEmbedder):
+    def __init__(self, sleep_seconds: float = 0.2):
+        self.sleep_seconds = sleep_seconds
+
+    def encode(self, text: str) -> list[float]:
+        time.sleep(self.sleep_seconds)
+        return super().encode(text)
 
 
 class _FakeCollection:
@@ -232,3 +243,28 @@ async def test_vector_sanitizes_metadata_values_for_chroma(fake_client: _FakeCli
     assert saved["doc_type"] == "pdf"
     assert saved["details"] == "{'key': 'value'}"
     assert saved["flag"] is True
+
+
+@pytest.mark.asyncio
+async def test_vector_add_document_does_not_block_event_loop(fake_client: _FakeClient) -> None:
+    repo = ChromaVectorRepository(
+        persist_dir="unused",
+        client=fake_client,
+        embedder=_SlowFakeEmbedder(sleep_seconds=0.2),
+        chunk_size=1000,
+        chunk_overlap=0,
+    )
+
+    start = time.perf_counter()
+    add_task = asyncio.create_task(
+        repo.add_document(
+            document_id="doc-slow",
+            text="A" * 2000,
+            metadata={"company_symbol": "INOXWIND"},
+        )
+    )
+    await asyncio.sleep(0.02)
+    elapsed = time.perf_counter() - start
+    await add_task
+
+    assert elapsed < 0.15

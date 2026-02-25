@@ -10,6 +10,39 @@ services:
       - ./data:/app/data
     depends_on:
       - mongodb
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)"
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 180s
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    command:
+      - streamlit
+      - run
+      - src/dashboard/app.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      TUJ_API_BASE_URL: http://app:8000
+      PYTHONPATH: /app
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+    depends_on:
+      app:
+        condition: service_healthy
     restart: unless-stopped
 
   mongodb:
