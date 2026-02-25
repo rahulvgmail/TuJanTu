@@ -8,6 +8,7 @@ from typing import Any
 import httpx
 import streamlit as st
 
+from src.dashboard.manual_trigger_utils import build_manual_trigger_payload
 from src.dashboard.recommendation_utils import (
     expected_impact_score,
     extract_confidence_pct,
@@ -32,6 +33,17 @@ def _api_get(base_url: str, path: str, *, params: dict[str, Any] | None = None) 
     return payload
 
 
+def _api_post(base_url: str, path: str, *, json_payload: dict[str, Any]) -> dict[str, Any]:
+    url = f"{base_url.rstrip('/')}{path}"
+    with httpx.Client(timeout=HTTP_TIMEOUT_SECONDS) as client:
+        response = client.post(url, json=json_payload)
+        response.raise_for_status()
+        payload = response.json()
+    if not isinstance(payload, dict):
+        raise ValueError(f"Unexpected API payload type for {path}: {type(payload)!r}")
+    return payload
+
+
 def _fetch_reports(base_url: str, limit: int) -> list[dict[str, Any]]:
     payload = _api_get(base_url, "/api/v1/reports/", params={"limit": limit})
     items = payload.get("items", [])
@@ -42,6 +54,14 @@ def _fetch_reports(base_url: str, limit: int) -> list[dict[str, Any]]:
 
 def _fetch_report_detail(base_url: str, report_id: str) -> dict[str, Any]:
     return _api_get(base_url, f"/api/v1/reports/{report_id}")
+
+
+def _fetch_trigger_status(base_url: str, trigger_id: str) -> dict[str, Any]:
+    return _api_get(base_url, f"/api/v1/triggers/{trigger_id}", params={"include_details": "true"})
+
+
+def _submit_manual_trigger(base_url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    return _api_post(base_url, "/api/v1/triggers/human", json_payload=payload)
 
 
 def _build_recommendation_rows(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -106,7 +126,7 @@ def main() -> None:
         layout="wide",
     )
     st.title("Investor / Analyst Dashboard")
-    st.caption("T-502 MVP: recommendations list + report detail view")
+    st.caption("T-502/T-503 MVP: recommendations, report detail, and manual trigger form")
 
     with st.sidebar:
         st.header("Data Source")
@@ -145,7 +165,7 @@ def main() -> None:
         )
 
     rows = _build_recommendation_rows(ordered_reports)
-    recommendations_tab, report_tab = st.tabs(["Recommendations", "Report View"])
+    recommendations_tab, report_tab, manual_tab = st.tabs(["Recommendations", "Report View", "Manual Trigger"])
 
     with recommendations_tab:
         c1, c2, c3 = st.columns(3)
@@ -191,7 +211,57 @@ def main() -> None:
         selected_report_id = str(st.session_state.get("selected_report_id") or "")
         _display_report_detail(api_base_url, selected_report_id)
 
+    with manual_tab:
+        st.subheader("Create Manual Trigger")
+        st.caption("Required fields: company symbol and event summary.")
+        with st.form("manual_trigger_form", clear_on_submit=False):
+            company_symbol = st.text_input("Company Symbol *", placeholder="e.g., SUZLON")
+            event_summary = st.text_area(
+                "Event Summary *",
+                placeholder="Summarize the event that should trigger a fresh analysis.",
+                height=120,
+            )
+            company_name = st.text_input("Company Name (optional)")
+            source_url = st.text_input("Source URL (optional)")
+            triggered_by = st.text_input("Triggered By (optional)")
+            notes = st.text_area("Notes (optional)", height=80)
+            submitted = st.form_submit_button("Submit Trigger", type="primary")
+
+        if submitted:
+            try:
+                payload = build_manual_trigger_payload(
+                    company_symbol=company_symbol,
+                    event_summary=event_summary,
+                    company_name=company_name,
+                    source_url=source_url,
+                    triggered_by=triggered_by,
+                    notes=notes,
+                )
+                response = _submit_manual_trigger(api_base_url, payload)
+                trigger_id = str(response.get("trigger_id") or "")
+                if trigger_id:
+                    st.session_state["last_trigger_id"] = trigger_id
+                st.success(f"Trigger submitted successfully. Trigger ID: {trigger_id}")
+            except ValueError as exc:
+                st.error(str(exc))
+            except httpx.HTTPStatusError as exc:
+                st.error(f"Trigger submission failed (HTTP {exc.response.status_code}).")
+            except Exception as exc:  # noqa: BLE001
+                st.error(f"Trigger submission failed: {exc}")
+
+        last_trigger_id = str(st.session_state.get("last_trigger_id") or "")
+        if last_trigger_id:
+            st.markdown("### Latest Trigger Status")
+            status_cols = st.columns([3, 1])
+            status_cols[0].code(last_trigger_id)
+            refresh = status_cols[1].button("Refresh Status")
+            if refresh:
+                try:
+                    status_payload = _fetch_trigger_status(api_base_url, last_trigger_id)
+                    st.json(status_payload)
+                except Exception as exc:  # noqa: BLE001
+                    st.error(f"Could not load trigger status: {exc}")
+
 
 if __name__ == "__main__":
     main()
-
