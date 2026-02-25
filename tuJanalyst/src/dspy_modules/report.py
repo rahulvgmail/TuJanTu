@@ -29,7 +29,7 @@ class ReportModule(dspy.Module):
         reasoning: str,
         sources_json: str,
     ):
-        return self.generator(
+        prediction = self.generator(
             company_symbol=company_symbol,
             company_name=company_name,
             investigation_summary=investigation_summary,
@@ -42,3 +42,9 @@ class ReportModule(dspy.Module):
             reasoning=reasoning,
             sources_json=sources_json,
         )
+        # Normalize whitespace so downstream `or` fallbacks trigger correctly
+        prediction.title = str(getattr(prediction, "title", "") or "").strip()
+        prediction.executive_summary = str(getattr(prediction, "executive_summary", "") or "").strip()
+        prediction.report_body_markdown = str(getattr(prediction, "report_body_markdown", "") or "").strip()
+        prediction.recommendation_summary = str(getattr(prediction, "recommendation_summary", "") or "").strip()
+        return prediction
