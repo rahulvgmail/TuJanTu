@@ -10,7 +10,7 @@ import yaml
 from fastapi import FastAPI
 
 from src.agents.tools import MarketDataTool, WebSearchTool
-from src.api import costs, health, investigations, positions, reports, triggers
+from src.api import costs, health, investigations, performance, positions, reports, triggers
 from src.config import get_settings, load_watchlist_config
 from src.logging_setup import configure_structured_logging
 from src.pipeline.layer1_triggers.document_fetcher import DocumentFetcher
@@ -288,6 +288,7 @@ app = FastAPI(
 app.include_router(triggers.router)
 app.include_router(health.router)
 app.include_router(costs.router)
+app.include_router(performance.router)
 app.include_router(investigations.router)
 app.include_router(reports.router)
 app.include_router(positions.router)

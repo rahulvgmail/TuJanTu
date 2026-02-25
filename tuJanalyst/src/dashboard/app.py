@@ -19,6 +19,7 @@ from src.dashboard.recommendation_utils import (
 
 DEFAULT_API_BASE_URL = os.getenv("TUJ_API_BASE_URL", "http://localhost:8000")
 DEFAULT_REPORT_LIMIT = 50
+DEFAULT_PERFORMANCE_LIMIT = 100
 HTTP_TIMEOUT_SECONDS = 12.0
 
 
@@ -64,6 +65,33 @@ def _submit_manual_trigger(base_url: str, payload: dict[str, Any]) -> dict[str, 
     return _api_post(base_url, "/api/v1/triggers/human", json_payload=payload)
 
 
+def _fetch_performance_summary(base_url: str, limit: int, *, include_live_price: bool) -> dict[str, Any]:
+    return _api_get(
+        base_url,
+        "/api/v1/performance/summary",
+        params={
+            "limit": limit,
+            "include_live_price": str(include_live_price).lower(),
+        },
+    )
+
+
+def _fetch_performance_recommendations(base_url: str, limit: int, *, include_live_price: bool) -> list[dict[str, Any]]:
+    payload = _api_get(
+        base_url,
+        "/api/v1/performance/recommendations",
+        params={
+            "limit": limit,
+            "offset": 0,
+            "include_live_price": str(include_live_price).lower(),
+        },
+    )
+    items = payload.get("items", [])
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
 def _build_recommendation_rows(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for report in reports:
@@ -78,6 +106,51 @@ def _build_recommendation_rows(reports: list[dict[str, Any]]) -> list[dict[str, 
                 "confidence_pct": extract_confidence_pct(summary),
                 "created_at": created_at.isoformat() if created_at.year > 1900 else "",
                 "expected_impact_score": round(expected_impact_score(report), 2),
+            }
+        )
+    return rows
+
+
+def _format_price(value: Any) -> str:
+    if value is None:
+        return "-"
+    try:
+        return f"{float(value):.2f}"
+    except (TypeError, ValueError):
+        return "-"
+
+
+def _format_return_pct(value: Any) -> str:
+    if value is None:
+        return "-"
+    try:
+        return f"{float(value):+.2f}%"
+    except (TypeError, ValueError):
+        return "-"
+
+
+def _build_performance_rows(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in items:
+        company_symbol = str(item.get("company_symbol") or "UNKNOWN")
+        company_name = str(item.get("company_name") or "")
+        recommendation_date = str(item.get("recommendation_date") or "")[:19]
+        recommendation = str(item.get("recommendation") or "none").upper()
+        timeframe = str(item.get("timeframe") or "medium_term").replace("_", " ").upper()
+        status = str(item.get("status") or "unknown").replace("_", " ").title()
+        outcome = str(item.get("outcome") or "unknown").upper()
+        rows.append(
+            {
+                "date": recommendation_date,
+                "company": f"{company_symbol} | {company_name}".strip(" |"),
+                "action": recommendation,
+                "price_at_recommendation": _format_price(item.get("price_at_recommendation")),
+                "price_now": _format_price(item.get("price_now")),
+                "return_pct": _format_return_pct(item.get("return_pct")),
+                "timeframe": timeframe,
+                "status": status,
+                "outcome": outcome,
+                "assessment_id": str(item.get("assessment_id") or ""),
             }
         )
     return rows
@@ -126,12 +199,19 @@ def main() -> None:
         layout="wide",
     )
     st.title("Investor / Analyst Dashboard")
-    st.caption("T-502/T-503 MVP: recommendations, report detail, and manual trigger form")
+    st.caption("T-502/T-503/T-504 MVP: recommendations, report detail, manual triggers, and performance tracking")
 
     with st.sidebar:
         st.header("Data Source")
         api_base_url = st.text_input("API Base URL", value=DEFAULT_API_BASE_URL, help="FastAPI base URL")
         report_limit = st.slider("Reports to load", min_value=10, max_value=200, value=DEFAULT_REPORT_LIMIT, step=10)
+        performance_limit = st.slider(
+            "Performance rows",
+            min_value=20,
+            max_value=500,
+            value=DEFAULT_PERFORMANCE_LIMIT,
+            step=20,
+        )
         sort_mode = st.selectbox(
             "Default Sort",
             options=["Expected Impact", "Newest"],
@@ -145,6 +225,14 @@ def main() -> None:
     @st.cache_data(ttl=30, show_spinner=False)
     def cached_reports(base_url: str, limit: int) -> list[dict[str, Any]]:
         return _fetch_reports(base_url, limit)
+
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_performance_summary(base_url: str, limit: int, include_live_price: bool) -> dict[str, Any]:
+        return _fetch_performance_summary(base_url, limit, include_live_price=include_live_price)
+
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_performance_rows(base_url: str, limit: int, include_live_price: bool) -> list[dict[str, Any]]:
+        return _fetch_performance_recommendations(base_url, limit, include_live_price=include_live_price)
 
     try:
         reports = cached_reports(api_base_url, report_limit)
@@ -165,7 +253,9 @@ def main() -> None:
         )
 
     rows = _build_recommendation_rows(ordered_reports)
-    recommendations_tab, report_tab, manual_tab = st.tabs(["Recommendations", "Report View", "Manual Trigger"])
+    recommendations_tab, report_tab, manual_tab, performance_tab = st.tabs(
+        ["Recommendations", "Report View", "Manual Trigger", "Performance"]
+    )
 
     with recommendations_tab:
         c1, c2, c3 = st.columns(3)
@@ -261,6 +351,76 @@ def main() -> None:
                     st.json(status_payload)
                 except Exception as exc:  # noqa: BLE001
                     st.error(f"Could not load trigger status: {exc}")
+
+    with performance_tab:
+        st.subheader("Historical Performance")
+        use_live_price = st.toggle(
+            "Use live price snapshot",
+            value=False,
+            help="When enabled, price_now uses live market data; otherwise latest stored investigation price is used.",
+        )
+        try:
+            summary = cached_performance_summary(api_base_url, performance_limit, use_live_price)
+            performance_items = cached_performance_rows(api_base_url, performance_limit, use_live_price)
+        except httpx.HTTPStatusError as exc:
+            st.error(f"Failed to fetch performance metrics (HTTP {exc.response.status_code}).")
+            return
+        except Exception as exc:  # noqa: BLE001
+            st.error(f"Failed to fetch performance metrics: {exc}")
+            return
+
+        metric_cols = st.columns(6)
+        metric_cols[0].metric("Total Recos", int(summary.get("total_recommendations") or 0))
+        metric_cols[1].metric("Evaluated", int(summary.get("evaluated_recommendations") or 0))
+        win_rate = float(summary.get("win_rate") or 0.0) * 100.0
+        metric_cols[2].metric("Win Rate", f"{win_rate:.1f}%")
+        metric_cols[3].metric("BUY Avg Return", _format_return_pct(summary.get("avg_return_buy")))
+        metric_cols[4].metric("SELL Avg Return", _format_return_pct(summary.get("avg_return_sell")))
+        metric_cols[5].metric("Wins", int(summary.get("wins") or 0))
+
+        best_call = summary.get("best_call")
+        worst_call = summary.get("worst_call")
+        call_cols = st.columns(2)
+        if isinstance(best_call, dict):
+            best_symbol = best_call.get("company_symbol", "-")
+            best_reco = str(best_call.get("recommendation", "-")).upper()
+            best_return = _format_return_pct(best_call.get("return_pct"))
+            call_cols[0].info(
+                f"Best Call: {best_symbol} {best_reco} ({best_return})"
+            )
+        else:
+            call_cols[0].info("Best Call: -")
+        if isinstance(worst_call, dict):
+            worst_symbol = worst_call.get("company_symbol", "-")
+            worst_reco = str(worst_call.get("recommendation", "-")).upper()
+            worst_return = _format_return_pct(worst_call.get("return_pct"))
+            call_cols[1].info(
+                f"Worst Call: {worst_symbol} {worst_reco} ({worst_return})"
+            )
+        else:
+            call_cols[1].info("Worst Call: -")
+
+        performance_rows = _build_performance_rows(performance_items)
+        if not performance_rows:
+            st.info("No recommendation performance data available yet.")
+        else:
+            st.dataframe(
+                performance_rows,
+                hide_index=True,
+                use_container_width=True,
+                column_order=[
+                    "date",
+                    "company",
+                    "action",
+                    "price_at_recommendation",
+                    "price_now",
+                    "return_pct",
+                    "timeframe",
+                    "status",
+                    "outcome",
+                    "assessment_id",
+                ],
+            )
 
 
 if __name__ == "__main__":
