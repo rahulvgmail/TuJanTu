@@ -123,3 +123,23 @@ def test_settings_validate_layer_dependency_chain(monkeypatch: pytest.MonkeyPatc
 
     with pytest.raises(ValidationError):
         Settings(_env_file=None)
+
+
+def test_settings_validate_symbol_threshold_bounds(monkeypatch: pytest.MonkeyPatch) -> None:
+    _set_base_env(monkeypatch)
+    monkeypatch.setenv("TUJ_LLM_PROVIDER", "anthropic")
+    monkeypatch.setenv("TUJ_ANTHROPIC_API_KEY", "test-anthropic-key")
+    monkeypatch.setenv("TUJ_SYMBOL_FUZZY_THRESHOLD", "1.2")
+
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None)
+
+
+def test_settings_validate_symbol_refresh_interval(monkeypatch: pytest.MonkeyPatch) -> None:
+    _set_base_env(monkeypatch)
+    monkeypatch.setenv("TUJ_LLM_PROVIDER", "anthropic")
+    monkeypatch.setenv("TUJ_ANTHROPIC_API_KEY", "test-anthropic-key")
+    monkeypatch.setenv("TUJ_SYMBOL_MASTER_REFRESH_INTERVAL_HOURS", "0")
+
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None)

@@ -15,6 +15,17 @@ rss:
       url: "https://www.bseindia.com/data/xml/announcements.xml"
       poll_interval_seconds: 300
 
+symbol_resolution:
+  seed_path: "config/public_sector_banks_seed.yaml"
+  nse_source_url: null
+  bse_source_url: null
+  refresh_enabled: false
+  refresh_interval_hours: 24
+  enable_web_fallback: true
+  enable_dspy_fallback: false
+  fuzzy_threshold: 0.92
+  review_threshold: 0.90
+
 reports:
   max_report_length_words: 2000
   include_raw_sources: true
