@@ -34,3 +34,12 @@ def test_build_manual_trigger_payload_normalizes_and_keeps_optional_fields() -> 
         "notes": "Priority review",
     }
 
+
+def test_build_manual_trigger_payload_prefers_resolved_symbol() -> None:
+    payload = build_manual_trigger_payload(
+        company_symbol="unknown",
+        resolved_symbol=" sbin ",
+        event_summary="Event",
+    )
+
+    assert payload["company_symbol"] == "SBIN"

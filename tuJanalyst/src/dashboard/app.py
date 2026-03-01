@@ -133,6 +133,17 @@ def _fetch_watchlist_overview(base_url: str) -> dict[str, Any]:
     return _api_get(base_url, "/api/v1/watchlist/overview")
 
 
+def _fetch_symbol_matches(base_url: str, query: str, tag: str = "", limit: int = 8) -> list[dict[str, Any]]:
+    params: dict[str, Any] = {"q": query, "limit": limit}
+    if tag.strip():
+        params["tag"] = tag.strip()
+    payload = _api_get(base_url, "/api/v1/symbols/resolve", params=params)
+    items = payload.get("matches", [])
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
 def _fetch_agent_policy(base_url: str) -> dict[str, Any]:
     return _api_get(base_url, "/api/v1/watchlist/agent-policy")
 
@@ -430,6 +441,10 @@ def main() -> None:
     def cached_cost_summary(base_url: str, since: str) -> dict[str, Any]:
         return _fetch_cost_summary(base_url, since)
 
+    @st.cache_data(ttl=30, show_spinner=False)
+    def cached_symbol_matches(base_url: str, query: str, tag: str) -> list[dict[str, Any]]:
+        return _fetch_symbol_matches(base_url, query, tag)
+
     if view_mode == "Admin":
         st.title("Admin Dashboard")
         st.caption("T-506 MVP: watchlist management (read-only) and agent access policy placeholder")
@@ -620,6 +635,30 @@ def main() -> None:
     with manual_tab:
         st.subheader("Create Manual Trigger")
         st.caption("Required fields: company symbol and event summary.")
+        lookup_query = st.text_input("Company Lookup (optional)", placeholder="e.g., State Bank of India")
+        lookup_tag = st.text_input("Lookup Scope Tag (optional)", value="public_sector_bank")
+        resolved_symbol = ""
+        if lookup_query.strip():
+            try:
+                symbol_matches = cached_symbol_matches(api_base_url, lookup_query.strip(), lookup_tag.strip())
+            except Exception as exc:  # noqa: BLE001
+                st.warning(f"Symbol lookup failed: {exc}")
+                symbol_matches = []
+
+            if symbol_matches:
+                selected = st.selectbox(
+                    "Resolved Symbol Match",
+                    options=list(range(len(symbol_matches))),
+                    format_func=lambda index: (
+                        f"{symbol_matches[index].get('nse_symbol') or '-'} | "
+                        f"{symbol_matches[index].get('company_name') or '-'}"
+                    ),
+                )
+                chosen = symbol_matches[selected]
+                resolved_symbol = str(chosen.get("nse_symbol") or "").strip().upper()
+                if resolved_symbol:
+                    st.caption(f"Selected canonical NSE symbol: `{resolved_symbol}`")
+
         with st.form("manual_trigger_form", clear_on_submit=False):
             company_symbol = st.text_input("Company Symbol *", placeholder="e.g., SUZLON")
             event_summary = st.text_area(
@@ -638,6 +677,7 @@ def main() -> None:
                 payload = build_manual_trigger_payload(
                     company_symbol=company_symbol,
                     event_summary=event_summary,
+                    resolved_symbol=resolved_symbol,
                     company_name=company_name,
                     source_url=source_url,
                     triggered_by=triggered_by,

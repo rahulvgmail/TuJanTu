@@ -9,6 +9,7 @@ from src.api import (
     performance,
     positions,
     reports,
+    symbols,
     triggers,
     watchlist,
 )
@@ -22,6 +23,7 @@ __all__ = [
     "performance",
     "positions",
     "reports",
+    "symbols",
     "triggers",
     "watchlist",
 ]

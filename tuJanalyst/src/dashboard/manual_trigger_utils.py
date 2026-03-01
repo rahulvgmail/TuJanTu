@@ -7,13 +7,14 @@ def build_manual_trigger_payload(
     *,
     company_symbol: str,
     event_summary: str,
+    resolved_symbol: str = "",
     company_name: str = "",
     source_url: str = "",
     triggered_by: str = "",
     notes: str = "",
 ) -> dict[str, str]:
     """Validate and build payload for `POST /api/v1/triggers/human`."""
-    normalized_symbol = company_symbol.strip().upper()
+    normalized_symbol = (resolved_symbol.strip() or company_symbol.strip()).upper()
     normalized_summary = event_summary.strip()
     if not normalized_symbol:
         raise ValueError("Company symbol is required")
@@ -33,4 +34,3 @@ def build_manual_trigger_payload(
     }
     payload.update({key: value for key, value in optional_fields.items() if value})
     return payload
-
