@@ -18,9 +18,10 @@ FROM python:3.11-slim AS runtime
 
 WORKDIR /app
 
-# Install runtime system dependencies (for pdfplumber/lxml)
+# Install runtime system dependencies (for pdfplumber/lxml + TLS)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        ca-certificates \
         libxml2 \
         libxslt1.1 \
     && rm -rf /var/lib/apt/lists/*
