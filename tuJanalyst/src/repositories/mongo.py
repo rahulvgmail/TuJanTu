@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from datetime import UTC, datetime
 from typing import Any
 
@@ -14,6 +15,7 @@ from src.models.decision import DecisionAssessment
 from src.models.document import ProcessingStatus, RawDocument
 from src.models.investigation import Investigation
 from src.models.report import AnalysisReport
+from src.models.symbol_resolution import CompanyMaster
 from src.models.trigger import TriggerEvent, TriggerStatus
 
 TRIGGERS_COLLECTION = "triggers"
@@ -23,6 +25,7 @@ ASSESSMENTS_COLLECTION = "assessments"
 POSITIONS_COLLECTION = "positions"
 REPORTS_COLLECTION = "reports"
 NOTES_COLLECTION = "notes"
+COMPANY_MASTER_COLLECTION = "company_master"
 
 
 async def create_mongo_client(mongodb_uri: str) -> AsyncIOMotorClient:
@@ -99,6 +102,37 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
         await db[NOTES_COLLECTION].create_index(
             [("tags", ASCENDING)],
             name="idx_note_tags",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("canonical_id", ASCENDING)],
+            unique=True,
+            name="uq_company_master_canonical_id",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("nse_symbol", ASCENDING)],
+            unique=True,
+            sparse=True,
+            name="uq_company_master_nse_symbol",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("bse_scrip_code", ASCENDING)],
+            unique=True,
+            sparse=True,
+            name="uq_company_master_bse_code",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("isin", ASCENDING)],
+            unique=True,
+            sparse=True,
+            name="uq_company_master_isin",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("company_name", ASCENDING)],
+            name="idx_company_master_name",
+        )
+        await db[COMPANY_MASTER_COLLECTION].create_index(
+            [("tags", ASCENDING)],
+            name="idx_company_master_tags",
         )
     except PyMongoError as exc:
         raise RuntimeError(f"Failed to ensure MongoDB indexes: {exc}") from exc
@@ -472,3 +506,65 @@ class MongoReportRepository:
         if by is not None:
             payload["feedback_by"] = by
         await self.collection.update_one({"report_id": report_id}, {"$set": payload})
+
+
+class MongoCompanyMasterRepository:
+    """MongoDB-backed repository for canonical company identity records."""
+
+    def __init__(self, db: AsyncIOMotorDatabase):
+        self.collection = db[COMPANY_MASTER_COLLECTION]
+
+    async def upsert(self, company: CompanyMaster) -> str:
+        payload = company.model_dump()
+        await self.collection.replace_one({"canonical_id": company.canonical_id}, payload, upsert=True)
+        return str(company.canonical_id)
+
+    async def get_by_nse_symbol(self, symbol: str) -> CompanyMaster | None:
+        normalized = str(symbol or "").strip().upper()
+        if not normalized:
+            return None
+        document = await self.collection.find_one({"nse_symbol": normalized})
+        cleaned = _strip_mongo_id(document)
+        return CompanyMaster.model_validate(cleaned) if cleaned else None
+
+    async def get_by_bse_scrip_code(self, scrip_code: str) -> CompanyMaster | None:
+        normalized = str(scrip_code or "").strip()
+        if not normalized:
+            return None
+        document = await self.collection.find_one({"bse_scrip_code": normalized})
+        cleaned = _strip_mongo_id(document)
+        return CompanyMaster.model_validate(cleaned) if cleaned else None
+
+    async def get_by_isin(self, isin: str) -> CompanyMaster | None:
+        normalized = str(isin or "").strip().upper()
+        if not normalized:
+            return None
+        document = await self.collection.find_one({"isin": normalized})
+        cleaned = _strip_mongo_id(document)
+        return CompanyMaster.model_validate(cleaned) if cleaned else None
+
+    async def search_by_name(self, query: str, limit: int = 10) -> list[CompanyMaster]:
+        normalized = str(query or "").strip()
+        if not normalized:
+            return []
+        safe = re.escape(normalized)
+        regex = {"$regex": safe, "$options": "i"}
+        cursor = self.collection.find({"$or": [{"company_name": regex}, {"aliases": regex}]}).limit(max(1, int(limit)))
+        items: list[CompanyMaster] = []
+        async for document in cursor:
+            cleaned = _strip_mongo_id(document)
+            if cleaned:
+                items.append(CompanyMaster.model_validate(cleaned))
+        return items
+
+    async def list_by_tag(self, tag: str, limit: int = 200) -> list[CompanyMaster]:
+        normalized = str(tag or "").strip().lower()
+        if not normalized:
+            return []
+        cursor = self.collection.find({"tags": normalized}).limit(max(1, int(limit)))
+        items: list[CompanyMaster] = []
+        async for document in cursor:
+            cleaned = _strip_mongo_id(document)
+            if cleaned:
+                items.append(CompanyMaster.model_validate(cleaned))
+        return items

@@ -8,6 +8,7 @@ import pytest
 
 from src.repositories.mongo import (
     ASSESSMENTS_COLLECTION,
+    COMPANY_MASTER_COLLECTION,
     DOCUMENTS_COLLECTION,
     INVESTIGATIONS_COLLECTION,
     NOTES_COLLECTION,
@@ -36,6 +37,7 @@ class _FakeDatabase:
             POSITIONS_COLLECTION: _FakeCollection(),
             REPORTS_COLLECTION: _FakeCollection(),
             NOTES_COLLECTION: _FakeCollection(),
+            COMPANY_MASTER_COLLECTION: _FakeCollection(),
         }
 
     def __getitem__(self, name: str) -> _FakeCollection:
@@ -54,6 +56,7 @@ async def test_ensure_indexes_creates_expected_indexes() -> None:
     position_index_names = {call["name"] for call in db.collections[POSITIONS_COLLECTION].index_calls}
     report_index_names = {call["name"] for call in db.collections[REPORTS_COLLECTION].index_calls}
     note_index_names = {call["name"] for call in db.collections[NOTES_COLLECTION].index_calls}
+    company_master_index_names = {call["name"] for call in db.collections[COMPANY_MASTER_COLLECTION].index_calls}
 
     assert trigger_index_names == {
         "uq_trigger_id",
@@ -89,4 +92,12 @@ async def test_ensure_indexes_creates_expected_indexes() -> None:
         "uq_note_id",
         "idx_note_company_updated",
         "idx_note_tags",
+    }
+    assert company_master_index_names == {
+        "uq_company_master_canonical_id",
+        "uq_company_master_nse_symbol",
+        "uq_company_master_bse_code",
+        "uq_company_master_isin",
+        "idx_company_master_name",
+        "idx_company_master_tags",
     }

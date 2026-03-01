@@ -62,6 +62,12 @@ class TriggerEvent(BaseModel):
     company_symbol: str | None = None
     company_name: str | None = None
     sector: str | None = None
+    resolved_nse_symbol: str | None = None
+    resolved_bse_scrip_code: str | None = None
+    resolved_isin: str | None = None
+    resolution_method: str | None = None
+    resolution_confidence: float | None = None
+    resolution_review_required: bool | None = None
 
     raw_content: str
     document_ids: list[str] = Field(default_factory=list)
@@ -82,4 +88,3 @@ class TriggerEvent(BaseModel):
         self.status = status
         self.updated_at = utc_now()
         self.status_history.append(StatusTransition(status=status, reason=reason))
-
