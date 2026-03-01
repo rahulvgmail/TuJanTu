@@ -10,12 +10,14 @@ from src.dspy_modules.analysis import (
 from src.dspy_modules.decision import DecisionModule, ParsedDecisionResult, parse_decision_result
 from src.dspy_modules.gate import GateModule, build_dspy_model_identifier, configure_dspy_lm
 from src.dspy_modules.report import ReportModule
+from src.dspy_modules.symbol_resolution import TickerResolutionModule
 from src.dspy_modules.signatures import (
     DecisionEvaluation,
     GateClassification,
     InvestigationSynthesis,
     MetricsExtraction,
     ReportGeneration,
+    TickerResolution,
     WebResultSynthesis,
     WebSearchQueryGeneration,
 )
@@ -32,6 +34,8 @@ __all__ = [
     "MetricsExtractionModule",
     "ReportGeneration",
     "ReportModule",
+    "TickerResolution",
+    "TickerResolutionModule",
     "MetricsExtraction",
     "SynthesisModule",
     "WebResultSynthesis",

@@ -49,9 +49,14 @@ class DeepAnalyzer:
     async def analyze(self, trigger: Any) -> Investigation:
         """Produce and persist an Investigation from a gate-passed trigger."""
         started_at = time.time()
+        canonical_symbol = (
+            getattr(trigger, "resolved_nse_symbol", None)
+            or getattr(trigger, "company_symbol", None)
+            or "UNKNOWN"
+        )
         investigation = Investigation(
             trigger_id=trigger.trigger_id,
-            company_symbol=(trigger.company_symbol or "UNKNOWN").upper(),
+            company_symbol=str(canonical_symbol).upper(),
             company_name=trigger.company_name or "Unknown Company",
         )
 
@@ -59,13 +64,13 @@ class DeepAnalyzer:
         historical_context = await self._gather_historical_context(investigation.company_symbol)
         investigation.historical_context = historical_context
 
-        if trigger.company_symbol:
+        if investigation.company_symbol and investigation.company_symbol != "UNKNOWN":
             try:
-                investigation.market_data = await self.market_data.get_snapshot(trigger.company_symbol)
+                investigation.market_data = await self.market_data.get_snapshot(investigation.company_symbol)
             except Exception as exc:  # noqa: BLE001
                 logger.warning(
                     "Market data retrieval failed; continuing without market snapshot: symbol=%s error=%s",
-                    trigger.company_symbol,
+                    investigation.company_symbol,
                     exc,
                 )
                 investigation.market_data = None
@@ -270,4 +275,3 @@ class DeepAnalyzer:
             return json.dumps(payload)
         except Exception:  # noqa: BLE001
             return "{}"
-

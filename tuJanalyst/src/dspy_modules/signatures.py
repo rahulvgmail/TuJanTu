@@ -193,3 +193,29 @@ class ReportGeneration(dspy.Signature):
     executive_summary: str = dspy.OutputField(desc="2-3 sentence executive summary")
     report_body_markdown: str = dspy.OutputField(desc="Full markdown report body")
     recommendation_summary: str = dspy.OutputField(desc="Single-line recommendation summary")
+
+
+class TickerResolution(dspy.Signature):
+    """
+    Resolve a likely NSE/BSE ticker from partial trigger metadata.
+
+    Instructions:
+    - Prefer deterministic extraction from provided symbol/company fields.
+    - Return JSON with best-effort identifiers and confidence rationale.
+    - Do not hallucinate unknown symbols.
+
+    Output format requirements:
+    - `resolution_json` must be a JSON object with keys:
+      - `nse_symbol` (string or empty),
+      - `bse_scrip_code` (string or empty),
+      - `isin` (string or empty),
+      - `confidence` (number 0..1),
+      - `reason` (string).
+    """
+
+    raw_symbol: str = dspy.InputField(desc="Raw symbol or scrip code from trigger/feed")
+    company_name: str = dspy.InputField(desc="Company name or alias from trigger/feed")
+    title: str = dspy.InputField(desc="Announcement title")
+    content: str = dspy.InputField(desc="Announcement/raw trigger content")
+
+    resolution_json: str = dspy.OutputField(desc="JSON object for resolved identifiers and confidence")
