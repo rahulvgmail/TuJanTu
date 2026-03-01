@@ -226,6 +226,13 @@ companies:
     priority: "normal"
     aliases: ["Cords Cable"]
 
+  - symbol: "BOI"
+    name: "Bank of India"
+    bse_code: "532149"
+    bse_listed: true
+    priority: "normal"
+    aliases: ["Bank of India", "BOI"]
+
 global_keywords:
   - "insider trading"
   - "SEBI order"

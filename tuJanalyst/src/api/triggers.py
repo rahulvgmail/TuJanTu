@@ -126,7 +126,6 @@ async def create_human_trigger(
         triggered_by=payload.triggered_by,
         human_notes=payload.notes,
     )
-    trigger.set_status(TriggerStatus.GATE_PASSED, "Human trigger bypasses Layer 2 gate")
     await trigger_repo.save(trigger)
     return HumanTriggerAcceptedResponse(trigger_id=trigger.trigger_id, status="accepted")
 
