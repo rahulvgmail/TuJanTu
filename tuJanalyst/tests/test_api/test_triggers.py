@@ -119,7 +119,7 @@ def test_create_human_trigger_success() -> None:
     trigger = repo.items[payload["trigger_id"]]
     assert trigger.source == "human"
     assert trigger.priority == "high"
-    assert trigger.status == "gate_passed"
+    assert trigger.status == "pending"
     assert trigger.company_symbol == "INOXWIND"
 
 
@@ -133,7 +133,7 @@ def test_get_trigger_status() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["trigger_id"] == trigger_id
-    assert payload["status"] == "gate_passed"
+    assert payload["status"] == "pending"
     assert payload["company_symbol"] == "SUZLON"
     assert trigger_id in repo.items
 
