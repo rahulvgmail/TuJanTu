@@ -9,6 +9,7 @@ import httpx
 import pytest
 
 from src.models.trigger import TriggerEvent, TriggerSource
+from src.models.symbol_resolution import ResolutionMethod, ResolutionResult
 from src.pipeline.layer1_triggers.rss_poller import ExchangeRSSPoller
 
 
@@ -287,3 +288,57 @@ async def test_poll_infers_nse_scrip_code_and_company_name_when_symbol_missing()
     assert len(created) == 1
     assert created[0].company_symbol == "1629332"
     assert created[0].company_name == "JSW Energy Limited"
+
+
+@pytest.mark.asyncio
+async def test_poll_applies_ticker_resolver_canonical_fields() -> None:
+    nse_url = "https://example.test/nse"
+    payload = {
+        "data": [
+            {
+                "desc": "State Bank of India - Board Meeting Outcome",
+                "attchmntFile": "https://nsearchives.nseindia.com/corporate/board.pdf",
+                "an_dt": "24-Feb-2026",
+            }
+        ]
+    }
+
+    class _StubResolver:
+        async def resolve(self, payload):  # noqa: ANN001
+            del payload
+            return ResolutionResult(
+                method=ResolutionMethod.EXACT_NAME,
+                confidence=0.98,
+                resolved=True,
+                review_required=False,
+                nse_symbol="SBIN",
+                bse_scrip_code="500112",
+                isin="INE062A01020",
+                company_name="State Bank of India",
+                evidence=["company_name:State Bank of India"],
+            )
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        del request
+        return httpx.Response(200, json=payload, headers={"content-type": "application/json"})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as session:
+        repo = InMemoryTriggerRepo()
+        poller = ExchangeRSSPoller(
+            trigger_repo=repo,
+            nse_url=nse_url,
+            session=session,
+            ticker_resolver=_StubResolver(),
+        )
+        created = await poller.poll()
+
+    assert len(created) == 1
+    trigger = created[0]
+    assert trigger.company_symbol == "SBIN"
+    assert trigger.company_name == "State Bank of India"
+    assert trigger.resolved_nse_symbol == "SBIN"
+    assert trigger.resolved_bse_scrip_code == "500112"
+    assert trigger.resolved_isin == "INE062A01020"
+    assert trigger.resolution_method == "exact_name"
+    assert trigger.resolution_confidence == 0.98
+    assert trigger.resolution_review_required is False

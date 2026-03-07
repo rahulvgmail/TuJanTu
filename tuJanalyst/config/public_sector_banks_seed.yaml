@@ -1,0 +1,144 @@
+companies:
+  - nse_symbol: "SBIN"
+    bse_scrip_code: "500112"
+    isin: "INE062A01020"
+    company_name: "State Bank of India"
+    aliases: ["SBI", "State Bank"]
+    description: "Largest public sector bank in India."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "PNB"
+    bse_scrip_code: "532461"
+    isin: "INE160A01022"
+    company_name: "Punjab National Bank"
+    aliases: ["PNB"]
+    description: "Public sector bank with nationwide branch network."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "BANKBARODA"
+    bse_scrip_code: "532134"
+    isin: "INE028A01039"
+    company_name: "Bank of Baroda"
+    aliases: ["BoB", "Bank Baroda"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "CANBK"
+    bse_scrip_code: "532483"
+    isin: "INE476A01022"
+    company_name: "Canara Bank"
+    aliases: ["Canara"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "UNIONBANK"
+    bse_scrip_code: "532477"
+    isin: "INE692A01016"
+    company_name: "Union Bank of India"
+    aliases: ["Union Bank"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "INDIANB"
+    bse_scrip_code: "532814"
+    isin: "INE562A01011"
+    company_name: "Indian Bank"
+    aliases: ["Indian Bank"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "BANKINDIA"
+    bse_scrip_code: "532149"
+    isin: "INE084A01016"
+    company_name: "Bank of India"
+    aliases: ["BOI", "Bank India"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "UCOBANK"
+    bse_scrip_code: "532505"
+    isin: "INE691A01018"
+    company_name: "UCO Bank"
+    aliases: ["UCO"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "MAHABANK"
+    bse_scrip_code: "532525"
+    isin: "INE457A01014"
+    company_name: "Bank of Maharashtra"
+    aliases: ["BOM", "Bank Maharashtra"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "CENTRALBK"
+    bse_scrip_code: "532885"
+    isin: "INE483A01010"
+    company_name: "Central Bank of India"
+    aliases: ["Central Bank"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "PSB"
+    bse_scrip_code: "533295"
+    isin: "INE608A01012"
+    company_name: "Punjab & Sind Bank"
+    aliases: ["Punjab and Sind Bank", "PSB Bank"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]
+
+  - nse_symbol: "IOB"
+    bse_scrip_code: "532388"
+    isin: "INE565A01014"
+    company_name: "Indian Overseas Bank"
+    aliases: ["Indian Overseas"]
+    description: "Indian public sector bank."
+    nse_listed: true
+    bse_listed: true
+    sector: "Banking"
+    industry: "Public Sector Bank"
+    tags: ["public_sector_bank"]

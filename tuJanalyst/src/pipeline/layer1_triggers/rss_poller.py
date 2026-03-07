@@ -15,6 +15,7 @@ import feedparser
 import httpx
 
 from src.models.trigger import TriggerEvent, TriggerPriority, TriggerSource
+from src.models.symbol_resolution import ResolutionInput
 from src.repositories.base import TriggerRepository
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,12 @@ class NormalizedAnnouncement:
     company_symbol: str | None = None
     company_name: str | None = None
     sector: str | None = None
+    resolved_nse_symbol: str | None = None
+    resolved_bse_scrip_code: str | None = None
+    resolved_isin: str | None = None
+    resolution_method: str | None = None
+    resolution_confidence: float | None = None
+    resolution_review_required: bool | None = None
     published_at: datetime | None = None
     document_urls: list[str] = field(default_factory=list)
 
@@ -57,6 +64,7 @@ class ExchangeRSSPoller:
         nse_url: str,
         bse_url: str | None = None,
         session: httpx.AsyncClient | None = None,
+        ticker_resolver: Any | None = None,
         dedup_cache_ttl_seconds: int = 1800,
         dedup_lookback_days: int = 14,
         dedup_recent_limit: int = 5000,
@@ -70,6 +78,7 @@ class ExchangeRSSPoller:
         self._known_dedup_keys: set[str] = set()
         self._dedup_cache_seeded_at: datetime | None = None
         self._supports_recent_listing = callable(getattr(trigger_repo, "list_recent", None))
+        self.ticker_resolver = ticker_resolver
         self.session = session or httpx.AsyncClient(
             headers={
                 "User-Agent": "Mozilla/5.0",
@@ -243,6 +252,7 @@ class ExchangeRSSPoller:
     async def _create_new_triggers(self, announcements: list[NormalizedAnnouncement]) -> list[TriggerEvent]:
         created: list[TriggerEvent] = []
         for announcement in announcements:
+            await self._apply_ticker_resolution(announcement)
             dedup_keys = self._announcement_dedup_keys(announcement)
             if await self._is_duplicate(dedup_keys):
                 continue
@@ -255,6 +265,12 @@ class ExchangeRSSPoller:
                 company_symbol=announcement.company_symbol,
                 company_name=announcement.company_name,
                 sector=announcement.sector,
+                resolved_nse_symbol=announcement.resolved_nse_symbol,
+                resolved_bse_scrip_code=announcement.resolved_bse_scrip_code,
+                resolved_isin=announcement.resolved_isin,
+                resolution_method=announcement.resolution_method,
+                resolution_confidence=announcement.resolution_confidence,
+                resolution_review_required=announcement.resolution_review_required,
                 raw_content=announcement.raw_content,
                 priority=TriggerPriority.NORMAL,
             )
@@ -262,6 +278,46 @@ class ExchangeRSSPoller:
             self._remember_dedup_keys(dedup_keys)
             created.append(trigger)
         return created
+
+    async def _apply_ticker_resolution(self, announcement: NormalizedAnnouncement) -> None:
+        if self.ticker_resolver is None:
+            return
+        source_exchange = "unknown"
+        if announcement.source == TriggerSource.NSE_RSS:
+            source_exchange = "nse"
+        elif announcement.source == TriggerSource.BSE_RSS:
+            source_exchange = "bse"
+
+        payload = ResolutionInput(
+            raw_symbol=announcement.company_symbol,
+            company_name=announcement.company_name,
+            source_exchange=source_exchange,
+            title=announcement.title,
+            content=announcement.raw_content,
+            source_url=announcement.source_url,
+        )
+        try:
+            result = await self.ticker_resolver.resolve(payload)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Ticker resolution failed; keeping inferred symbol/name: error=%s", exc)
+            return
+
+        announcement.resolution_method = str(getattr(result, "method", "") or "")
+        if hasattr(result, "method") and hasattr(result.method, "value"):
+            announcement.resolution_method = str(result.method.value)
+        announcement.resolution_confidence = float(getattr(result, "confidence", 0.0) or 0.0)
+        announcement.resolution_review_required = bool(getattr(result, "review_required", True))
+        announcement.resolved_nse_symbol = str(getattr(result, "nse_symbol", "") or "") or None
+        announcement.resolved_bse_scrip_code = str(getattr(result, "bse_scrip_code", "") or "") or None
+        announcement.resolved_isin = str(getattr(result, "isin", "") or "") or None
+
+        if bool(getattr(result, "resolved", False)):
+            resolved_symbol = str(getattr(result, "nse_symbol", "") or "").strip().upper()
+            if resolved_symbol:
+                announcement.company_symbol = resolved_symbol
+            resolved_name = str(getattr(result, "company_name", "") or "").strip()
+            if resolved_name:
+                announcement.company_name = resolved_name
 
     def _extract_document_urls(self, row: dict[str, Any], base_url: str) -> list[str]:
         urls: list[str] = []

@@ -10,6 +10,7 @@ from src.models.decision import DecisionAssessment
 from src.models.document import RawDocument
 from src.models.investigation import Investigation
 from src.models.report import AnalysisReport
+from src.models.symbol_resolution import CompanyMaster
 from src.models.trigger import TriggerEvent, TriggerStatus
 
 
@@ -121,3 +122,19 @@ class ReportRepository(Protocol):
         comment: str | None = None,
         by: str | None = None,
     ) -> None: ...
+
+
+class CompanyMasterRepository(Protocol):
+    """Data access contract for canonical company identity records."""
+
+    async def upsert(self, company: CompanyMaster) -> str: ...
+
+    async def get_by_nse_symbol(self, symbol: str) -> CompanyMaster | None: ...
+
+    async def get_by_bse_scrip_code(self, scrip_code: str) -> CompanyMaster | None: ...
+
+    async def get_by_isin(self, isin: str) -> CompanyMaster | None: ...
+
+    async def search_by_name(self, query: str, limit: int = 10) -> list[CompanyMaster]: ...
+
+    async def list_by_tag(self, tag: str, limit: int = 200) -> list[CompanyMaster]: ...

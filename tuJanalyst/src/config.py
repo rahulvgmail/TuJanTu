@@ -61,6 +61,17 @@ class Settings(BaseSettings):
     rss_dedup_cache_ttl_seconds: int = 1800
     rss_dedup_lookback_days: int = 14
     rss_dedup_recent_limit: int = 5000
+    symbol_master_seed_path: Path = Path("config/public_sector_banks_seed.yaml")
+    symbol_master_nse_source_url: str | None = None
+    symbol_master_bse_source_url: str | None = None
+    symbol_master_refresh_enabled: bool = False
+    symbol_master_refresh_interval_hours: int = 24
+    enable_symbol_web_fallback: bool = True
+    enable_symbol_dspy_fallback: bool = False
+    symbol_resolution_model: str | None = None
+    symbol_fuzzy_threshold: float = 0.92
+    symbol_review_threshold: float = 0.9
+    symbol_external_source_fallback: bool = True
 
     # Processing controls
     max_document_size_mb: int = 50
@@ -127,6 +138,14 @@ class Settings(BaseSettings):
 
         if self.rss_dedup_recent_limit <= 0:
             raise ValueError("TUJ_RSS_DEDUP_RECENT_LIMIT must be > 0")
+
+        for field_name in ("symbol_fuzzy_threshold", "symbol_review_threshold"):
+            value = float(getattr(self, field_name))
+            if not 0.0 <= value <= 1.0:
+                raise ValueError(f"TUJ_{field_name.upper()} must be between 0 and 1")
+
+        if self.symbol_master_refresh_interval_hours <= 0:
+            raise ValueError("TUJ_SYMBOL_MASTER_REFRESH_INTERVAL_HOURS must be > 0")
 
         if self.market_data_circuit_breaker_failure_threshold <= 0:
             raise ValueError("TUJ_MARKET_DATA_CIRCUIT_BREAKER_FAILURE_THRESHOLD must be > 0")

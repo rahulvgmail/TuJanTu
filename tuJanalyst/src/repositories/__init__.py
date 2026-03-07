@@ -2,6 +2,7 @@
 
 from src.repositories.base import (
     AssessmentRepository,
+    CompanyMasterRepository,
     DocumentRepository,
     InvestigationRepository,
     PositionRepository,
@@ -11,6 +12,7 @@ from src.repositories.base import (
 )
 from src.repositories.mongo import (
     MongoAssessmentRepository,
+    MongoCompanyMasterRepository,
     MongoDocumentRepository,
     MongoInvestigationRepository,
     MongoPositionRepository,
@@ -24,9 +26,11 @@ from src.repositories.vector import ChromaVectorRepository
 
 __all__ = [
     "AssessmentRepository",
+    "CompanyMasterRepository",
     "DocumentRepository",
     "InvestigationRepository",
     "MongoAssessmentRepository",
+    "MongoCompanyMasterRepository",
     "MongoDocumentRepository",
     "MongoInvestigationRepository",
     "MongoPositionRepository",
