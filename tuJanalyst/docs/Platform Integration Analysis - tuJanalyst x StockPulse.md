@@ -507,23 +507,36 @@ When fully integrated, the TuJan platform becomes:
 
 ---
 
+## Decisions (from Open Questions)
+
+1. **Network topology:** Both services will be co-located — same Tailscale network, same domain, same cloud instance. Latency is not a concern; local network calls.
+
+2. **Authentication:** Service-to-service auth (shared secret / internal token). No need for API key management overhead between internal services.
+
+3. **Data freshness:** Use intraday data whenever available. StockPulse already polls every 3 minutes during market hours — create or expose an API endpoint that serves the latest available data (intraday during market hours, EOD otherwise).
+
+4. **Universe alignment:** tuJanalyst agents can request new stocks be added to StockPulse's universe. When the analyst pipeline discovers a relevant company not yet tracked, it should be able to trigger a `POST /api/universe` call to add and backfill.
+
+5. **Feedback loop scope:** *Open — needs discussion with the investment team.* Definition of "correct" recommendation (time horizon, target price, benchmark) to be determined before building the performance feedback loop.
+
+6. **Rate limits / Market-wide events:** When too many technical events fire simultaneously (e.g., 100+ events in a short window), this signals a macro event (election results, war, policy shock) — not a fundamental catalyst. In this scenario, the fundamental analysis path should be **suspended**, not flooded. Instead, a different analysis mode should activate: macro-event detection and classification. The system should recognize "this is not about individual company fundamentals" and respond accordingly (e.g., notify team of market-wide event, skip per-stock fundamental investigations, resume normal pipeline when event rate normalizes).
+
+7. **Color classification authority:** tuJanalyst agents are authorized to directly update color classifications in StockPulse. Blue (good results) and Red (bad results) are natural candidates for agent-driven classification based on quarterly result analysis.
+
 ## Open Questions
 
-1. **Network topology:** Are both services deployed on the same Tailscale network? API latency between them matters for gate enrichment (needs to be fast).
+1. **Feedback loop scope:** What constitutes a "correct" recommendation? Time horizon, price target, benchmark comparison — needs input from the investment team before the performance tracking system can be built.
 
-2. **Authentication:** Should tuJanalyst use a dedicated StockPulse API key, or should we implement service-to-service auth?
+2. **Macro-event detection:** What threshold of simultaneous events triggers the "macro mode"? What does the macro analysis path look like? This is a new capability that needs its own design.
 
-3. **Data freshness:** StockPulse computes indicators at EOD (4 PM IST). During market hours, should tuJanalyst use intraday data or latest EOD? StockPulse has intraday polling every 3 minutes — can the API serve this?
+---
 
-4. **Universe alignment timing:** As tuJanalyst expands to more sectors, should StockPulse's existing universe be the boundary, or should tuJanalyst be able to request new stocks be added to StockPulse?
+## Wishlist
 
-5. **Feedback loop scope:** For performance tracking, what constitutes a "correct" recommendation? Need to define: time horizon, price target, benchmark comparison.
-
-6. **Rate limits:** If all 1,633 stocks in StockPulse fire events simultaneously (e.g., market-wide selloff), how does tuJanalyst handle the flood? Need throttling/batching strategy for technical event triggers.
-
-7. **Color classification authority:** Should tuJanalyst agents be allowed to directly update colors, or only suggest? Current assumption: suggest only, humans decide. But for Blue (good results) and Red (bad results), the agent's assessment is arguably more systematic than manual classification.
+1. **AI Recommendation as StockPulse Event:** Whenever tuJanalyst creates a buy or sell recommendation, it should be posted as an event in StockPulse (event type: `AI_RECOMMENDATION_CHANGE`). This makes AI recommendations visible in StockPulse's event feed, subscribable via webhooks, and part of the unified notification stream. *(Already described in Integration #4 above — confirmed as a priority.)*
 
 ---
 
 *Document created: 2026-03-13*
+*Last updated: 2026-03-14 — incorporated founder decisions on open questions*
 *Scope: Product analysis only — no code changes proposed*
