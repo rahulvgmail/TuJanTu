@@ -111,6 +111,7 @@ class InvestigationSynthesis(dspy.Signature):
     market_data_json: str = dspy.InputField(desc="JSON object for market snapshot")
     historical_context_json: str = dspy.InputField(desc="JSON object for historical context")
     technical_context: str = dspy.InputField(desc="Technical analysis context from StockPulse including DMA/WMA signals, 52-week status, volume breakouts, screener membership, and recent technical events. May be empty if not available.")
+    sector_pulse: str = dspy.InputField(desc="Sector-level technical pulse summary showing peer stock momentum, DMA distribution, 52W highs, volume breakouts, and top movers. Helps contextualize whether the stock is moving with or against sector trends. May be empty if not available.", default="")
 
     synthesis: str = dspy.OutputField(desc="Narrative synthesis")
     key_findings_json: str = dspy.OutputField(desc="JSON array of key findings")

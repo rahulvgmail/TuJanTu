@@ -9,6 +9,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from src.models.sector_pulse import SectorPulse
 from src.models.technical_context import TechnicalContext
 
 
@@ -117,6 +118,7 @@ class Investigation(BaseModel):
     web_search_calls: int = 0
     market_data: MarketDataSnapshot | None = None
     technical_context: TechnicalContext | None = None
+    sector_pulse: SectorPulse | None = None
     historical_context: HistoricalContext | None = None
 
     synthesis: str = ""

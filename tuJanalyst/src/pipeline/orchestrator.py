@@ -14,6 +14,7 @@ from src.models.document import ProcessingStatus, RawDocument
 from src.models.report import ReportDeliveryStatus
 from src.models.trigger import TriggerEvent, TriggerSource, TriggerStatus
 from src.repositories.base import DocumentRepository, TriggerRepository, VectorRepository
+from src.services.performance_tracker import PerformanceTracker
 
 logger = structlog.get_logger(__name__)
 
@@ -37,6 +38,7 @@ class PipelineOrchestrator:
         report_repo: Any | None = None,
         stockpulse_notifier: StockPulseNotifier | None = None,
         stockpulse_data_tool: StockPulseDataTool | None = None,
+        performance_tracker: PerformanceTracker | None = None,
     ):
         self.trigger_repo = trigger_repo
         self.doc_repo = doc_repo
@@ -52,6 +54,7 @@ class PipelineOrchestrator:
         self.report_repo = report_repo
         self.stockpulse_notifier = stockpulse_notifier
         self.stockpulse_data_tool = stockpulse_data_tool
+        self.performance_tracker = performance_tracker
 
     async def process_trigger(self, trigger: TriggerEvent) -> dict[str, str | bool]:
         """Process a single trigger through configured pipeline layers."""
@@ -182,6 +185,33 @@ class PipelineOrchestrator:
                     await self.stockpulse_notifier.update_color_from_assessment(assessment, investigation)
             except Exception:  # noqa: BLE001
                 logger.warning("Failed to post recommendation to StockPulse", exc_info=True)
+
+        # Record performance entry for recommendation changes
+        if self.performance_tracker and assessment and getattr(assessment, "recommendation_changed", False):
+            try:
+                entry_price: float | None = None
+                if investigation:
+                    market_data = getattr(investigation, "market_data", None)
+                    if market_data:
+                        entry_price = getattr(market_data, "current_price", None)
+                    if entry_price is None:
+                        tech_ctx = getattr(investigation, "technical_context", None)
+                        if tech_ctx:
+                            entry_price = getattr(tech_ctx, "current_price", None)
+                if entry_price is not None and entry_price > 0:
+                    await self.performance_tracker.record_entry(assessment, entry_price)
+                    logger.info(
+                        "performance_entry_recorded",
+                        assessment_id=str(getattr(assessment, "assessment_id", "")),
+                        entry_price=entry_price,
+                    )
+                else:
+                    logger.warning(
+                        "performance_entry_skipped_no_price",
+                        assessment_id=str(getattr(assessment, "assessment_id", "")),
+                    )
+            except Exception:  # noqa: BLE001
+                logger.warning("Failed to record performance entry", exc_info=True)
 
         try:
             report = await self.report_generator.generate(investigation, assessment)

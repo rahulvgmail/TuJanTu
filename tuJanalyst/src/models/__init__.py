@@ -15,6 +15,7 @@ from src.models.investigation import (
 from src.models.note import AnalysisNote
 from src.models.report import AnalysisReport, ReportDeliveryStatus
 from src.models.symbol_resolution import CompanyMaster, ResolutionInput, ResolutionMethod, ResolutionResult
+from src.models.sector_pulse import SectorPulse
 from src.models.technical_context import TechnicalContext
 from src.models.trigger import (
     StatusTransition,
@@ -45,6 +46,7 @@ __all__ = [
     "ResolutionResult",
     "RawDocument",
     "Sector",
+    "SectorPulse",
     "SignificanceLevel",
     "StatusTransition",
     "TriggerEvent",

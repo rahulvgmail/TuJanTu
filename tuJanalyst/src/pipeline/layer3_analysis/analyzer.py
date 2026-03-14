@@ -17,6 +17,7 @@ from src.models.investigation import (
     SignificanceLevel,
     WebSearchResult,
 )
+from src.agents.tools.sector_pulse import SectorPulseTool
 from src.agents.tools.stockpulse_data import StockPulseDataTool
 from src.utils.retry import is_transient_error, retry_in_thread
 from src.utils.token_usage import run_with_dspy_usage
@@ -36,6 +37,7 @@ class DeepAnalyzer:
         web_search: Any,
         market_data: Any,
         stockpulse_data: StockPulseDataTool | None = None,
+        sector_pulse_tool: SectorPulseTool | None = None,
         analysis_pipeline: DeepAnalysisPipeline | None = None,
         web_search_module: WebSearchModule | None = None,
         model_name: str = "analysis-pipeline",
@@ -46,6 +48,7 @@ class DeepAnalyzer:
         self.web_search = web_search
         self.market_data = market_data
         self.stockpulse_data = stockpulse_data
+        self.sector_pulse_tool = sector_pulse_tool
         self.pipeline = analysis_pipeline or DeepAnalysisPipeline()
         self.web_search_module = web_search_module or WebSearchModule()
         self.model_name = model_name
@@ -70,11 +73,15 @@ class DeepAnalyzer:
 
         if investigation.company_symbol and investigation.company_symbol != "UNKNOWN":
             symbol = investigation.company_symbol
-            # Fetch market data and technical context concurrently
+            # Fetch market data, technical context, and sector pulse concurrently
             market_coro = self.market_data.get_snapshot(symbol)
             tasks = [market_coro]
             if self.stockpulse_data:
                 tasks.append(self.stockpulse_data.get_technical_context(symbol))
+
+            trigger_sector = getattr(trigger, "sector", None)
+            if trigger_sector and self.sector_pulse_tool:
+                tasks.append(self.sector_pulse_tool.get_sector_pulse(trigger_sector))
 
             results = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -90,14 +97,28 @@ class DeepAnalyzer:
                 investigation.market_data = None
 
             # Technical context (if available)
-            if len(results) > 1 and not isinstance(results[1], BaseException):
-                investigation.technical_context = results[1]
-            elif len(results) > 1:
-                logger.warning(
-                    "Technical context retrieval failed; continuing without it: symbol=%s error=%s",
-                    symbol,
-                    results[1],
-                )
+            task_idx = 1
+            if self.stockpulse_data:
+                if len(results) > task_idx and not isinstance(results[task_idx], BaseException):
+                    investigation.technical_context = results[task_idx]
+                elif len(results) > task_idx:
+                    logger.warning(
+                        "Technical context retrieval failed; continuing without it: symbol=%s error=%s",
+                        symbol,
+                        results[task_idx],
+                    )
+                task_idx += 1
+
+            # Sector pulse (if available)
+            if trigger_sector and self.sector_pulse_tool:
+                if len(results) > task_idx and not isinstance(results[task_idx], BaseException):
+                    investigation.sector_pulse = results[task_idx]
+                elif len(results) > task_idx:
+                    logger.warning(
+                        "Sector pulse retrieval failed; continuing without it: sector=%s error=%s",
+                        trigger_sector,
+                        results[task_idx],
+                    )
 
         web_results, web_search_calls, query_input_tokens, query_output_tokens = await self._run_web_search(
             trigger=trigger,
@@ -109,6 +130,10 @@ class DeepAnalyzer:
         technical_context_text = ""
         if investigation.technical_context:
             technical_context_text = investigation.technical_context.to_prompt_text()
+
+        sector_pulse_text = ""
+        if investigation.sector_pulse:
+            sector_pulse_text = investigation.sector_pulse.to_prompt_text()
 
         deep_result, pipeline_input_tokens, pipeline_output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
@@ -122,6 +147,7 @@ class DeepAnalyzer:
                     historical_context_json=self._to_json(historical_context.model_dump()),
                     web_search_results_json=self._to_json([item.model_dump() for item in web_results]),
                     technical_context_text=technical_context_text,
+                    sector_pulse_text=sector_pulse_text,
                 )
             ),
             attempts=3,

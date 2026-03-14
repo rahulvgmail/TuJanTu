@@ -432,16 +432,16 @@ These tasks must be done in the StockPulse codebase to support integration. They
 | 1A.5 | Wire into main.py | `[x]` | Instantiation + cleanup |
 | 1B.1 | StockPulseDataTool | `[x]` | `src/agents/tools/stockpulse_data.py` |
 | 1B.2 | TechnicalContext model | `[x]` | `src/models/technical_context.py` with `to_prompt_text()` |
-| 1B.3 | Data tool tests | `[ ]` | |
+| 1B.3 | Data tool tests | `[x]` | 6 tests pass |
 | 1C.1 | Investigation model update | `[x]` | `technical_context` field added |
 | 1C.2 | DeepAnalyzer update | `[x]` | Parallel fetch with asyncio.gather |
 | 1C.3 | DSPy signatures update | `[x]` | `InvestigationSynthesis` updated |
 | 1C.4 | Pipeline forward update | `[x]` | `SynthesisModule` + `DeepAnalysisPipeline` updated |
-| 1C.5 | Layer 3 tests update | `[ ]` | |
+| 1C.5 | Layer 3 tests update | `[x]` | Existing tests pass with new optional params |
 | 1C.6 | Wire tool into main.py | `[x]` | DeepAnalyzer + Orchestrator wired |
 | 1D.1 | StockPulseNotifier service | `[x]` | `src/integrations/stockpulse_notifier.py` |
 | 1D.2 | Orchestrator hook | `[x]` | Post-L3 notes + post-L4 recommendation/color |
-| 1D.3 | Notifier tests | `[ ]` | |
+| 1D.3 | Notifier tests | `[x]` | 7 tests pass |
 | 1E.1 | Result date fields | `[x]` | Included in indicator parsing |
 | SP.2 | AI event type (StockPulse) | `[ ]` | |
 | SP.4 | Service-to-service auth (StockPulse) | `[ ]` | |
@@ -472,23 +472,23 @@ These tasks must be done in the StockPulse codebase to support integration. They
 ### Phase 3: Unified Experience + Performance
 | Task | Description | Status | Notes |
 |------|-------------|--------|-------|
-| 3A.1 | Performance data model | `[ ]` | |
-| 3A.2 | PerformanceTracker service | `[ ]` | |
-| 3A.3 | Performance repository | `[ ]` | |
-| 3A.4 | Performance API endpoints | `[ ]` | |
-| 3A.5 | Scheduled price checkpoint job | `[ ]` | |
-| 3A.6 | Orchestrator entry recording | `[ ]` | |
-| 3A.7 | Performance tests | `[ ]` | |
-| 3B.1 | Sector query methods | `[ ]` | |
-| 3B.2 | SectorPulseTool | `[ ]` | |
-| 3B.3 | SectorPulse model | `[ ]` | |
-| 3B.4 | Wire into Layer 3 | `[ ]` | |
-| 3B.5 | Sector pulse tests | `[ ]` | |
-| 3C.1 | tuJanalyst client (StockPulse) | `[ ]` | |
-| 3C.2 | Stock detail AI section (StockPulse) | `[ ]` | |
-| 3C.3 | Dashboard AI cards (StockPulse) | `[ ]` | |
-| 3C.4 | Reports page (StockPulse) | `[ ]` | |
-| 3C.5 | Performance page (StockPulse) | `[ ]` | |
+| 3A.1 | Performance data model | `[x]` | `src/models/performance.py` — RecommendationOutcome |
+| 3A.2 | PerformanceTracker service | `[x]` | `src/services/performance_tracker.py` — record + checkpoints |
+| 3A.3 | Performance repository | `[x]` | `src/repositories/performance_repo.py` — CRUD + indexes |
+| 3A.4 | Performance API endpoints | `[x]` | `src/api/performance.py` — outcomes, summary, company |
+| 3A.5 | Scheduled price checkpoint job | `[x]` | APScheduler cron at 11:30 UTC (5 PM IST) |
+| 3A.6 | Orchestrator entry recording | `[x]` | Records after Layer 4 recommendation change |
+| 3A.7 | Performance tests | `[x]` | 38 + 18 tests (tracker + API) |
+| 3B.1 | Sector query methods | `[x]` | `get_stocks_by_sector()` on StockPulseClient |
+| 3B.2 | SectorPulseTool | `[x]` | `src/agents/tools/sector_pulse.py` — batched aggregation |
+| 3B.3 | SectorPulse model | `[x]` | `src/models/sector_pulse.py` with `to_prompt_text()` |
+| 3B.4 | Wire into Layer 3 | `[x]` | Investigation + DSPy signatures + DeepAnalyzer updated |
+| 3B.5 | Sector pulse tests | `[x]` | 17 tests pass |
+| 3C.1 | tuJanalyst client (StockPulse) | `[ ]` | StockPulse-side work |
+| 3C.2 | Stock detail AI section (StockPulse) | `[ ]` | StockPulse-side work |
+| 3C.3 | Dashboard AI cards (StockPulse) | `[ ]` | StockPulse-side work |
+| 3C.4 | Reports page (StockPulse) | `[ ]` | StockPulse-side work |
+| 3C.5 | Performance page (StockPulse) | `[ ]` | StockPulse-side work |
 
 ### Phase 4: Advanced Intelligence
 | Task | Description | Status | Notes |

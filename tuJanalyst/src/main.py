@@ -13,6 +13,7 @@ from fastapi import FastAPI
 
 from src.agents.tools import MarketDataTool, TickerWebLookup, WebSearchTool
 from src.agents.tools.stockpulse_client import StockPulseClient
+from src.agents.tools.sector_pulse import SectorPulseTool
 from src.agents.tools.stockpulse_data import StockPulseDataTool
 from src.integrations.stockpulse_notifier import StockPulseNotifier
 from src.api import (
@@ -57,6 +58,8 @@ from src.repositories.mongo import (
     ensure_indexes,
     get_database,
 )
+from src.repositories.performance_repo import MongoPerformanceRepository
+from src.services.performance_tracker import PerformanceTracker
 
 logger = logging.getLogger(__name__)
 _TRIGGER_PROCESSOR_BATCH_LIMIT = 5
@@ -127,6 +130,8 @@ async def lifespan(app: FastAPI):
         position_repo = MongoPositionRepository(mongo_db)
         report_repo = MongoReportRepository(mongo_db)
         company_master_repo = MongoCompanyMasterRepository(mongo_db)
+        performance_repo = MongoPerformanceRepository(mongo_db)
+        await performance_repo.ensure_indexes()
         vector_repo = ChromaVectorRepository(
             persist_dir=settings.chromadb_persist_dir,
             embedding_model=settings.embedding_model,
@@ -185,9 +190,23 @@ async def lifespan(app: FastAPI):
         else:
             logger.info("StockPulse integration disabled (TUJ_STOCKPULSE_BASE_URL not configured)")
 
+        sector_pulse_tool: SectorPulseTool | None = None
+        if stockpulse_client:
+            sector_pulse_tool = SectorPulseTool(client=stockpulse_client)
+
         stockpulse_notifier = None
         if stockpulse_client:
             stockpulse_notifier = StockPulseNotifier(client=stockpulse_client)
+
+        performance_tracker: PerformanceTracker | None = None
+        if stockpulse_client:
+            performance_tracker = PerformanceTracker(
+                repo=performance_repo,
+                stockpulse_client=stockpulse_client,
+            )
+            logger.info("Performance tracker enabled.")
+        else:
+            logger.info("Performance tracker disabled (StockPulse client not configured).")
 
         ticker_web_lookup = None
         if settings.enable_symbol_web_fallback and not isinstance(web_search_tool, _NoopWebSearchTool):
@@ -247,6 +266,7 @@ async def lifespan(app: FastAPI):
                 market_data=market_data_tool,
                 model_name=settings.analysis_model,
                 stockpulse_data=stockpulse_data_tool,
+                sector_pulse_tool=sector_pulse_tool,
             )
         else:
             logger.info("Layer 3 analysis disabled by configuration.")
@@ -299,6 +319,7 @@ async def lifespan(app: FastAPI):
             report_repo=report_repo,
             stockpulse_notifier=stockpulse_notifier,
             stockpulse_data_tool=stockpulse_data_tool,
+            performance_tracker=performance_tracker,
         )
         app.state.trigger_repo = trigger_repo
         app.state.document_repo = document_repo
@@ -323,6 +344,8 @@ async def lifespan(app: FastAPI):
         app.state.report_deliverer = report_deliverer
         app.state.ticker_resolver = ticker_resolver
         app.state.symbol_master_sync = symbol_master_sync
+        app.state.performance_repo = performance_repo
+        app.state.performance_tracker = performance_tracker
 
         app.state.rss_poller = ExchangeRSSPoller(
             trigger_repo=trigger_repo,
@@ -370,6 +393,19 @@ async def lifespan(app: FastAPI):
                 coalesce=True,
                 max_instances=1,
             )
+            if performance_tracker is not None:
+                scheduler.add_job(
+                    performance_tracker.update_checkpoints,
+                    trigger="cron",
+                    hour=11,
+                    minute=30,
+                    timezone="UTC",
+                    id="performance_checkpoint_updater",
+                    replace_existing=True,
+                    coalesce=True,
+                    max_instances=1,
+                )
+                logger.info("Performance checkpoint updater scheduled daily at 17:00 IST (11:30 UTC).")
             scheduler.start()
             logger.info(
                 "Scheduler started (rss_interval=%ss trigger_processor_interval=30s).",

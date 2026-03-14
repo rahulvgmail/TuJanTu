@@ -83,6 +83,7 @@ class SynthesisModule(dspy.Module):
         market_data_json: str,
         historical_context_json: str,
         technical_context: str = "",
+        sector_pulse: str = "",
     ):
         return self.synthesizer(
             company_symbol=company_symbol,
@@ -93,6 +94,7 @@ class SynthesisModule(dspy.Module):
             market_data_json=market_data_json,
             historical_context_json=historical_context_json,
             technical_context=technical_context,
+            sector_pulse=sector_pulse,
         )
 
 
@@ -122,6 +124,7 @@ class DeepAnalysisPipeline(dspy.Module):
         historical_context_json: str = "{}",
         web_search_results_json: str = "[]",
         technical_context_text: str = "",
+        sector_pulse_text: str = "",
     ) -> DeepAnalysisResult:
         result = DeepAnalysisResult()
 
@@ -168,6 +171,7 @@ class DeepAnalysisPipeline(dspy.Module):
                 market_data_json=market_data_json,
                 historical_context_json=historical_context_json,
                 technical_context=technical_context_text,
+                sector_pulse=sector_pulse_text,
             )
             result.synthesis = str(getattr(synthesis_prediction, "synthesis", ""))
             result.key_findings_json = str(getattr(synthesis_prediction, "key_findings_json", "[]"))

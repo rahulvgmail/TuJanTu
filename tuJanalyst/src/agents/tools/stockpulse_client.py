@@ -108,6 +108,11 @@ class StockPulseClient:
                     break
         return matched
 
+    async def get_stocks_by_sector(self, sector: str) -> list[dict[str, Any]]:
+        """GET /api/stocks?sector={sector}"""
+        result = await self._request("GET", "/stocks", params={"sector": sector})
+        return result if isinstance(result, list) else []
+
     async def post_note(self, symbol: str, content: str, author_type: str = "agent") -> dict[str, Any] | None:
         """POST /api/stocks/{symbol}/notes"""
         result = await self._request(

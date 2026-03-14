@@ -6,8 +6,12 @@ import asyncio
 from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 
-from fastapi import APIRouter, Query, Request
+from fastapi import APIRouter, HTTPException, Query, Request
 from pydantic import BaseModel
+
+from src.models.performance import RecommendationOutcome
+from src.repositories.performance_repo import MongoPerformanceRepository
+from src.services.performance_tracker import PerformanceTracker
 
 router = APIRouter(prefix="/api/v1/performance", tags=["performance"])
 
@@ -332,3 +336,88 @@ async def summarize_recommendation_performance(
         best_call=best_call,
         worst_call=worst_call,
     )
+
+
+# ---------------------------------------------------------------------------
+# Outcome-based endpoints (performance feedback loop)
+# ---------------------------------------------------------------------------
+
+
+class OutcomeListResponse(BaseModel):
+    """Response for listing recommendation outcomes."""
+
+    items: list[RecommendationOutcome]
+    total: int
+
+
+class OutcomeSummaryResponse(BaseModel):
+    """Aggregate outcome-based performance stats."""
+
+    total_recommendations: int
+    open_recommendations: int
+    closed_recommendations: int
+    wins: int
+    losses: int
+    neutrals: int
+    win_rate: float
+    avg_return_buy: float | None = None
+    avg_return_sell: float | None = None
+    avg_return_hold: float | None = None
+    by_recommendation: dict[str, int] = {}
+
+
+def _get_performance_repo(request: Request) -> MongoPerformanceRepository:
+    repo = getattr(request.app.state, "performance_repo", None)
+    if repo is None:
+        raise HTTPException(status_code=503, detail="Performance repository is not configured")
+    return repo
+
+
+def _get_performance_tracker(request: Request) -> PerformanceTracker:
+    tracker = getattr(request.app.state, "performance_tracker", None)
+    if tracker is None:
+        raise HTTPException(status_code=503, detail="Performance tracker is not configured")
+    return tracker
+
+
+@router.get("/outcomes", response_model=OutcomeListResponse)
+async def list_outcomes(
+    request: Request,
+    symbol: str | None = Query(default=None, description="Filter by company symbol"),
+    is_closed: bool | None = Query(default=None, description="Filter by closed status"),
+    limit: int = Query(default=100, ge=1, le=500),
+) -> OutcomeListResponse:
+    """List all recommendation outcomes with optional filters."""
+    repo = _get_performance_repo(request)
+
+    if symbol is not None:
+        items = await repo.get_by_company(symbol)
+    elif is_closed is not None:
+        if is_closed:
+            all_items = await repo.get_all(limit=limit)
+            items = [o for o in all_items if o.is_closed]
+        else:
+            items = await repo.get_open()
+    else:
+        items = await repo.get_all(limit=limit)
+
+    return OutcomeListResponse(items=items, total=len(items))
+
+
+@router.get("/outcomes/summary", response_model=OutcomeSummaryResponse)
+async def outcome_summary(request: Request) -> OutcomeSummaryResponse:
+    """Return aggregate stats from tracked recommendation outcomes."""
+    tracker = _get_performance_tracker(request)
+    stats = await tracker.get_summary()
+    return OutcomeSummaryResponse(**stats)
+
+
+@router.get("/company/{company_symbol}", response_model=OutcomeListResponse)
+async def outcomes_by_company(
+    request: Request,
+    company_symbol: str,
+) -> OutcomeListResponse:
+    """Return all recommendation outcomes for a specific company."""
+    repo = _get_performance_repo(request)
+    items = await repo.get_by_company(company_symbol)
+    return OutcomeListResponse(items=items, total=len(items))
