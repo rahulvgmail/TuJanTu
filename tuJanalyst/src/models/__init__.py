@@ -15,6 +15,7 @@ from src.models.investigation import (
 from src.models.note import AnalysisNote
 from src.models.report import AnalysisReport, ReportDeliveryStatus
 from src.models.symbol_resolution import CompanyMaster, ResolutionInput, ResolutionMethod, ResolutionResult
+from src.models.technical_context import TechnicalContext
 from src.models.trigger import (
     StatusTransition,
     TriggerEvent,
@@ -53,4 +54,5 @@ __all__ = [
     "WebSearchResult",
     "WatchlistConfig",
     "CompanyMaster",
+    "TechnicalContext",
 ]

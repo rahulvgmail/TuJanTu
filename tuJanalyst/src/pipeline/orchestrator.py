@@ -8,6 +8,7 @@ from typing import Any
 
 import structlog
 
+from src.integrations.stockpulse_notifier import StockPulseNotifier
 from src.models.document import ProcessingStatus, RawDocument
 from src.models.report import ReportDeliveryStatus
 from src.models.trigger import TriggerEvent, TriggerSource, TriggerStatus
@@ -33,6 +34,7 @@ class PipelineOrchestrator:
         report_generator: Any | None = None,
         report_deliverer: Any | None = None,
         report_repo: Any | None = None,
+        stockpulse_notifier: StockPulseNotifier | None = None,
     ):
         self.trigger_repo = trigger_repo
         self.doc_repo = doc_repo
@@ -46,6 +48,7 @@ class PipelineOrchestrator:
         self.report_generator = report_generator
         self.report_deliverer = report_deliverer
         self.report_repo = report_repo
+        self.stockpulse_notifier = stockpulse_notifier
 
     async def process_trigger(self, trigger: TriggerEvent) -> dict[str, str | bool]:
         """Process a single trigger through configured pipeline layers."""
@@ -127,6 +130,13 @@ class PipelineOrchestrator:
             llm_latency_seconds=float(getattr(investigation, "processing_time_seconds", 0.0)),
         )
 
+        # Post investigation summary to StockPulse
+        if self.stockpulse_notifier and investigation:
+            try:
+                await self.stockpulse_notifier.post_investigation_note(investigation)
+            except Exception:  # noqa: BLE001
+                logger.warning("Failed to post investigation note to StockPulse", exc_info=True)
+
         if not bool(getattr(investigation, "is_significant", False)):
             logger.info("layer3_non_significant_stop")
             return
@@ -160,6 +170,15 @@ class PipelineOrchestrator:
             llm_output_tokens=int(getattr(assessment, "total_output_tokens", 0)),
             llm_latency_seconds=float(getattr(assessment, "processing_time_seconds", 0.0)),
         )
+
+        # Post recommendation to StockPulse and update color
+        if self.stockpulse_notifier and assessment:
+            try:
+                await self.stockpulse_notifier.post_recommendation_event(assessment)
+                if investigation:
+                    await self.stockpulse_notifier.update_color_from_assessment(assessment, investigation)
+            except Exception:  # noqa: BLE001
+                logger.warning("Failed to post recommendation to StockPulse", exc_info=True)
 
         try:
             report = await self.report_generator.generate(investigation, assessment)

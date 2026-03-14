@@ -9,6 +9,8 @@ from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from src.models.technical_context import TechnicalContext
+
 
 def utc_now() -> datetime:
     """Return timezone-aware current UTC timestamp."""
@@ -114,6 +116,7 @@ class Investigation(BaseModel):
     web_search_results: list[WebSearchResult] = Field(default_factory=list)
     web_search_calls: int = 0
     market_data: MarketDataSnapshot | None = None
+    technical_context: TechnicalContext | None = None
     historical_context: HistoricalContext | None = None
 
     synthesis: str = ""

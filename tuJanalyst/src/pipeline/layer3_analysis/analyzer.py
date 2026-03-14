@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import time
@@ -16,6 +17,7 @@ from src.models.investigation import (
     SignificanceLevel,
     WebSearchResult,
 )
+from src.agents.tools.stockpulse_data import StockPulseDataTool
 from src.utils.retry import is_transient_error, retry_in_thread
 from src.utils.token_usage import run_with_dspy_usage
 
@@ -33,6 +35,7 @@ class DeepAnalyzer:
         doc_repo: Any,
         web_search: Any,
         market_data: Any,
+        stockpulse_data: StockPulseDataTool | None = None,
         analysis_pipeline: DeepAnalysisPipeline | None = None,
         web_search_module: WebSearchModule | None = None,
         model_name: str = "analysis-pipeline",
@@ -42,6 +45,7 @@ class DeepAnalyzer:
         self.doc_repo = doc_repo
         self.web_search = web_search
         self.market_data = market_data
+        self.stockpulse_data = stockpulse_data
         self.pipeline = analysis_pipeline or DeepAnalysisPipeline()
         self.web_search_module = web_search_module or WebSearchModule()
         self.model_name = model_name
@@ -65,15 +69,35 @@ class DeepAnalyzer:
         investigation.historical_context = historical_context
 
         if investigation.company_symbol and investigation.company_symbol != "UNKNOWN":
-            try:
-                investigation.market_data = await self.market_data.get_snapshot(investigation.company_symbol)
-            except Exception as exc:  # noqa: BLE001
+            symbol = investigation.company_symbol
+            # Fetch market data and technical context concurrently
+            market_coro = self.market_data.get_snapshot(symbol)
+            tasks = [market_coro]
+            if self.stockpulse_data:
+                tasks.append(self.stockpulse_data.get_technical_context(symbol))
+
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+
+            # Market data (always first)
+            if not isinstance(results[0], BaseException):
+                investigation.market_data = results[0]
+            else:
                 logger.warning(
                     "Market data retrieval failed; continuing without market snapshot: symbol=%s error=%s",
-                    investigation.company_symbol,
-                    exc,
+                    symbol,
+                    results[0],
                 )
                 investigation.market_data = None
+
+            # Technical context (if available)
+            if len(results) > 1 and not isinstance(results[1], BaseException):
+                investigation.technical_context = results[1]
+            elif len(results) > 1:
+                logger.warning(
+                    "Technical context retrieval failed; continuing without it: symbol=%s error=%s",
+                    symbol,
+                    results[1],
+                )
 
         web_results, web_search_calls, query_input_tokens, query_output_tokens = await self._run_web_search(
             trigger=trigger,
@@ -81,6 +105,10 @@ class DeepAnalyzer:
         )
         investigation.web_search_results = web_results
         investigation.web_search_calls = web_search_calls
+
+        technical_context_text = ""
+        if investigation.technical_context:
+            technical_context_text = investigation.technical_context.to_prompt_text()
 
         deep_result, pipeline_input_tokens, pipeline_output_tokens = await retry_in_thread(
             lambda: run_with_dspy_usage(
@@ -93,6 +121,7 @@ class DeepAnalyzer:
                     ),
                     historical_context_json=self._to_json(historical_context.model_dump()),
                     web_search_results_json=self._to_json([item.model_dump() for item in web_results]),
+                    technical_context_text=technical_context_text,
                 )
             ),
             attempts=3,

@@ -79,6 +79,20 @@ class Settings(BaseSettings):
     market_data_circuit_breaker_failure_threshold: int = 3
     market_data_circuit_breaker_recovery_seconds: int = 120
 
+    # StockPulse integration
+    stockpulse_base_url: str | None = None  # e.g., "http://localhost:5001/api"
+    stockpulse_api_key: str | None = None  # Bearer token for service-to-service auth
+    stockpulse_timeout_seconds: int = 10
+    stockpulse_circuit_breaker_failure_threshold: int = 3
+    stockpulse_circuit_breaker_recovery_seconds: int = 120
+
+    # Technical event webhook
+    stockpulse_webhook_secret: str | None = None  # HMAC secret for webhook validation
+
+    # Flood detection for technical events
+    technical_event_flood_threshold: int = 50  # events per window
+    technical_event_flood_window_minutes: int = 5
+
     # Optional layer toggles
     enable_layer3_analysis: bool = True
     enable_layer4_decision: bool = True

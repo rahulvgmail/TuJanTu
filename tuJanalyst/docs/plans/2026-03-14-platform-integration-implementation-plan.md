@@ -425,24 +425,24 @@ These tasks must be done in the StockPulse codebase to support integration. They
 ### Phase 1: Foundation
 | Task | Description | Status | Notes |
 |------|-------------|--------|-------|
-| 1A.1 | StockPulseClient class | `[ ]` | |
-| 1A.2 | Pydantic response models | `[ ]` | |
-| 1A.3 | Configuration (Settings) | `[ ]` | |
-| 1A.4 | Client tests | `[ ]` | |
-| 1A.5 | Wire into main.py | `[ ]` | |
-| 1B.1 | StockPulseDataTool | `[ ]` | |
-| 1B.2 | TechnicalContext model | `[ ]` | |
+| 1A.1 | StockPulseClient class | `[x]` | `src/agents/tools/stockpulse_client.py` |
+| 1A.2 | Pydantic response models | `[x]` | `src/models/stockpulse.py` |
+| 1A.3 | Configuration (Settings) | `[x]` | `src/config.py` |
+| 1A.4 | Client tests | `[x]` | 10 tests pass |
+| 1A.5 | Wire into main.py | `[x]` | Instantiation + cleanup |
+| 1B.1 | StockPulseDataTool | `[x]` | `src/agents/tools/stockpulse_data.py` |
+| 1B.2 | TechnicalContext model | `[x]` | `src/models/technical_context.py` with `to_prompt_text()` |
 | 1B.3 | Data tool tests | `[ ]` | |
-| 1C.1 | Investigation model update | `[ ]` | |
-| 1C.2 | DeepAnalyzer update | `[ ]` | |
-| 1C.3 | DSPy signatures update | `[ ]` | |
-| 1C.4 | Pipeline forward update | `[ ]` | |
+| 1C.1 | Investigation model update | `[x]` | `technical_context` field added |
+| 1C.2 | DeepAnalyzer update | `[x]` | Parallel fetch with asyncio.gather |
+| 1C.3 | DSPy signatures update | `[x]` | `InvestigationSynthesis` updated |
+| 1C.4 | Pipeline forward update | `[x]` | `SynthesisModule` + `DeepAnalysisPipeline` updated |
 | 1C.5 | Layer 3 tests update | `[ ]` | |
-| 1C.6 | Wire tool into main.py | `[ ]` | |
-| 1D.1 | StockPulseNotifier service | `[ ]` | |
-| 1D.2 | Orchestrator hook | `[ ]` | |
+| 1C.6 | Wire tool into main.py | `[x]` | DeepAnalyzer + Orchestrator wired |
+| 1D.1 | StockPulseNotifier service | `[x]` | `src/integrations/stockpulse_notifier.py` |
+| 1D.2 | Orchestrator hook | `[x]` | Post-L3 notes + post-L4 recommendation/color |
 | 1D.3 | Notifier tests | `[ ]` | |
-| 1E.1 | Result date fields | `[ ]` | |
+| 1E.1 | Result date fields | `[x]` | Included in indicator parsing |
 | SP.2 | AI event type (StockPulse) | `[ ]` | |
 | SP.4 | Service-to-service auth (StockPulse) | `[ ]` | |
 | SP.5 | Intraday data API (StockPulse) | `[ ]` | |

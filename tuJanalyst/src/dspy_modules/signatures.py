@@ -91,6 +91,10 @@ class InvestigationSynthesis(dspy.Signature):
     - Provide a coherent narrative with concrete supporting evidence.
     - Reference specific numbers/periods wherever available; avoid generic prose.
     - Distill key findings, risks/red flags, and positive signals.
+    - Consider the stock's technical state when synthesizing findings. Technical strength
+      (bullish DMA signals, 52W high, volume breakout) alongside positive fundamental signals
+      increases significance. Technical weakness alongside positive fundamentals may indicate
+      the market hasn't priced in the news yet.
     - Assign significance as one of: high, medium, low, noise.
     - Set `is_significant` true only if evidence suggests material impact potential.
 
@@ -105,6 +109,7 @@ class InvestigationSynthesis(dspy.Signature):
     web_findings_json: str = dspy.InputField(desc="JSON array of synthesized web findings")
     market_data_json: str = dspy.InputField(desc="JSON object for market snapshot")
     historical_context_json: str = dspy.InputField(desc="JSON object for historical context")
+    technical_context: str = dspy.InputField(desc="Technical analysis context from StockPulse including DMA/WMA signals, 52-week status, volume breakouts, screener membership, and recent technical events. May be empty if not available.")
 
     synthesis: str = dspy.OutputField(desc="Narrative synthesis")
     key_findings_json: str = dspy.OutputField(desc="JSON array of key findings")

@@ -12,6 +12,9 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 
 from src.agents.tools import MarketDataTool, TickerWebLookup, WebSearchTool
+from src.agents.tools.stockpulse_client import StockPulseClient
+from src.agents.tools.stockpulse_data import StockPulseDataTool
+from src.integrations.stockpulse_notifier import StockPulseNotifier
 from src.api import (
     costs,
     health,
@@ -92,6 +95,7 @@ async def lifespan(app: FastAPI):
     mongo_client = None
     scheduler: AsyncIOScheduler | None = None
     web_search_tool: WebSearchTool | _NoopWebSearchTool | None = None
+    stockpulse_client: StockPulseClient | None = None
 
     try:
         # T-102: fail-fast config validation at startup
@@ -166,6 +170,25 @@ async def lifespan(app: FastAPI):
         else:
             web_search_tool = _NoopWebSearchTool()
 
+        # StockPulse integration (optional - graceful degradation if not configured)
+        stockpulse_data_tool: StockPulseDataTool | None = None
+        if settings.stockpulse_base_url and settings.stockpulse_api_key:
+            stockpulse_client = StockPulseClient(
+                base_url=settings.stockpulse_base_url,
+                api_key=settings.stockpulse_api_key,
+                timeout_seconds=settings.stockpulse_timeout_seconds,
+                circuit_breaker_failure_threshold=settings.stockpulse_circuit_breaker_failure_threshold,
+                circuit_breaker_recovery_seconds=settings.stockpulse_circuit_breaker_recovery_seconds,
+            )
+            stockpulse_data_tool = StockPulseDataTool(client=stockpulse_client)
+            logger.info("StockPulse integration enabled: %s", settings.stockpulse_base_url)
+        else:
+            logger.info("StockPulse integration disabled (TUJ_STOCKPULSE_BASE_URL not configured)")
+
+        stockpulse_notifier = None
+        if stockpulse_client:
+            stockpulse_notifier = StockPulseNotifier(client=stockpulse_client)
+
         ticker_web_lookup = None
         if settings.enable_symbol_web_fallback and not isinstance(web_search_tool, _NoopWebSearchTool):
             ticker_web_lookup = TickerWebLookup(search_tool=web_search_tool)
@@ -223,6 +246,7 @@ async def lifespan(app: FastAPI):
                 web_search=web_search_tool,
                 market_data=market_data_tool,
                 model_name=settings.analysis_model,
+                stockpulse_data=stockpulse_data_tool,
             )
         else:
             logger.info("Layer 3 analysis disabled by configuration.")
@@ -273,6 +297,7 @@ async def lifespan(app: FastAPI):
             report_generator=report_generator,
             report_deliverer=report_deliverer,
             report_repo=report_repo,
+            stockpulse_notifier=stockpulse_notifier,
         )
         app.state.trigger_repo = trigger_repo
         app.state.document_repo = document_repo
@@ -289,6 +314,8 @@ async def lifespan(app: FastAPI):
         app.state.gate_classifier = gate_classifier
         app.state.web_search_tool = web_search_tool
         app.state.market_data_tool = market_data_tool
+        app.state.stockpulse_client = stockpulse_client
+        app.state.stockpulse_data_tool = stockpulse_data_tool
         app.state.deep_analyzer = deep_analyzer
         app.state.decision_assessor = decision_assessor
         app.state.report_generator = report_generator
@@ -359,6 +386,8 @@ async def lifespan(app: FastAPI):
         logger.info("tuJanalyst shutting down...")
         if scheduler is not None and scheduler.running:
             scheduler.shutdown(wait=False)
+        if stockpulse_client is not None:
+            await stockpulse_client.close()
         if web_search_tool is not None:
             await web_search_tool.close()
         if mongo_client is not None:
