@@ -1,15 +1,23 @@
-"""API endpoints for human trigger submission and trigger status queries."""
+"""API endpoints for human trigger submission, webhook ingestion, and trigger status queries."""
 
 from __future__ import annotations
 
+import hashlib
+import hmac
+import logging
 from datetime import datetime
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
+from src.config import get_settings
+from src.integrations.event_formatter import format_technical_event
+from src.integrations.flood_detector import FloodDetector
 from src.models.trigger import TriggerEvent, TriggerPriority, TriggerSource, TriggerStatus
 from src.repositories.base import TriggerRepository
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/triggers", tags=["triggers"])
 
@@ -30,6 +38,39 @@ class HumanTriggerAcceptedResponse(BaseModel):
 
     trigger_id: str
     status: str
+
+
+class WebhookTriggerRequest(BaseModel):
+    """Request payload for StockPulse technical event webhooks."""
+
+    event_id: int
+    event_type: str
+    stock_id: int
+    payload: dict
+    created_at: str
+
+
+class WebhookAcceptedResponse(BaseModel):
+    """Response returned when a webhook trigger is accepted."""
+
+    trigger_id: str
+    status: str
+
+
+# Module-level flood detector instance (shared across requests).
+_flood_detector: FloodDetector | None = None
+
+
+def _get_flood_detector() -> FloodDetector:
+    """Return the shared flood detector, lazily initialised from settings."""
+    global _flood_detector  # noqa: PLW0603
+    if _flood_detector is None:
+        settings = get_settings()
+        _flood_detector = FloodDetector(
+            threshold=settings.technical_event_flood_threshold,
+            window_minutes=settings.technical_event_flood_window_minutes,
+        )
+    return _flood_detector
 
 
 class TriggerStatusResponse(BaseModel):
@@ -128,6 +169,62 @@ async def create_human_trigger(
     )
     await trigger_repo.save(trigger)
     return HumanTriggerAcceptedResponse(trigger_id=trigger.trigger_id, status="accepted")
+
+
+@router.post("/webhook", response_model=WebhookAcceptedResponse)
+async def receive_webhook(
+    payload: WebhookTriggerRequest,
+    request: Request,
+    trigger_repo: Annotated[TriggerRepository, Depends(get_trigger_repo)],
+    x_stockpulse_signature: str | None = Header(default=None),
+) -> WebhookAcceptedResponse:
+    """Receive a StockPulse technical event webhook and create a trigger."""
+    settings = get_settings()
+
+    # --- HMAC signature validation (optional) ---
+    if settings.stockpulse_webhook_secret:
+        if not x_stockpulse_signature:
+            raise HTTPException(status_code=401, detail="Missing X-StockPulse-Signature header")
+        body_bytes = await request.body()
+        expected = hmac.new(
+            settings.stockpulse_webhook_secret.encode(),
+            body_bytes,
+            hashlib.sha256,
+        ).hexdigest()
+        if not hmac.compare_digest(expected, x_stockpulse_signature):
+            raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    # --- Flood detection ---
+    detector = _get_flood_detector()
+    detector.record_event()
+    if detector.is_flooding():
+        logger.warning(
+            "Webhook flood detected: %d events in %d-minute window, rejecting event_id=%d",
+            detector.event_count_in_window(),
+            detector.window_minutes,
+            payload.event_id,
+        )
+        raise HTTPException(
+            status_code=429,
+            detail="Too many webhook events; flood threshold exceeded",
+        )
+
+    # --- Build trigger ---
+    symbol = payload.payload.get("symbol")
+    raw_content = format_technical_event(
+        event_type=payload.event_type,
+        payload=payload.payload,
+        symbol=symbol,
+    )
+
+    trigger = TriggerEvent(
+        source=TriggerSource.TECHNICAL_EVENT,
+        company_symbol=symbol,
+        raw_content=raw_content,
+        triggered_by=f"stockpulse_webhook:event_id={payload.event_id}",
+    )
+    await trigger_repo.save(trigger)
+    return WebhookAcceptedResponse(trigger_id=trigger.trigger_id, status="accepted")
 
 
 @router.get("/stats", response_model=TriggerStatsResponse)

@@ -7,7 +7,6 @@ import logging
 from typing import Any
 
 from src.agents.tools.stockpulse_client import StockPulseClient
-from src.models.stockpulse import StockPulseIndicators
 from src.models.technical_context import TechnicalContext
 
 logger = logging.getLogger(__name__)
@@ -54,12 +53,14 @@ class StockPulseDataTool:
             logger.warning("StockPulse stock call failed for %s: %s", symbol, stock_raw)
             stock_raw = None
 
-        # Parse indicators through the Pydantic model for validation / defaults.
-        indicators = StockPulseIndicators.model_validate(indicators_raw)
+        # Work with the raw dict directly — StockPulse may return flat fields
+        # (dma_10, dma_10_signal, dma_10_touch) or nested DMAEntry objects.
+        # Using the raw dict avoids Pydantic validation issues with either format.
+        ind = indicators_raw
 
         # Build moving-average signal dicts.
-        dma_signals = self._extract_ma_signals(indicators_raw, indicators, "dma", _DMA_PERIODS)
-        wma_signals = self._extract_ma_signals(indicators_raw, indicators, "wma", _WMA_PERIODS)
+        dma_signals = self._extract_ma_signals(ind, "dma", _DMA_PERIODS)
+        wma_signals = self._extract_ma_signals(ind, "wma", _WMA_PERIODS)
 
         # Derive color from stock response.
         color: str | None = None
@@ -79,29 +80,29 @@ class StockPulseDataTool:
 
         context = TechnicalContext(
             symbol=symbol,
-            current_price=indicators.current_price,
-            pct_change=indicators.pct_change,
+            current_price=ind.get("current_price"),
+            pct_change=ind.get("pct_change"),
             dma_signals=dma_signals,
             wma_signals=wma_signals,
-            is_52w_high_intraday=indicators.is_52w_high_intraday,
-            is_52w_closing_high=indicators.is_52w_closing_high,
-            high_52w=indicators.high_52w,
-            is_volume_breakout=indicators.is_volume_breakout,
-            today_volume=indicators.today_volume,
-            max_vol_21d=indicators.max_vol_21d,
-            avg_vol_140d=indicators.avg_vol_140d,
-            gap_pct=indicators.gap_pct,
-            is_gap_up=indicators.is_gap_up,
-            is_gap_down=indicators.is_gap_down,
-            is_90d_high=indicators.is_90d_high,
-            is_90d_low_touch=indicators.is_90d_low_touch,
-            is_biweek_bo=indicators.is_biweek_bo,
-            is_week_bo=indicators.is_week_bo,
-            days_to_result=indicators.days_to_result,
-            result_within_7d=indicators.result_within_7d,
-            result_within_10d=indicators.result_within_10d,
-            result_within_15d=indicators.result_within_15d,
-            result_declared_10d=indicators.result_declared_10d,
+            is_52w_high_intraday=bool(ind.get("is_52w_high_intraday", False)),
+            is_52w_closing_high=bool(ind.get("is_52w_closing_high", False)),
+            high_52w=ind.get("high_52w"),
+            is_volume_breakout=bool(ind.get("is_volume_breakout", False)),
+            today_volume=ind.get("today_volume"),
+            max_vol_21d=ind.get("max_vol_21d"),
+            avg_vol_140d=ind.get("avg_vol_140d"),
+            gap_pct=ind.get("gap_pct"),
+            is_gap_up=bool(ind.get("is_gap_up", False)),
+            is_gap_down=bool(ind.get("is_gap_down", False)),
+            is_90d_high=bool(ind.get("is_90d_high", False)),
+            is_90d_low_touch=bool(ind.get("is_90d_low_touch", False)),
+            is_biweek_bo=bool(ind.get("is_biweek_bo", False)),
+            is_week_bo=bool(ind.get("is_week_bo", False)),
+            days_to_result=ind.get("days_to_result"),
+            result_within_7d=bool(ind.get("result_within_7d", False)),
+            result_within_10d=bool(ind.get("result_within_10d", False)),
+            result_within_15d=bool(ind.get("result_within_15d", False)),
+            result_declared_10d=bool(ind.get("result_declared_10d", False)),
             color=color,
             recent_events=recent_events,
             screener_names=[],
@@ -117,7 +118,6 @@ class StockPulseDataTool:
     @staticmethod
     def _extract_ma_signals(
         raw: dict[str, Any],
-        parsed: StockPulseIndicators,
         prefix: str,
         periods: tuple[str, ...],
     ) -> dict[str, str | None]:
@@ -136,10 +136,10 @@ class StockPulseDataTool:
             if flat_key in raw:
                 signal = raw[flat_key]
             else:
-                # Fall back to nested object via the parsed Pydantic model.
-                entry = getattr(parsed, key, None)
-                if entry is not None:
-                    signal = getattr(entry, "signal", None)
+                # Fall back to nested object.
+                entry = raw.get(key)
+                if isinstance(entry, dict):
+                    signal = entry.get("signal")
 
             signals[period] = signal
         return signals

@@ -19,6 +19,7 @@ class TriggerSource(str, Enum):
     NSE_RSS = "nse_rss"
     BSE_RSS = "bse_rss"
     HUMAN = "human"
+    TECHNICAL_EVENT = "technical_event"
 
 
 class TriggerStatus(str, Enum):

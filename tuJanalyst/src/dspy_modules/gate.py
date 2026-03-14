@@ -49,10 +49,11 @@ class GateModule(dspy.Module):
         super().__init__()
         self.classifier = dspy.Predict(GateClassification)
 
-    def forward(self, announcement_text: str, company_name: str, sector: str):
+    def forward(self, announcement_text: str, company_name: str, sector: str, technical_context: str = ""):
         return self.classifier(
             announcement_text=announcement_text,
             company_name=company_name,
             sector=sector,
+            technical_context=technical_context,
         )
 

@@ -298,6 +298,7 @@ async def lifespan(app: FastAPI):
             report_deliverer=report_deliverer,
             report_repo=report_repo,
             stockpulse_notifier=stockpulse_notifier,
+            stockpulse_data_tool=stockpulse_data_tool,
         )
         app.state.trigger_repo = trigger_repo
         app.state.document_repo = document_repo

@@ -13,7 +13,7 @@ class _RecordingModule:
         self.decision = decision
         self.calls: list[dict[str, str]] = []
 
-    def __call__(self, announcement_text: str, company_name: str, sector: str):
+    def __call__(self, announcement_text: str, company_name: str, sector: str, **kwargs):
         self.calls.append(
             {
                 "announcement_text": announcement_text,
@@ -25,7 +25,7 @@ class _RecordingModule:
 
 
 class _FailingModule:
-    def __call__(self, announcement_text: str, company_name: str, sector: str):
+    def __call__(self, announcement_text: str, company_name: str, sector: str, **kwargs):
         raise RuntimeError("upstream LLM unavailable")
 
 
@@ -34,7 +34,7 @@ class _FlakyModule:
         self.failures_before_success = failures_before_success
         self.calls = 0
 
-    def __call__(self, announcement_text: str, company_name: str, sector: str):
+    def __call__(self, announcement_text: str, company_name: str, sector: str, **kwargs):
         del announcement_text, company_name, sector
         self.calls += 1
         if self.calls <= self.failures_before_success:

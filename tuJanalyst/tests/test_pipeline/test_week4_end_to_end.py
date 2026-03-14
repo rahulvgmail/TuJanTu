@@ -55,7 +55,7 @@ class _PassWatchlistFilter:
 
 
 class _PassGateClassifier:
-    def classify(self, announcement_text: str, company_name: str = "", sector: str = "") -> dict[str, str | bool]:
+    def classify(self, announcement_text: str, company_name: str = "", sector: str = "", **kwargs) -> dict[str, str | bool]:
         del announcement_text, company_name, sector
         return {
             "passed": True,
@@ -63,6 +63,9 @@ class _PassGateClassifier:
             "method": "llm_classification",
             "model": "test-gate",
         }
+
+    def should_auto_pass_technical_event(self, trigger):
+        return None
 
 
 class _FakeDeepAnalyzer:

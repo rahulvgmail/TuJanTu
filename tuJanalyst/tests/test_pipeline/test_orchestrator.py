@@ -130,7 +130,7 @@ class FakeGateClassifier:
         self.result = result
         self.calls: list[dict[str, str]] = []
 
-    def classify(self, announcement_text: str, company_name: str = "", sector: str = "") -> dict[str, str | bool]:
+    def classify(self, announcement_text: str, company_name: str = "", sector: str = "", **kwargs) -> dict[str, str | bool]:
         self.calls.append(
             {
                 "announcement_text": announcement_text,
@@ -139,6 +139,9 @@ class FakeGateClassifier:
             }
         )
         return self.result
+
+    def should_auto_pass_technical_event(self, trigger):
+        return None
 
 
 class FakeDeepAnalyzer:

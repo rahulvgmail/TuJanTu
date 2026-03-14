@@ -8,6 +8,7 @@ from typing import Any
 
 import structlog
 
+from src.agents.tools.stockpulse_data import StockPulseDataTool
 from src.integrations.stockpulse_notifier import StockPulseNotifier
 from src.models.document import ProcessingStatus, RawDocument
 from src.models.report import ReportDeliveryStatus
@@ -35,6 +36,7 @@ class PipelineOrchestrator:
         report_deliverer: Any | None = None,
         report_repo: Any | None = None,
         stockpulse_notifier: StockPulseNotifier | None = None,
+        stockpulse_data_tool: StockPulseDataTool | None = None,
     ):
         self.trigger_repo = trigger_repo
         self.doc_repo = doc_repo
@@ -49,6 +51,7 @@ class PipelineOrchestrator:
         self.report_deliverer = report_deliverer
         self.report_repo = report_repo
         self.stockpulse_notifier = stockpulse_notifier
+        self.stockpulse_data_tool = stockpulse_data_tool
 
     async def process_trigger(self, trigger: TriggerEvent) -> dict[str, str | bool]:
         """Process a single trigger through configured pipeline layers."""
@@ -256,9 +259,24 @@ class PipelineOrchestrator:
                 "model": "n/a",
             }
 
+        # Check for technical event auto-pass before LLM classification
+        auto_pass = self.gate_classifier.should_auto_pass_technical_event(trigger)
+        if auto_pass is not None:
+            return self._normalize_gate_result(auto_pass)
+
         filter_result = self._normalize_gate_result(self.watchlist_filter.check(trigger))
         if not bool(filter_result.get("passed")):
             return filter_result
+
+        # Fetch technical context for gate enrichment
+        technical_context_text = ""
+        if self.stockpulse_data_tool and trigger.company_symbol:
+            try:
+                ctx = await self.stockpulse_data_tool.get_technical_context(trigger.company_symbol)
+                if ctx:
+                    technical_context_text = ctx.to_prompt_text()
+            except Exception:  # noqa: BLE001
+                logger.warning("Failed to fetch technical context for gate", exc_info=True)
 
         classifier_fn = getattr(self.gate_classifier, "classify")
         if inspect.iscoroutinefunction(classifier_fn):
@@ -266,13 +284,19 @@ class PipelineOrchestrator:
                 announcement_text=trigger.raw_content,
                 company_name=trigger.company_name or "",
                 sector=trigger.sector or "",
+                technical_context=technical_context_text,
             )
         else:
+            import functools
+
             classification = await asyncio.to_thread(
-                classifier_fn,
-                trigger.raw_content,
-                trigger.company_name or "",
-                trigger.sector or "",
+                functools.partial(
+                    classifier_fn,
+                    announcement_text=trigger.raw_content,
+                    company_name=trigger.company_name or "",
+                    sector=trigger.sector or "",
+                    technical_context=technical_context_text,
+                ),
             )
 
         return self._normalize_gate_result(await self._maybe_await(classification))

@@ -11,6 +11,7 @@ class GateClassification(dspy.Signature):
     announcement_text: str = dspy.InputField(desc="Corporate announcement text")
     company_name: str = dspy.InputField(desc="Company name")
     sector: str = dspy.InputField(desc="Company sector")
+    technical_context: str = dspy.InputField(desc="Technical analysis context from StockPulse. May be empty.", default="")
 
     is_worth_investigating: bool = dspy.OutputField(desc="True if this should go to Layer 3")
     reason: str = dspy.OutputField(desc="Short reason for pass/reject decision")
