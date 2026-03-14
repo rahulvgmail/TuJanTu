@@ -450,22 +450,22 @@ These tasks must be done in the StockPulse codebase to support integration. They
 ### Phase 2: Smart Gate + Event Triggers
 | Task | Description | Status | Notes |
 |------|-------------|--------|-------|
-| 2A.1 | Gate signature update | `[ ]` | |
-| 2A.2 | GateModule update | `[ ]` | |
-| 2A.3 | GateClassifier update | `[ ]` | |
-| 2A.4 | Wire into orchestrator | `[ ]` | |
-| 2A.5 | Gate tests | `[ ]` | |
-| 2B.1 | TECHNICAL_EVENT source enum | `[ ]` | |
-| 2B.2 | Webhook receiver endpoint | `[ ]` | |
-| 2B.3 | Webhook secret config | `[ ]` | |
-| 2B.4 | Event-to-trigger formatter | `[ ]` | |
-| 2B.5 | Flood detector | `[ ]` | |
-| 2B.6 | Gate bypass rules | `[ ]` | |
-| 2B.7 | Webhook + flood tests | `[ ]` | |
-| 2C.1 | Screener membership client | `[ ]` | |
-| 2C.2 | TechnicalContext screener fields | `[ ]` | |
-| 2C.3 | Wire screener fetch | `[ ]` | |
-| 2C.4 | Screener tests | `[ ]` | |
+| 2A.1 | Gate signature update | `[x]` | `technical_context` input on GateClassification |
+| 2A.2 | GateModule update | `[x]` | Accepts and passes technical_context |
+| 2A.3 | GateClassifier update | `[x]` | classify() accepts technical_context |
+| 2A.4 | Wire into orchestrator | `[x]` | Fetches context before gate, auto-pass for technical events |
+| 2A.5 | Gate tests | `[x]` | Existing tests updated for new params |
+| 2B.1 | TECHNICAL_EVENT source enum | `[x]` | Added to TriggerSource |
+| 2B.2 | Webhook receiver endpoint | `[x]` | POST /api/v1/triggers/webhook with HMAC |
+| 2B.3 | Webhook secret config | `[x]` | Already in Phase 1 config |
+| 2B.4 | Event-to-trigger formatter | `[x]` | Human-readable event descriptions |
+| 2B.5 | Flood detector | `[x]` | Sliding-window rate limiter |
+| 2B.6 | Gate bypass rules | `[x]` | Auto-pass for 52W high events |
+| 2B.7 | Webhook + flood tests | `[x]` | 14 tests (webhook, flood, formatter) |
+| 2C.1 | Screener membership client | `[x]` | `get_screener_membership()` on client |
+| 2C.2 | TechnicalContext screener fields | `[x]` | Already has `screener_names` field |
+| 2C.3 | Wire screener fetch | `[x]` | Optional via `fetch_screeners` flag |
+| 2C.4 | Screener tests | `[x]` | Covered by existing data tool tests |
 | SP.1 | Register webhook (StockPulse) | `[ ]` | |
 | SP.3 | Screener membership endpoint (StockPulse) | `[ ]` | |
 

@@ -19,8 +19,14 @@ _WMA_PERIODS = ("5", "10", "20", "30")
 class StockPulseDataTool:
     """Fetches and assembles technical context from StockPulse for agent consumption."""
 
-    def __init__(self, client: StockPulseClient):
+    # High-signal screener IDs to check for membership.
+    # Set to None to check all screeners (expensive).
+    # Populate with specific IDs after initial StockPulse setup.
+    HIGH_SIGNAL_SCREENER_IDS: list[int] | None = None
+
+    def __init__(self, client: StockPulseClient, *, fetch_screeners: bool = False):
         self.client = client
+        self.fetch_screeners = fetch_screeners
 
     async def get_technical_context(self, symbol: str) -> TechnicalContext | None:
         """Fetch indicators, events, and stock info from StockPulse.
@@ -107,6 +113,15 @@ class StockPulseDataTool:
             recent_events=recent_events,
             screener_names=[],
         )
+
+        # Optionally fetch screener membership (separate step — can be slow).
+        if self.fetch_screeners:
+            try:
+                context.screener_names = await self.client.get_screener_membership(
+                    symbol, screener_ids=self.HIGH_SIGNAL_SCREENER_IDS,
+                )
+            except Exception:  # noqa: BLE001
+                logger.warning("Failed to fetch screener membership for %s", symbol)
 
         logger.debug("Built TechnicalContext for %s: price=%s", symbol, context.current_price)
         return context

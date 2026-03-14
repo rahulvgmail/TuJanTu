@@ -75,6 +75,39 @@ class StockPulseClient:
         result = await self._request("GET", "/screeners")
         return result if isinstance(result, list) else []
 
+    async def get_screener_membership(
+        self,
+        symbol: str,
+        screener_ids: list[int] | None = None,
+    ) -> list[str]:
+        """Check which screeners a stock currently appears in.
+
+        If *screener_ids* is provided, only those screeners are checked.
+        Otherwise all screeners are checked (expensive — prefer passing a subset).
+
+        Returns list of screener names the stock matches.
+        """
+        screeners = await self.get_screeners()
+        if not screeners:
+            return []
+
+        if screener_ids is not None:
+            screeners = [s for s in screeners if s.get("id") in screener_ids]
+
+        matched: list[str] = []
+        for screener in screeners:
+            sid = screener.get("id")
+            name = screener.get("name", f"screener-{sid}")
+            if sid is None:
+                continue
+            results = await self.get_screener_results(sid)
+            # Check if symbol appears in results
+            for row in results:
+                if row.get("symbol") == symbol:
+                    matched.append(name)
+                    break
+        return matched
+
     async def post_note(self, symbol: str, content: str, author_type: str = "agent") -> dict[str, Any] | None:
         """POST /api/stocks/{symbol}/notes"""
         result = await self._request(
