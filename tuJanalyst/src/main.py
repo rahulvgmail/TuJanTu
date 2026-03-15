@@ -137,13 +137,15 @@ async def lifespan(app: FastAPI):
             embedding_model=settings.embedding_model,
         )
         symbol_master_sync = SymbolMasterSync(company_master_repo=company_master_repo)
-        try:
-            upserted = await symbol_master_sync.sync_from_seed(settings.symbol_master_seed_path)
-            logger.info("Loaded company master seed rows: count=%s", upserted)
-        except FileNotFoundError:
-            logger.warning("Company master seed file missing: %s", settings.symbol_master_seed_path)
-        except Exception as exc:  # noqa: BLE001
-            logger.warning("Failed loading company master seed: %s", exc)
+        seed_paths = [settings.symbol_master_seed_path, *[Path(p) for p in settings.symbol_master_extra_seed_paths]]
+        for seed_path in seed_paths:
+            try:
+                upserted = await symbol_master_sync.sync_from_seed(seed_path)
+                logger.info("Loaded company master seed rows: path=%s count=%s", seed_path, upserted)
+            except FileNotFoundError:
+                logger.warning("Company master seed file missing: %s", seed_path)
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Failed loading company master seed: path=%s error=%s", seed_path, exc)
         try:
             synced_rows = await symbol_master_sync.sync_from_exchange_sources(
                 nse_url=settings.symbol_master_nse_source_url,

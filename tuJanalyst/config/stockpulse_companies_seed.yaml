@@ -1,0 +1,6605 @@
+companies:
+  - nse_symbol: "AAKASH"
+    company_name: "Aakash Exploration"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AARON"
+    company_name: "Aaron Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AARTIDRUGS"
+    company_name: "Aarti Drugs"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AARTIIND"
+    company_name: "AARTI INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AARTISURF"
+    company_name: "Aarti Surfactant"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AARVI"
+    company_name: "Aarvi Encon"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AAVAS"
+    company_name: "AAVAS Financiers"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ABBOTINDIA"
+    company_name: "ABBOTT INDIA LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ABFRL"
+    company_name: "Aditya Birla Fashion and Retail Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ACCELYA"
+    company_name: "Accelya Solutions India Ltd"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ACCURACY"
+    company_name: "Accuracy Shipping"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ACRYSIL"
+    company_name: "Acrysil"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ADANIGREEN"
+    company_name: "Adani Green"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ADFFOODS"
+    company_name: "ADF Foods"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ADORWELD"
+    company_name: "ADOR WELDING LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ADVANIHOTR"
+    company_name: "Advani Hotels"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ADVENZYMES"
+    company_name: "Advanced Enzyme"
+    nse_listed: true
+    sector: "BPO/KPO"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AEGISCHEM"
+    company_name: "AEGIS LOGISTICS LTD."
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AETHER"
+    company_name: "Aether Industries"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AFFLE"
+    company_name: "Affle India"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AGARIND"
+    company_name: "AGARWAL INDUSTRIAL CORPORATION LTD."
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AGSTRA"
+    company_name: "AGS Transact Tech"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AHLEAST"
+    company_name: "ASIAN HOTELS (EAST) LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AHLUCONT"
+    company_name: "AHLUWALIA CONTRACTS (INDIA) LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AIAENG"
+    company_name: "AIA Engg"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AJANTPHARM"
+    company_name: "Ajanta Pharma"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AJMERA"
+    company_name: "Ajmera Realty"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AKSHARCHEM"
+    company_name: "AKSHARCHEM (INDIA) LTD.-$"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALBERTDAVD"
+    company_name: "ALBERT DAVID LTD.-$"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALEMBICLTD"
+    company_name: "ALEMBIC LTD."
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALICON"
+    company_name: "Alicon Cast."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALKYLAMINE"
+    company_name: "Alkyl Amines"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALLCARGO"
+    company_name: "Allcargo Logistics"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALLSEC"
+    company_name: "ALLSEC TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALOKINDS"
+    company_name: "Alok Textiles"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ALPHAGEO"
+    company_name: "ALPHAGEO (INDIA) LTD.-$"
+    nse_listed: true
+    sector: "Specialty Retail"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AMBER"
+    company_name: "Amber Enterprises India Ltd"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AMBIKCO"
+    company_name: "Ambika Cotton"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AMIORG"
+    company_name: "Ami Organics"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AMRUTANJAN"
+    company_name: "Amrutanjan Healt"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AMTEKAUTO"
+    company_name: "AMTEK AUTO LTD.-$"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANANDRATHI"
+    company_name: "Anand Rathi"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANANTRAJ"
+    company_name: "Anant Raj Limited-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANDHRAPAP"
+    company_name: "Andhra Paper"
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANDHRSUGAR"
+    company_name: "Andhra Sugar"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANGELONE"
+    company_name: "Angel Broking"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANIKINDS"
+    company_name: "Anik Industries"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANKITMETAL"
+    company_name: "Ankit Metal & Power"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANMOL"
+    company_name: "Anmol India"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANUP"
+    company_name: "The Anup Engineering Ltd"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ANURAS"
+    company_name: "Anupam Rasayan"
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APARINDS"
+    company_name: "Apar Industries"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APCL"
+    company_name: "Anjani Portland"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APCOTEXIND"
+    company_name: "Apcotex Industri"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APLAPOLLO"
+    company_name: "APL Apollo Tubes"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APLLTD"
+    company_name: "ALEMBIC PHARMACEUTICALS LTD."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APOLLOHOSP"
+    company_name: "Apollo Hospitals"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APOLLOPIPE"
+    company_name: "Apollo Pipes"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APOLLOTYRE"
+    company_name: "Apollo Tyres"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APTECHT"
+    company_name: "APTECH LTD."
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "APTUS"
+    company_name: "Aptus Value"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARCHIDPLY"
+    company_name: "Archidply Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARCHIES"
+    company_name: "ARCHIES LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARIES"
+    company_name: "ARIES AGRO LTD."
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARIHANTSUP"
+    company_name: "Arihant Superstructures Limited"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARMANFIN"
+    company_name: "ARMAN FINANCIAL SERVICES LTD."
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AROGRANITE"
+    company_name: "ARO GRANITE INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARROWGREEN"
+    company_name: "Arrow Greentech Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARTEMISMED"
+    company_name: "Artemis Medicare Services Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARVIND"
+    company_name: "Arvind Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ARVSMART"
+    company_name: "Arvind Smartspaces"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASAHIINDIA"
+    company_name: "ASAHI INDIA GLASS LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASAHISONG"
+    company_name: "Asahi Songwon"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASAL"
+    company_name: "Automotive Stamplings"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASALCBR"
+    company_name: "ASSOCIATED ALCOHOLS & BREWERIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASHAPURMIN"
+    company_name: "Ashapura Minech."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASHIANA"
+    company_name: "ASHIANA HOUSING LTD.-$"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASHOKLEY"
+    company_name: "ASHOK LEYLAND LTD."
+    nse_listed: true
+    sector: "Storage Media & Peripherals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASIANPAINT"
+    company_name: "Asian Paints"
+    nse_listed: true
+    sector: "Houseware"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASIANTILES"
+    company_name: "Asian Granito"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASPINWALL"
+    company_name: "Aspinwall & Co"
+    nse_listed: true
+    sector: "Carbon Black"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASTERDM"
+    company_name: "Aster DM"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASTRAL"
+    company_name: "Astral Poly Tech"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASTRAMICRO"
+    company_name: "ASTRA MICROWAVE PRODUCTS LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASTRAZEN"
+    company_name: "ASTRAZENECA PHARMA INDIA LTD."
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ASTRON"
+    company_name: "Astron Paper & Board Mill Ltd"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ATFL"
+    company_name: "AGRO TECH FOODS LTD."
+    nse_listed: true
+    sector: "Furniture"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ATGL"
+    company_name: "Adani Total Gas Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ATUL"
+    company_name: "ATUL LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ATULAUTO"
+    company_name: "ATUL AUTO LTD.-$"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AUBANK"
+    company_name: "AU Small Finance"
+    nse_listed: true
+    sector: "Medical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AURIONPRO"
+    company_name: "Aurionpro Solutions"
+    nse_listed: true
+    sector: "Copper"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AUROPHARMA"
+    company_name: "AUROBINDO PHARMA LTD."
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AUTOAXLES"
+    company_name: "Automotive Axles"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AUTOIND"
+    company_name: "Autoline Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AVADHSUGAR"
+    company_name: "Avadh Sugar & Energy Ltd"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AVANTIFEED"
+    company_name: "AVANTI FEEDS LTD.-$"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AVTNPL"
+    company_name: "AVT Natural Prod"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AWHCL"
+    company_name: "Antony Waste Handling Cell Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AXISBANK"
+    company_name: "Axis bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AXISCADES"
+    company_name: "Axiscades Technologies Ltd"
+    nse_listed: true
+    sector: "Household Appliances"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "AYMSYNTEX"
+    company_name: "AYM Syntex"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Arfin"
+    company_name: "Arfin"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAJAJCON"
+    company_name: "Bajaj Consumer Care Ltd"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAJAJELEC"
+    company_name: "Bajaj Electrical"
+    nse_listed: true
+    sector: "BPO/KPO"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAJAJHCARE"
+    company_name: "Bajaj Healthcare"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAJAJHLDNG"
+    company_name: "Bajaj Holdings"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAJFINANCE"
+    company_name: "Bajaj Finance"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALAMINES"
+    company_name: "Balaji Amines"
+    nse_listed: true
+    sector: "Transport Related Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALKRISHNA"
+    company_name: "Balkrishna Paper Mills Ltd"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALKRISIND"
+    company_name: "Balkrishna Inds"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALMLAWRIE"
+    company_name: "BALMER LAWRIE & CO.LTD."
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALPHARMA"
+    company_name: "BAL Pharma"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BALRAMCHIN"
+    company_name: "BALRAMPUR CHINI MILLS LTD."
+    nse_listed: true
+    sector: "Distributors"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BANCOINDIA"
+    company_name: "Banco Products"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BANDHANBNK"
+    company_name: "Bandhan Bank Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BANKBARODA"
+    company_name: "Bank of baroda"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BANKINDIA"
+    company_name: "Bank of India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BANSWRAS"
+    company_name: "BANSWARA SYNTEX LTD.-$"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BARBEQUE"
+    company_name: "Barbeque-Nation Hospitality Ltd"
+    nse_listed: true
+    sector: "Paper & Paper Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BASML"
+    company_name: "BANNARI AMMAN SPINNING MILLS LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BATAINDIA"
+    company_name: "Bata India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BAYERCROP"
+    company_name: "BAYER CROPSCIENCE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BBOX"
+    company_name: "Black box"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BCLIND"
+    company_name: "BCL Industries"
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BCONCEPTS"
+    company_name: "Brand Concepts"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BECTORFOOD"
+    company_name: "Mrs Bectors"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BEDMUTHA"
+    company_name: "Bedmutha Ind"
+    nse_listed: true
+    sector: "Commercial Vehicles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BEML"
+    company_name: "BEML"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BEPL"
+    company_name: "Bhansali Engg."
+    nse_listed: true
+    sector: "Houseware"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BERGEPAINT"
+    company_name: "Berger Paints"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BESTAGRO"
+    company_name: "Best Agrolife"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BFUTILITIE"
+    company_name: "BF UTILITIES LTD.-$"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BGRENERGY"
+    company_name: "BGR Energy"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHAGCHEM"
+    company_name: "Bhagiradha Chem."
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHARATFORG"
+    company_name: "BHARAT FORGE LTD."
+    nse_listed: true
+    sector: "Houseware"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHARATGEAR"
+    company_name: "Bharat Gears"
+    nse_listed: true
+    sector: "Refineries/ Petro-Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHARATRAS"
+    company_name: "Bharat Rasayan"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHARATWIRE"
+    company_name: "Bharat Wire Ropes Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BHARTIARTL"
+    company_name: "Bharti Airtel"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BIGBLOC"
+    company_name: "Bigbloc Construction Ltd"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BIOCON"
+    company_name: "BIOCON LTD."
+    nse_listed: true
+    sector: "Defence"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BIRLACABLE"
+    company_name: "Birla Cable Ltd"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BIRLAMONEY"
+    company_name: "ADITYA BIRLA MONEY LTD.-$"
+    nse_listed: true
+    sector: "Construction Materials"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BLISSGVS"
+    company_name: "Bliss GVS"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BLKASHYAP"
+    company_name: "B.L.KASHYAP AND SONS LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BLS"
+    company_name: "BLS International Services Ltd"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BLUEDART"
+    company_name: "Blue Dart Expres"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BLUESTARCO"
+    company_name: "BLUE STAR LTD."
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BODALCHEM"
+    company_name: "Bodal Chemicals"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BOMDYEING"
+    company_name: "Bombay Dyeing"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BOROLTD"
+    company_name: "Borosil Ltd"
+    nse_listed: true
+    sector: "Housing Finance"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BORORENEW"
+    company_name: "Borosil Renew."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BPL"
+    company_name: "BPL Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BRIGADE"
+    company_name: "BRIGADE ENTERPRISES LTD."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BSHSL"
+    company_name: "Bombay Super Hybrid Seeds"
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BSL"
+    company_name: "BSL"
+    nse_listed: true
+    sector: "Travel Support Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BSOFT"
+    company_name: "Birlasoft Ltd"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BURGERKING"
+    company_name: "Burger King India Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BUTTERFLY"
+    company_name: "Butterfly Gan Ap"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "BVCL"
+    company_name: "BARAK VALLEY CEMENTS LTD."
+    nse_listed: true
+    sector: "Sp.Consumer Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CADILAHC"
+    company_name: "CADILA HEALTHCARE LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CAMLINFINE"
+    company_name: "CAMLIN FINE SCIENCES LTD."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CAMPUS"
+    company_name: "Campus Footwear"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CAMS"
+    company_name: "Computer Age Management Services Ltd"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CANBK"
+    company_name: "Canara Bank"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CANFINHOME"
+    company_name: "CAN FIN HOMES LTD."
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CANTABIL"
+    company_name: "Cantabil Retail"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CAPACITE"
+    company_name: "Capacite Infraprojects"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CAPLIPOINT"
+    company_name: "CAPLIN POINT LABORATORIES LTD."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CARBORUNIV"
+    company_name: "Carborundum Uni."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CARTRADE"
+    company_name: "Cartrade Tech"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CDSL"
+    company_name: "C D S L"
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CEATLTD"
+    company_name: "CEAT"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CENTENKA"
+    company_name: "CENTURY ENKA LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CENTURYPLY"
+    company_name: "CENTURY PLYBOARDS (I) LTD.-$"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CENTURYTEX"
+    company_name: "CENTURY TEXTILES & INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CERA"
+    company_name: "CERA SANITARYWARE LTD."
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CEREBRAINT"
+    company_name: "Cerebra Integrated"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CGCL"
+    company_name: "Capri Global Capital Limited"
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CGPOWER"
+    company_name: "CG Power and Industrial Solutions Ltd"
+    nse_listed: true
+    sector: "Paper & Paper Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHALET"
+    company_name: "Chalet Hotels Ltd"
+    nse_listed: true
+    sector: "Real Estate Investment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHAMBLFERT"
+    company_name: "Chambal Fertilizers"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHEMBOND"
+    company_name: "CHEMBOND CHEMICALS LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHEMCON"
+    company_name: "Chemcon Special."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHEMPLASTS"
+    company_name: "Chemplast Sanmar"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHENNPETRO"
+    company_name: "CHENNAI PETROLEUM CORPORATION LTD."
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CHOLAFIN"
+    company_name: "Cholamandalam Investment and Finance Company Ltd"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CIGNITITEC"
+    company_name: "cigniti"
+    nse_listed: true
+    sector: "Oil Equipment & Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CINELINE"
+    company_name: "Cineline"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CIPLA"
+    company_name: "Cipla"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CLEAN"
+    company_name: "Clean Science Tech"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CLEDUCATE"
+    company_name: "CL Educate"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CLNINDIA"
+    company_name: "CLARIANT CHEMICALS (INDIA) LTD."
+    nse_listed: true
+    sector: "Holding Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CLSEL"
+    company_name: "CHAMAN LAL SETIA EXPORTS LTD.-$"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CMSINFO"
+    company_name: "CMS Info"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COASTALCORP"
+    company_name: "Coastal corporation"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COCHINSHIP"
+    company_name: "Cochin Shipyard"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COFFEEDAY"
+    company_name: "Coffee day"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COFORGE"
+    company_name: "Coforge Ltd"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COMPUSOFT"
+    company_name: "COMPUCOM SOFTWARE LTD.-$"
+    nse_listed: true
+    sector: "Non-Durable Household Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CONCOR"
+    company_name: "Container Corpn."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CONFIPET"
+    company_name: "CONFIDENCE PETROLEUM INDIA LTD."
+    nse_listed: true
+    sector: "Internet & Catalogue Retail"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CONTROLPR"
+    company_name: "CONTROL PRINT LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CORDSCABLE"
+    company_name: "CORDS CABLE INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COROMANDEL"
+    company_name: "COROMANDEL INTERNATIONAL LTD."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "COSMOFIRST"
+    company_name: "COSMO FILMS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CRAFTSMAN"
+    company_name: "Craftsman Automation Ltd"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CREATIVE"
+    company_name: "Creative Newtech"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CREDITACC"
+    company_name: "CreditAccess Grameen Ltd"
+    nse_listed: true
+    sector: "Travel Support Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CREST"
+    company_name: "Crest Ventures"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CROMPTON"
+    company_name: "Crompton Greaves Consumer Electricals Ltd"
+    nse_listed: true
+    sector: "Telecom Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CSBBANK"
+    company_name: "CSB Bank"
+    nse_listed: true
+    sector: "Mining"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CUBEXTUB"
+    company_name: "CUBEX TUBINGS LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CUMMINSIND"
+    company_name: "CUMMINS INDIA LTD."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CUPID"
+    company_name: "CUPID LTD.-$"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "CYIENT"
+    company_name: "Cyient Limited"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DAAWAT"
+    company_name: "LT FOODS LTD."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DALBHARAT"
+    company_name: "Dalmia BharatLtd"
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DALMIASUG"
+    company_name: "Dalmia Bharat"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DATAMATICS"
+    company_name: "DATAMATICS GLOBAL SERVICES LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DATAPTTNS"
+    company_name: "Data patterns"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DCAL"
+    company_name: "Dishman Carbogen Amcis Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DCBBANK"
+    company_name: "DCB Bank Limited"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DCMSHRIRAM"
+    company_name: "DCM Shriram Limited"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DCW"
+    company_name: "DCW"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DECCANCE"
+    company_name: "Deccan Cements"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DEEPAKFERT"
+    company_name: "Deepak Fertiliz."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DEEPAKNTR"
+    company_name: "Deepak Nitrite"
+    nse_listed: true
+    sector: "Internet Software & Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DELHIVERY"
+    company_name: "Delhivery"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DELTACORP"
+    company_name: "Delta corp"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DELTAMAGNT"
+    company_name: "Delta Manufacturing Ltd"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DENORA"
+    company_name: "DE NORA INDIA LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DEVYANI"
+    company_name: "Devyani Internationals"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DFMFOODS"
+    company_name: "DFM FOODS LTD."
+    nse_listed: true
+    sector: "Utilities:Non-Elec."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DGCONTENT"
+    company_name: "Digicontent"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DHAMPURSUG"
+    company_name: "DHAMPUR SUGAR MILLS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DHANUKA"
+    company_name: "DHANUKA AGRITECH LTD."
+    nse_listed: true
+    sector: "Integrated Oil & Gas"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DHARAMSI"
+    company_name: "DHARAMSI MORARJI CHEMICAL CO.LTD."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DHUNINV"
+    company_name: "Dhunseri Invest."
+    nse_listed: true
+    sector: "Education"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DIAMONDYD"
+    company_name: "Prataap Snacks"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DICIND"
+    company_name: "DIC INDIA LTD."
+    nse_listed: true
+    sector: "Restaurants"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DISHTV"
+    company_name: "Dish TV"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DIVISLAB"
+    company_name: "Divi's Lab."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DIXON"
+    company_name: "Dixon Technolog."
+    nse_listed: true
+    sector: "Mining"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DLF"
+    company_name: "DLF"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DLINKINDIA"
+    company_name: "Dlink India"
+    nse_listed: true
+    sector: "Education"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DMART"
+    company_name: "Avenue Supermarts Ltd"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DODLA"
+    company_name: "Dodla Dairy"
+    nse_listed: true
+    sector: "Diversified"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DOLLAR"
+    company_name: "Dollar Industrie"
+    nse_listed: true
+    sector: "Telecom Cables"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DONEAR"
+    company_name: "DONEAR INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "Other Industrial Goods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DPABHUSHAN"
+    company_name: "DP Abhushan"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DPSCLTD"
+    company_name: "India Power Corp"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DPWIRES"
+    company_name: "D P Wires"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DREDGECORP"
+    company_name: "DREDGING CORPORATION OF INDIA LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DRREDDY"
+    company_name: "Dr Reddy's Labs"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DWARKESH"
+    company_name: "Dwarikesh Sugar"
+    nse_listed: true
+    sector: "Movies & Entertainment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DYNAMATECH"
+    company_name: "Dynamtic Tech"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "DYNPRO"
+    company_name: "Dynemic Products"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EASEMYTRIP"
+    company_name: "Easy Trip Planners Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EICHERMOT"
+    company_name: "EICHER MOTORS LTD."
+    nse_listed: true
+    sector: "Aluminium"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EIDPARRY"
+    company_name: "E.I.D.-PARRY (INDIA) LTD."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EIHAHOTELS"
+    company_name: "EIH ASSOCIATED HOTELS LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EIHOTEL"
+    company_name: "EIH LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EIMCOELECO"
+    company_name: "EIMCO ELECON (INDIA) LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EKC"
+    company_name: "Everest Kanto"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ELECON"
+    company_name: "ELECON ENGINEERING CO.LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ELECTCAST"
+    company_name: "Electrost.Cast."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ELGIEQUIP"
+    company_name: "Elgi Equipments"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EMAMILTD"
+    company_name: "Emami"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EMKAY"
+    company_name: "Emkay Global"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EMMBI"
+    company_name: "Emmbi Ind"
+    nse_listed: true
+    sector: "Department Stores"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EMUDHRA"
+    company_name: "eMudhra"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ENDURANCE"
+    company_name: "Endurance Tech."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EQUITAS"
+    company_name: "Equitas Holdings"
+    nse_listed: true
+    sector: "Healthcare Facilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ERIS"
+    company_name: "ERIS Lifescience"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ESABINDIA"
+    company_name: "Esab India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ESCORTS"
+    company_name: "Escorts"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ESTER"
+    company_name: "ESTER INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ETHOS"
+    company_name: "Ethos"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ETHOSLTD"
+    company_name: "Ethos Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EVEREADY"
+    company_name: "eveready"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EVERESTIND"
+    company_name: "EVEREST INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EXCELINDUS"
+    company_name: "Excel Industries"
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EXIDEIND"
+    company_name: "Exide Inds."
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EXPLEOSOL"
+    company_name: "Expleo Solutions Ltd"
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "EXXARO"
+    company_name: "Exxaro Tiles"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FAIRCHEMOR"
+    company_name: "Fairchem Organic"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FDC"
+    company_name: "FDC LTD."
+    nse_listed: true
+    sector: "Furniture"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FEDERALBNK"
+    company_name: "Federal bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FIEMIND"
+    company_name: "FIEM INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FILATEX"
+    company_name: "FILATEX INDIA LTD.-$"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FINCABLES"
+    company_name: "FINOLEX CABLES LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FINEORG"
+    company_name: "Fine Organic Industries Ltd"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FINOPB"
+    company_name: "Fino Payments Bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FINPIPE"
+    company_name: "Finolex Inds."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FLUOROCHEM"
+    company_name: "Gujarat Fluorochemicals Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FMGOETZE"
+    company_name: "Federal-Mogul Go"
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FOCUS"
+    company_name: "Focus Lighting"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FORCEMOT"
+    company_name: "FORCE MOTORS LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "FOSECOIND"
+    company_name: "FOSECO INDIA LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Fiberweb"
+    company_name: "Fiberweb"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Firstsour.Solu."
+    company_name: "Firstsour.Solu."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GABRIEL"
+    company_name: "Gabriel India"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GAEL"
+    company_name: "Guj. Ambuja Exp"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GAIL"
+    company_name: "GAIL (INDIA) LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GALAXYSURF"
+    company_name: "Galaxy Surfactants Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GALLANTT"
+    company_name: "Gallantt Metal"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GALLISPAT"
+    company_name: "Gallantt Ispat"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GANDHITUBE"
+    company_name: "GANDHI SPECIAL TUBES LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GANESHHOUC"
+    company_name: "GANESH HOUSING CORPORATION LTD.-$"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GARFIBRES"
+    company_name: "Garware Tech."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GATI"
+    company_name: "GATI LTD."
+    nse_listed: true
+    sector: "Gift Articles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GAYAPROJ"
+    company_name: "Gayatri Projects"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GEECEE"
+    company_name: "GeeCee ventures"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GENUSPAPER"
+    company_name: "Genus Paper & Bo"
+    nse_listed: true
+    sector: "Non-Durable Household Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GENUSPOWER"
+    company_name: "GENUS POWER INFRASTRUCTURES LTD.-$"
+    nse_listed: true
+    sector: "BPO/KPO"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GEOJITFSL"
+    company_name: "Geojit Fin. Ser."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GEPIL"
+    company_name: "GE Power India Ltd"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GESHIP"
+    company_name: "GREAT EASTERN SHIPPING CO.LTD."
+    nse_listed: true
+    sector: "Surface Transportation"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GHCL"
+    company_name: "GHCL LTD."
+    nse_listed: true
+    sector: "Forest Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GICRE"
+    company_name: "General Insuranc"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GILLANDERS"
+    company_name: "GILLANDERS ARBUTHNOT & CO.LTD."
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GILLETTE"
+    company_name: "GILLETTE INDIA LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GINNIFILA"
+    company_name: "Ginni Filaments"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GIPCL"
+    company_name: "GUJARAT INDUSTRIES POWER CO.LTD."
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GLAXO"
+    company_name: "Glaxosmi. Pharma"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GLENMARK"
+    company_name: "GLENMARK PHARMACEUTICALS LTD."
+    nse_listed: true
+    sector: "Other Industrial Goods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GLOBAL"
+    company_name: "Global Education"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GLOBUSSPR"
+    company_name: "GLOBUS SPIRITS LTD."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GMDCLTD"
+    company_name: "GMDC Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GMMPFAUDLR"
+    company_name: "GMM PFAUDLER LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GNA"
+    company_name: "GNA Axles"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GNFC"
+    company_name: "G N F C"
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOACARBON"
+    company_name: "GOA CARBON LTD.-$"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOCOLORS"
+    company_name: "Go Fashion"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GODFRYPHLP"
+    company_name: "GODFREY PHILLIPS INDIA LTD."
+    nse_listed: true
+    sector: "Auto Tyres & Rubber Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GODREJAGRO"
+    company_name: "GODREJ AGRO"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GODREJCP"
+    company_name: "GODREJ CONSUMER PRODUCTS LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GODREJPROP"
+    company_name: "Godrej Properties Ltd"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOKEX"
+    company_name: "GOKALDAS EXPORTS LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOKUL"
+    company_name: "Gokul refoils"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOKULAGRO"
+    company_name: "Gokul Agro"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOLDENTOBC"
+    company_name: "GOLDEN TOBACCO LTD."
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOLDIAM"
+    company_name: "Goldiam Intl."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOODLUCK"
+    company_name: "Goodluck India Ltd"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GOODYEAR"
+    company_name: "Goodyear India"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GPIL"
+    company_name: "Godawari Power"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GPTINFRA"
+    company_name: "GPT INFRAPROJECTS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRANULES"
+    company_name: "Granules India"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRAPHITE"
+    company_name: "Graphite India"
+    nse_listed: true
+    sector: "Diversified"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRASIM"
+    company_name: "Grasim Inds"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRAVITA"
+    company_name: "GRAVITA INDIA LTD."
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GREAVESCOT"
+    company_name: "GREAVES COTTON LTD."
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GREENPANEL"
+    company_name: "Greenpanel Inds."
+    nse_listed: true
+    sector: "Footwear"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GREENPLY"
+    company_name: "GREENPLY INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GREENPOWER"
+    company_name: "Orient Green"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRINDWELL"
+    company_name: "Grindwell Norton"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRINFRA"
+    company_name: "GR Infra"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GROBTEA"
+    company_name: "Grob Tea"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRPLTD"
+    company_name: "GRP LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRSE"
+    company_name: "Garden Reach Shipbuilders & Engineers Ltd"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GRWRHITECH"
+    company_name: "Garware Polyest"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GSCLCEMENT"
+    company_name: "GUJARAT SIDHEE CEMENT LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GSFC"
+    company_name: "G S F C"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GSPL"
+    company_name: "GUJARAT STATE PETRONET LTD."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GTL"
+    company_name: "GTL"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GTNIND"
+    company_name: "GTN Industries"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GTPL"
+    company_name: "GTPL Hathway Ltd"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GUFICBIO"
+    company_name: "Gufic BioScience"
+    nse_listed: true
+    sector: "Internet & Catalogue Retail"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GUJALKALI"
+    company_name: "GUJARAT ALKALIES & CHEMICALS LTD."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GUJAPOLLO"
+    company_name: "GUJARAT APOLLO INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GUJGASLTD"
+    company_name: "Gujarat Gas"
+    nse_listed: true
+    sector: "Travel Support Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GULFOILLUB"
+    company_name: "Gulf Oil Lubricants India Ltd"
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GULFPETRO"
+    company_name: "GP Petroleums"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "GULPOLY"
+    company_name: "Gulshan Polyols"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HAPPSTMNDS"
+    company_name: "Happiest Minds"
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HARIOMPIPE"
+    company_name: "Hariom Pipes"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HARRMALAYA"
+    company_name: "Harri. Malayalam"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HATHWAY"
+    company_name: "Hathway Cable"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HATSUN"
+    company_name: "HATSUN AGRO PRODUCT LTD."
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HAVELLS"
+    company_name: "Havells India"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HBLPOWER"
+    company_name: "HBL POWER SYSTEMS LTD.-$"
+    nse_listed: true
+    sector: "Construction Materials"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HDFC"
+    company_name: "H D F C"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HDFCBANK"
+    company_name: "Hdfc bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HDFCLIFE"
+    company_name: "HDFC Life Insurance Company Ltd"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HEIDELBERG"
+    company_name: "HEIDELBERGCEMENT INDIA LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HEMIPROP"
+    company_name: "Hemisphere Properties India Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HERANBA"
+    company_name: "Heranba Industries Ltd"
+    nse_listed: true
+    sector: "Distributors"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HERCULES"
+    company_name: "HERCULES HOISTS LTD."
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HERITGFOOD"
+    company_name: "Heritage Foods Limited"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HESTERBIO"
+    company_name: "HESTER BIOSCIENCES LTD."
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HFCL"
+    company_name: "HFCL"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HGINFRA"
+    company_name: "HG Infra"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HGS"
+    company_name: "HINDUJA GLOBAL SOLUTIONS LTD."
+    nse_listed: true
+    sector: "Computer Hardware"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HIKAL"
+    company_name: "Hikal"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HILTON"
+    company_name: "HILTON METAL FORGING LTD."
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HIMATSEIDE"
+    company_name: "Himatsingka Seide"
+    nse_listed: true
+    sector: "Jute & Jute Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDALCO"
+    company_name: "Hindalco Inds."
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDCOMPOS"
+    company_name: "Hind.Composites"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDCON"
+    company_name: "Hindcon chemicals"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDCOPPER"
+    company_name: "Hindustan Copper"
+    nse_listed: true
+    sector: "Aluminium"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDMOTORS"
+    company_name: "Hindustan Motors"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDWAREAP"
+    company_name: "Somany Home Inn."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HINDZINC"
+    company_name: "Hindustan Zinc"
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HIRECT"
+    company_name: "HIND RECTIFIERS LTD."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HISARMETAL"
+    company_name: "HISAR METAL INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HITECH"
+    company_name: "Hi-Tech Pipes"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HITECHCORP"
+    company_name: "Hitech Corp."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HITECHGEAR"
+    company_name: "The Hi-Tech Gears Ltd"
+    nse_listed: true
+    sector: "Other Leisure Facilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HLEGLAS"
+    company_name: "HLE Glascoat"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HNDFDS"
+    company_name: "Hindustan Foods"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HOMEFIRST"
+    company_name: "Home First Finance Company India Ltd"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HONDAPOWER"
+    company_name: "Honda India Power Products Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HOVS"
+    company_name: "HOV SERVICES LTD."
+    nse_listed: true
+    sector: "Airlines"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HPAL"
+    company_name: "HP Adhesives"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HSCL"
+    company_name: "Himadri Speciality Chemical Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HSIL"
+    company_name: "HSIL"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HUBTOWN"
+    company_name: "Hubtown"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "HUHTAMAKI"
+    company_name: "Huhtamaki India Ltd"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Hind.Aeronautics"
+    company_name: "Hind.Aeronautics"
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Hind.Organ.Chem."
+    company_name: "Hind.Organ.Chem."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IBREALEST"
+    company_name: "Indiabulls Real Estate"
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IBULHSGFIN"
+    company_name: "Indiabulls Housing Finance"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ICEMAKE"
+    company_name: "Icemake Refrigeration"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ICICIBANK"
+    company_name: "Icici bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ICIL"
+    company_name: "Indo Count Inds."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IDBI"
+    company_name: "IDBI Bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IDFC"
+    company_name: "IDFC LIMITED"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IDFCFIRSTB"
+    company_name: "IDFC First Bank Ltd"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IFBAGRO"
+    company_name: "IFB AGRO INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IFBIND"
+    company_name: "IFB Industries"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IFGLEXPOR"
+    company_name: "IFGL Refractori."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IGARASHI"
+    company_name: "IGARASHI MOTORS INDIA LTD."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IGPL"
+    company_name: "I G Petrochems"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IIFL"
+    company_name: "IIFL Finance"
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IIFLSEC"
+    company_name: "IIFL Securities Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IIFLWAM"
+    company_name: "IIFL Wealth Mgt"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IMAGICAA"
+    company_name: "Imagicaa workd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IMPAL"
+    company_name: "India Motor Part"
+    nse_listed: true
+    sector: "Non-Durable Household Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDHOTEL"
+    company_name: "INDIAN HOTELS CO.LTD."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIACEM"
+    company_name: "INDIA CEMENTS LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIAGLYCO"
+    company_name: "INDIA GLYCOLS LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIAMART"
+    company_name: "IndiaMART InterMESH Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIANB"
+    company_name: "Indian Bank"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIANCARD"
+    company_name: "Indian card clothing"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIANHUME"
+    company_name: "Indian Hume Pipe"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIGO"
+    company_name: "Indigo Airlines"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIGOPNTS"
+    company_name: "Indigo Paints Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDIGRID"
+    company_name: "Indigrid"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDNIPPON"
+    company_name: "India Nipp.Elec."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDOCO"
+    company_name: "Indoco Remedies"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDORAMA"
+    company_name: "Indo Rama Synth."
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDOSTAR"
+    company_name: "Indostar Capital Finance Ltd"
+    nse_listed: true
+    sector: "Distributors"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDOTECH"
+    company_name: "INDO TECH TRANSFORMERS LTD."
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDRAMEDCO"
+    company_name: "INDRAPRASTHA MEDICAL CORP.LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDSWFTLAB"
+    company_name: "Ind-Swift Labs."
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDSWFTLTD"
+    company_name: "IND-SWIFT LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDTERRAIN"
+    company_name: "INDIAN TERRAIN FASHIONS LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDUSINDBK"
+    company_name: "INDUSIND BANK LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INDUSTOWER"
+    company_name: "Indus Towers"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INEOSSTYRO"
+    company_name: "INEOS Styrolut."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INFOBEAN"
+    company_name: "INFOBEAN"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INGERRAND"
+    company_name: "INGERSOLL-RAND (INDIA) LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INOXLEISUR"
+    company_name: "Inox Leisure"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INOXWIND"
+    company_name: "Inox Wind Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INTELLECT"
+    company_name: "Intellect Design"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INTENTECH"
+    company_name: "INTENSE TECHNOLOGIES LTD.-$"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "INTLCONV"
+    company_name: "International conveyors"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IOLCP"
+    company_name: "IOL CHEMICALS & PHARMACEUTICALS LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IPCALAB"
+    company_name: "Ipca Labs."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IRB"
+    company_name: "IRB INFRASTRUCTURE DEVELOPERS LTD."
+    nse_listed: true
+    sector: "Education"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IRCTC"
+    company_name: "Indian Railway Catering and Tourism Corporation Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ISGEC"
+    company_name: "ISGEC Heavy Engineering Ltd"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ISMTLTD"
+    company_name: "ISMT Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ITDCEM"
+    company_name: "ITD Cem"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "IVP"
+    company_name: "IVP Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Infosys"
+    company_name: "Infosys"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAGSNPHARM"
+    company_name: "Jagsonpal Pharma"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAIBALAJI"
+    company_name: "Jai Balaji Inds."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAMNAAUTO"
+    company_name: "Jamna Auto Inds."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JASH"
+    company_name: "Jash Engg"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAYAGROGN"
+    company_name: "Jayant Agro Org."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAYBARMARU"
+    company_name: "Jay Bharat Maru."
+    nse_listed: true
+    sector: "Auto Tyres & Rubber Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JAYNECOIND"
+    company_name: "JAYASWAL NECO INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JBCHEPHARM"
+    company_name: "J B Chem & Pharm"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JBFIND"
+    company_name: "JBF INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JBMA"
+    company_name: "JBM Auto"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JCHAC"
+    company_name: "Johnson Con. Hit"
+    nse_listed: true
+    sector: "BPO/KPO"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JINDALPOLY"
+    company_name: "JINDAL POLY FILMS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JINDALSAW"
+    company_name: "JINDAL SAW LTD."
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JINDALSTEL"
+    company_name: "Jindal Steel"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JINDRILL"
+    company_name: "Jindal Drilling"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JINDWORLD"
+    company_name: "Jindal Worldwide"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JISLDVREQS"
+    company_name: "JAIN IRRIGATION SYSTEMS LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JKCEMENT"
+    company_name: "J K Cements"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JKIL"
+    company_name: "J Kumar Infra"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JKLAKSHMI"
+    company_name: "JK Lakshmi Cem."
+    nse_listed: true
+    sector: "Footwear"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JKPAPER"
+    company_name: "JK PAPER LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JKTYRE"
+    company_name: "JK Tyre & Indust"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JMCPROJECT"
+    company_name: "JMC PROJECTS (INDIA) LTD.-$"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JMFINANCIL"
+    company_name: "JM Financila"
+    nse_listed: true
+    sector: "Transportation - Logistics"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JPASSOCIAT"
+    company_name: "JAIPRAKASH ASSOCIATES LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JPPOWER"
+    company_name: "Jaiprakash Power Ventures Limited"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JSL"
+    company_name: "JINDAL STAINLESS LTD."
+    nse_listed: true
+    sector: "BPO/KPO"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JSLHISAR"
+    company_name: "Jindal Stain. Hi"
+    nse_listed: true
+    sector: "Jute & Jute Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JSWENERGY"
+    company_name: "Jsw Energy"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JSWISPL"
+    company_name: "Monnet Ispat"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JSWSTEEL"
+    company_name: "JSW Steel"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JTEKTINDIA"
+    company_name: "JTEKT India"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JTLINFRA"
+    company_name: "JTL INFRA LTD."
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JUBLFOOD"
+    company_name: "Jubilant Food"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JUBLINDS"
+    company_name: "Jubilant Inds."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JUBLINGREA"
+    company_name: "Jubilant Ingrevia Ltd"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JUBLPHARMA"
+    company_name: "Jubilant Pharmo"
+    nse_listed: true
+    sector: "Computer Hardware"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JUSTDIAL"
+    company_name: "justdial"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JWL"
+    company_name: "Jupiter Wagons"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "JYOTISTRUC"
+    company_name: "Jyoti Structures"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KABRAEXTRU"
+    company_name: "KABRA EXTRUSIONTECHNIK LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KAJARIACER"
+    company_name: "Kajaria Ceramics"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KAKATCEM"
+    company_name: "KAKATIYA CEMENT SUGAR & INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Banks"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KALPATPOWR"
+    company_name: "KALPATARU POWER TRANSMISSION LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KALYANIFRG"
+    company_name: "KALYANI FORGE LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KALYANKJIL"
+    company_name: "Kalyan Jewellers"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KAMATHOTEL"
+    company_name: "KAMAT HOTELS (INDIA) LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KANORICHEM"
+    company_name: "Kanoria Chem."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KANPRPLA"
+    company_name: "Kanpur Plastipa."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KANSAINER"
+    company_name: "Kansai Nerolac"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KARDA"
+    company_name: "Karda Constructions Ltd"
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KCP"
+    company_name: "K C P"
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KCPSUGIND"
+    company_name: "KCP SUGAR & INDUSTRIES CORPORATION LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KDDL"
+    company_name: "KDDL LTD.-$"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KECL"
+    company_name: "Kirloskar Electric"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KENNAMET"
+    company_name: "KENNAMETAL INDIA LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KERNEX"
+    company_name: "KERNEX MICROSYSTEMS (INDIA) LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KESORAMIND"
+    company_name: "Kesoram Inds."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KHADIM"
+    company_name: "Khadim India Ltd"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KHAICHEM"
+    company_name: "KHAITAN CHEMICALS & FERTILIZERS LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KHAITANLTD"
+    company_name: "Khaitan India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KILITCH"
+    company_name: "KILITCH DRUGS (INDIA) LTD."
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIMS"
+    company_name: "Krishna Institute of Medical Sciences"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KINGFA"
+    company_name: "Kingfa Science & Technology (India) Ltd-$"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIOCL"
+    company_name: "KIOCL"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIRIINDUS"
+    company_name: "KIRI INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIRLFER"
+    company_name: "Kirl. Ferrous"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIRLOSBROS"
+    company_name: "KIRLOSKAR BROTHERS LTD.-$"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIRLOSENG"
+    company_name: "Kirloskar Oil"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KIRLOSIND"
+    company_name: "Kirloskar Indus."
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KKCL"
+    company_name: "KEWAL KIRAN CLOTHING LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KMSUGAR"
+    company_name: "K.M.SUGAR MILLS LTD."
+    nse_listed: true
+    sector: "Internet & Catalogue Retail"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KNRCON"
+    company_name: "KNR Construct."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOKUYOCMLN"
+    company_name: "KOKUYO CAMLIN LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOLTEPATIL"
+    company_name: "Kolte Patil Dev."
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOPRAN"
+    company_name: "Kopran"
+    nse_listed: true
+    sector: "Distributors"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOTAKBANK"
+    company_name: "Kotak bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOTARISUG"
+    company_name: "Kothari Sugars"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOTHARIPET"
+    company_name: "Kothari Petrochemicals"
+    nse_listed: true
+    sector: "Aluminium"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KOTYARK"
+    company_name: "Kotyark Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KPIGLOBAL"
+    company_name: "KPI Global"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KPITTECH"
+    company_name: "KPIT Technologies Ltd"
+    nse_listed: true
+    sector: "Coal"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KPRMILL"
+    company_name: "K P R Mill Ltd"
+    nse_listed: true
+    sector: "Mining"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KRBL"
+    company_name: "KRBL LTD."
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KREBSBIO"
+    company_name: "KREBS BIOCHEMICALS & INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KRISHANA"
+    company_name: "Krishana Phsochem"
+    nse_listed: true
+    sector: "Footwear"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KRSNAA"
+    company_name: "Krsnaa Diagnositcs"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KSCL"
+    company_name: "KAVERI SEED COMPANY LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KSE"
+    company_name: "KSE"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "KUANTUM"
+    company_name: "KUANTUM PAPERS LTD."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LAGNAM"
+    company_name: "Lagnam Spintex"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LALPATHLAB"
+    company_name: "Dr Lal Pathlabs"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LAMBODHARA"
+    company_name: "LAMBODHARA TEXTILES LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LAOPALA"
+    company_name: "La opala"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LASA"
+    company_name: "Lasa Supergeneri"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LATENTVIEW"
+    company_name: "Latent View Analytics"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LAURUSLABS"
+    company_name: "Laurus Labs"
+    nse_listed: true
+    sector: "Non-Durable Household Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LAXMIMACH"
+    company_name: "Lak. Mach. Works"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LEMONTREE"
+    company_name: "Lemon Tree Hotels Ltd"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LGBBROSLTD"
+    company_name: "L G Balakrishnan"
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LIBERTSHOE"
+    company_name: "LIBERTY SHOES LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LICHSGFIN"
+    company_name: "LIC HOUSING FINANCE LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LIKHITHA"
+    company_name: "Likhitha Infra."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LINCOLN"
+    company_name: "Lincoln Pharma."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LINDEINDIA"
+    company_name: "Linde India Limited"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LODHA"
+    company_name: "Macrotech developers"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LOKESHMACH"
+    company_name: "LOKESH MACHINES LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LTTS"
+    company_name: "L&T Technology Services Ltd"
+    nse_listed: true
+    sector: "Publishing"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LUMAXIND"
+    company_name: "LUMAX INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LUMAXTECH"
+    company_name: "Lumax Auto Tech."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LUPIN"
+    company_name: "LUPIN LTD."
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LUXIND"
+    company_name: "Lux Industries"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LXCHEM"
+    company_name: "Laxmi Organic Industries Ltd"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "LYKALABS"
+    company_name: "LYKA LABS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAANALU"
+    company_name: "MAAN ALUMINIUM LTD."
+    nse_listed: true
+    sector: "Healthcare Facilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MACPOWER"
+    company_name: "MAcpower CNC"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MADRASFERT"
+    company_name: "Madras Fertilizers"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAGADSUGAR"
+    company_name: "Magadh Sugar & Energy Ltd"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAGMA"
+    company_name: "MAGMA FINCORP LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHABANK"
+    company_name: "BANK OF MAHARASHTRA"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHAPEXLTD"
+    company_name: "MAHA RASHTRA APEX CORPORATION LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHASTEEL"
+    company_name: "Mahamaya Steel"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHINDCIE"
+    company_name: "Mahindra CIE Automotive Limited"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHLIFE"
+    company_name: "Mahindra Lifespaces"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHLOG"
+    company_name: "Mahindra Logistics Ltd"
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHSCOOTER"
+    company_name: "Maharashtra Scooter"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAHSEAMLES"
+    company_name: "MAHARASHTRA SEAMLESS LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAITHANALL"
+    company_name: "MAITHAN ALLOYS LTD."
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MALLCOM"
+    company_name: "Mallcom (India)"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MALUPAPER"
+    company_name: "MALU PAPER MILLS LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANALIPETC"
+    company_name: "Manali Petrochem"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANAPPURAM"
+    company_name: "MANAPPURAM FINANCE LTD."
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANGALAM"
+    company_name: "Mangalam Drugs"
+    nse_listed: true
+    sector: "Tea & Coffee"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANGCHEFER"
+    company_name: "MANGALORE CHEMICALS & FERTILIZERS LTD."
+    nse_listed: true
+    sector: "Other Industrial Goods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANGLMCEM"
+    company_name: "Mangalam Cement"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANINDS"
+    company_name: "MAN INDUSTRIES (INDIA) LTD.-$"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANINFRA"
+    company_name: "Man Infra"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MANYAVAR"
+    company_name: "Vedant Fashions"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAPMYINDIA"
+    company_name: "MapmyIndia"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MARALOVER"
+    company_name: "Maral Overseas"
+    nse_listed: true
+    sector: "Advertising & Media"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MARATHON"
+    company_name: "Marathon Realty"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MARINE"
+    company_name: "Marine Eelctricals"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MARKSANS"
+    company_name: "Marksans Pharma"
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MARUTI"
+    company_name: "Maruti Suzuki"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MASFIN"
+    company_name: "MAS Financial Services Ltd"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MASTEK"
+    company_name: "Mastek"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MATRIMONY"
+    company_name: "Matrimony.com Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAWANASUG"
+    company_name: "MAWANA SUGARS LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAXHEALTH"
+    company_name: "Max Healthcare"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAXVIL"
+    company_name: "Max Ventures"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAYURUNIQ"
+    company_name: "Mayur Uniquoters"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MAZDOCK"
+    company_name: "Mazagon Dock Shipbuilders Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MBAPL"
+    company_name: "Madhya Bharat Agro"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MBLINFRA"
+    company_name: "MBL Infrast"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MCLEODRUSS"
+    company_name: "MCLEOD RUSSEL INDIA LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MEDICAMEQ"
+    company_name: "MEDICAMEN BIOTECH LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MEDPLUS"
+    company_name: "Medplus"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MENONBE"
+    company_name: "MENON BEARINGS LTD.-$"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "METROBRAND"
+    company_name: "Metro brands"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "METROPOLIS"
+    company_name: "Metropolis Healt"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MFSL"
+    company_name: "Max Financial"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MGEL"
+    company_name: "Mangalam Global"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MHRIL"
+    company_name: "Mahindra Holidays"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MIDHANI"
+    company_name: "Mishra Dhatu Nigam Ltd"
+    nse_listed: true
+    sector: "Commercial Vehicles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MINDACORP"
+    company_name: "Minda Corporation Ltd"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MINDAIND"
+    company_name: "Minda Industries"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MINDTECK"
+    company_name: "MINDTECK (INDIA) LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MINDTREE"
+    company_name: "Mindtree Ltd"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MIRZAINT"
+    company_name: "Mirza international"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MMFL"
+    company_name: "M M Forgings"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MMTC"
+    company_name: "MMTC"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MODINSULAT"
+    company_name: "MODERN INSULATORS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MODISNME"
+    company_name: "MODISON METALS LTD.-$"
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MOIL"
+    company_name: "MOIL LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MOLDTKPAC"
+    company_name: "Mold-Tek Pack."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MONTECARLO"
+    company_name: "Monte Carlo Fashions Ltd"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MORARJEE"
+    company_name: "MORARJEE TEXTILES LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MOREPENLAB"
+    company_name: "Morepen Labs."
+    nse_listed: true
+    sector: "Non-Durable Household Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MOTHERSUMI"
+    company_name: "Motherson Sumi"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MOTILALOFS"
+    company_name: "Motil.Oswal.Fin."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MPHASIS"
+    company_name: "MPHASIS LTD."
+    nse_listed: true
+    sector: "Telecom Cables"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MPSLTD"
+    company_name: "MPS"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MRF"
+    company_name: "MRF"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MRPL"
+    company_name: "MANGALORE REFINERY & PETROCHEMICALS LTD."
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MSPL"
+    company_name: "MSP Steel & Pow."
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MSTCLTD"
+    company_name: "MSTC Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MSUMI"
+    company_name: "Motherson Sumi Wiring"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MTARTECH"
+    company_name: "MTAR Technologies Ltd"
+    nse_listed: true
+    sector: "Specialty Retail"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUKANDLTD"
+    company_name: "Mukand"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUKTAARTS"
+    company_name: "Mukta Arts"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUNJALAU"
+    company_name: "Munjal Auto Inds"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUNJALSHOW"
+    company_name: "Munjal Showa"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MURUDCERA"
+    company_name: "MURUDESHWAR CERAMICS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUTHOOTCAP"
+    company_name: "Muthoot Capital"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "MUTHOOTFIN"
+    company_name: "Muthoot Finance"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Metroglobal"
+    company_name: "Metroglobal"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NACLIND"
+    company_name: "NACL Industries"
+    nse_listed: true
+    sector: "Breweries & Distilleries"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAGREEKEXP"
+    company_name: "Nagreeka Exports"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAHARCAP"
+    company_name: "NAHAR CAPITAL & FINANCIAL SERVICES LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAHARINDUS"
+    company_name: "NAHAR INDUSTRIAL ENTERPRISES LTD.-$"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAHARPOLY"
+    company_name: "NAHAR POLYFILMS LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAHARSPING"
+    company_name: "NAHAR SPINNING MILLS LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NATCOPHARM"
+    company_name: "NATCO PHARMA LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NATHBIOGEN"
+    company_name: "Nath Bio-Genes (India) Ltd"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NATIONALUM"
+    company_name: "Natl. Aluminium"
+    nse_listed: true
+    sector: "Heavy Electrical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAUKRI"
+    company_name: "INFO EDGE (INDIA) LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAVINFLUOR"
+    company_name: "Navin Fluo.Intl."
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAVKARCORP"
+    company_name: "Navkar Corp"
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAVNETEDUL"
+    company_name: "Navneet Education"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NAZARA"
+    company_name: "Nazara Tech"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NBVENTURES"
+    company_name: "Nava Bharat Vent"
+    nse_listed: true
+    sector: "Exploration & Production"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NCLIND"
+    company_name: "NCL Industries"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NDL"
+    company_name: "Nandan Denim Limited"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NDRAUTO"
+    company_name: "NDR Auto Components Ltd"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NECCLTD"
+    company_name: "Necc Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NECLIFE"
+    company_name: "Nectar Lifesciences"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NELCAST"
+    company_name: "Nelcast"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NELCO"
+    company_name: "NELCO LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NESCO"
+    company_name: "Nesco Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NEULANDLAB"
+    company_name: "Neuland Labs."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NEWGEN"
+    company_name: "Newgen Software Technologies Ltd"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NGLFINE"
+    company_name: "NGL Fine Chem"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NIITLTD"
+    company_name: "niit"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NIPPOBATRY"
+    company_name: "INDO-NATIONAL LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NITINSPIN"
+    company_name: "Nitin Spinners"
+    nse_listed: true
+    sector: "Surface Transportation"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NLCINDIA"
+    company_name: "NLC India Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NMDC"
+    company_name: "NMDC"
+    nse_listed: true
+    sector: "Department Stores"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NOCIL"
+    company_name: "NOCIL LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NOVARTIND"
+    company_name: "NOVARTIS INDIA LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NRAIL"
+    company_name: "N.R.AGARWAL INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NRBBEARING"
+    company_name: "NRB Bearings"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NURECA"
+    company_name: "Nureca Ltd"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NUVOCO"
+    company_name: "Nuvoco Vistas"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NXTDIGITAL"
+    company_name: "Nxtdigital Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "NYKAA"
+    company_name: "Nykaa"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OAL"
+    company_name: "Oriental Aromatics Ltd-$"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OBEROIRLTY"
+    company_name: "Oberoi Realty"
+    nse_listed: true
+    sector: "Roads & Highways"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OCCL"
+    company_name: "Oriental Carbon"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OFSS"
+    company_name: "ORACLE FINANCIAL SERVICES SOFTWARE LTD."
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OILCOUNTUB"
+    company_name: "OIL COUNTRY TUBULAR LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OLECTRA"
+    company_name: "Olectra Greentech Ltd"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OMAXAUTO"
+    company_name: "Omax auto"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "OMINFRAL"
+    company_name: "Om Infra"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ONMOBILE"
+    company_name: "OnMobile Global Ltd."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ONWARDTEC"
+    company_name: "ONWARD TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORBTEXP"
+    company_name: "ORBIT EXPORTS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORICONENT"
+    company_name: "Oricon Enterprises"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORIENTABRA"
+    company_name: "ORIENT ABRASIVES LTD.-$"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORIENTBELL"
+    company_name: "Orient Bell"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORIENTCEM"
+    company_name: "Orient Cement Ltd"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORIENTELEC"
+    company_name: "Orient Electric"
+    nse_listed: true
+    sector: "Broadcasting & Cable TV"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORIENTHOT"
+    company_name: "ORIENTAL HOTELS LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ORISSAMINE"
+    company_name: "ORISSA MINERALS DEVELOPMENT COMPANY LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PAGEIND"
+    company_name: "Page Industries"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PAISALO"
+    company_name: "Paisalo Digital Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PANACEABIO"
+    company_name: "PANACEA BIOTEC LTD."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PANAMAPET"
+    company_name: "Panama Petrochem"
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PARACABLES"
+    company_name: "Paramount cables"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PARAS"
+    company_name: "Paras Defence"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PATELENG"
+    company_name: "PATELS AIRTEMP (INDIA) LTD."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PATINTLOG"
+    company_name: "Patel Integrated Logistics"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PAVNAIND"
+    company_name: "Pavna Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PAYTM"
+    company_name: "Paytm"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PCBL"
+    company_name: "PHILLIPS CARBON BLACK LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PDMJEPAPER"
+    company_name: "Pudumjee Paper Products Ltd"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PDSMFL"
+    company_name: "PDS Multifashion"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PEL"
+    company_name: "PIRAMAL ENTERPRISES LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PENIND"
+    company_name: "Pennar Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PENINLAND"
+    company_name: "PENINSULA LAND LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PERSISTENT"
+    company_name: "Persistent Sys"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PFIZER"
+    company_name: "PFIZER LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PFOCUS"
+    company_name: "Prime Focus"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PGEL"
+    company_name: "PG Electroplast"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PGHH"
+    company_name: "P & G Hygiene"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PGHL"
+    company_name: "Procter & Gamble Health Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PGIL"
+    company_name: "Pearl Global Industries Limited"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PIDILITIND"
+    company_name: "Pidilite Inds."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PIIND"
+    company_name: "P I Industries"
+    nse_listed: true
+    sector: "Housing Finance"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PILITA"
+    company_name: "Pil Italica Lifestyle Ltd"
+    nse_listed: true
+    sector: "Construction Materials"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PIONEEREMB"
+    company_name: "Pion. Embroider."
+    nse_listed: true
+    sector: "Other Industrial Goods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PITTIENG"
+    company_name: "Pitti Engg."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PLASTIBLEN"
+    company_name: "PLASTIBLENDS INDIA LTD.-$"
+    nse_listed: true
+    sector: "Healthcare Facilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PNB"
+    company_name: "Punjab Natl.Bank"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PNBGILTS"
+    company_name: "PNB Gilts"
+    nse_listed: true
+    sector: "Paper & Paper Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PNBHOUSING"
+    company_name: "PNB Housing Finance Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PNCINFRA"
+    company_name: "PNC Infratech"
+    nse_listed: true
+    sector: "Integrated Oil & Gas"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POKARNA"
+    company_name: "Pokarna"
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POLICYBZR"
+    company_name: "Policy Bazaar"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POLYCAB"
+    company_name: "Polycab India Ltd"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POLYMED"
+    company_name: "Poly Medicure"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POLYPLEX"
+    company_name: "Polyplex Corpn"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PONNIERODE"
+    company_name: "PONNI SUGARS (ERODE) LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POONAWALLA"
+    company_name: "Poonawalla Fincorp"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POWERINDIA"
+    company_name: "ABB Power Products and Systems India Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "POWERMECH"
+    company_name: "Power Mech Projects Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PPAP"
+    company_name: "PPAP Automotive"
+    nse_listed: true
+    sector: "Tea & Coffee"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRAJIND"
+    company_name: "Praj Industries"
+    nse_listed: true
+    sector: "Investment Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRAKASH"
+    company_name: "Prakash Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRAKASHSTL"
+    company_name: "Prakash Steelage"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRAXIS"
+    company_name: "Praxis"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRECAM"
+    company_name: "Precision Camshf"
+    nse_listed: true
+    sector: "Publishing"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRECWIRE"
+    company_name: "Prec. Wires (I)"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRESSMN"
+    company_name: "Pressman Advertising"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRESTIGE"
+    company_name: "PRESTIGE ESTATES PROJECTS LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRICOLLTD"
+    company_name: "Pricol Ltd"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRINCEPIPE"
+    company_name: "Prince Pipes"
+    nse_listed: true
+    sector: "Healthcare Facilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRIVISCL"
+    company_name: "Privi Speciality Chemicals Ltd"
+    nse_listed: true
+    sector: "Oil Marketing & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PRSMJOHNSN"
+    company_name: "Prism Johnson Ltd"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PUNJABCHEM"
+    company_name: "Punjab Chemicals"
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PURVA"
+    company_name: "Puravankara Projects"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "PVRLTD"
+    company_name: "PVR Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Polymechpast"
+    company_name: "Polymechpast"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "QUESS"
+    company_name: "Quess Corp Ltd"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "QUICKHEAL"
+    company_name: "quickheal"
+    nse_listed: true
+    sector: "Refineries/ Petro-Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RADHIKAJWE"
+    company_name: "Radhika Jeweltech"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RADICO"
+    company_name: "RADICO KHAITAN LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAJMET"
+    company_name: "Rajnandini metals"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAJRATAN"
+    company_name: "Rajratan Global"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAJSREESUG"
+    company_name: "RAJSHREE SUGARS & CHEMICALS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAJTV"
+    company_name: "RAJ TELEVISION NETWORK LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RALLIS"
+    company_name: "RALLIS INDIA LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAMASTEEL"
+    company_name: "Rama Steel Tubes Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAMCOCEM"
+    company_name: "The Ramco Cements Limited"
+    nse_listed: true
+    sector: "Healthcare Supplies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAMCOIND"
+    company_name: "Ramco Inds."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAMCOSYS"
+    company_name: "Ramco Systems"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAMKY"
+    company_name: "Ramky Infra"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RANASUG"
+    company_name: "RANA SUGARS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RANEENGINE"
+    company_name: "Rane Engine Val."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RANEHOLDIN"
+    company_name: "Rane Holdings"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RATNAMANI"
+    company_name: "RATNAMANI METALS & TUBES LTD.-$"
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RAYMOND"
+    company_name: "RAYMOND LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RBLBANK"
+    company_name: "RBL Bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RECLTD"
+    company_name: "REC Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REDINGTON"
+    company_name: "Redington India"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REFEX"
+    company_name: "Refex Industries Limited"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RELAXO"
+    company_name: "Relaxo Footwear"
+    nse_listed: true
+    sector: "Movies & Entertainment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RELIANCE"
+    company_name: "Reliance Industries Ltd"
+    nse_listed: true
+    sector: "Energy"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RELIGARE"
+    company_name: "RELIGARE ENTERPRISES LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REMSONSIND"
+    company_name: "Remsons Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RENUKA"
+    company_name: "SHREE RENUKA SUGARS LTD."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REPCOHOME"
+    company_name: "REPCO HOME FINANCE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REPRO"
+    company_name: "REPRO INDIA LTD."
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RESPONIND"
+    company_name: "RESPONSIVE INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "REVATHI"
+    company_name: "REVATHI EQUIPMENT LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RICOAUTO"
+    company_name: "RICO AUTO INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RITES"
+    company_name: "RITES Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RKFORGE"
+    company_name: "Ramkrishna Forg."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROHLTD"
+    company_name: "ROYAL ORCHID HOTELS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROLEXRINGS"
+    company_name: "Rolex Rings"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROML"
+    company_name: "Raj Oil mills"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROSSARI"
+    company_name: "Rossari Biotech Ltd"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROSSELLIND"
+    company_name: "ROSSELL INDIA LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROTO"
+    company_name: "ROTO PUMPS LTD."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ROUTE"
+    company_name: "Route Mobile"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RPGLIFE"
+    company_name: "RPG LifeScience."
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RPOWER"
+    company_name: "Reliance Power"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RPSGVENT"
+    company_name: "RPSG Ventures"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RRIL"
+    company_name: "RRIL"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RSWM"
+    company_name: "RSWM LTD."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RSYSTEMS"
+    company_name: "R Systems Intl."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RUBYMILLS"
+    company_name: "RUBY MILLS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RUCHI"
+    company_name: "Ruchi Soya Inds."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RUPA"
+    company_name: "Rupa & Co"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RUSHIL"
+    company_name: "RUSHIL DECOR LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "RVNL"
+    company_name: "Rail Vikas Nigam Ltd"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Rategain"
+    company_name: "Rategain"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAGARDEEP"
+    company_name: "Sagardeep Alloys"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAGCEM"
+    company_name: "Sagar Cements"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAKAR"
+    company_name: "Sakar Healthcare"
+    nse_listed: true
+    sector: "Diversified"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAKHTISUG"
+    company_name: "SAKTHI SUGARS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAKSOFT"
+    company_name: "Saksoft"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAKUMA"
+    company_name: "Sakuma Exports"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SALASAR"
+    company_name: "Salasar Techno"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SALONA"
+    company_name: "Salona Cotspin"
+    nse_listed: true
+    sector: "Other Agricultural Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SALSTEEL"
+    company_name: "S.A.L.STEEL LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANDHAR"
+    company_name: "Sandhar Tech"
+    nse_listed: true
+    sector: "Containers & Packaging"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANGAMIND"
+    company_name: "SANGAM (INDIA) LTD."
+    nse_listed: true
+    sector: "Internet Software & Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANGHIIND"
+    company_name: "Sanghi Industrie"
+    nse_listed: true
+    sector: "Housing Finance"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANGHVIMOV"
+    company_name: "SANGHVI MOVERS LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANOFI"
+    company_name: "Sanofi India Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SANSERA"
+    company_name: "Sansera Engg"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAPPHIRE"
+    company_name: "Sapphire Foods"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SARDAEN"
+    company_name: "Sarda Energy"
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SAREGAMA"
+    company_name: "SAREGAMA INDIA LTD."
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SARLAPOLY"
+    company_name: "SARLA PERFORMANCE FIBERS LTD.-$"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SASKEN"
+    company_name: "Sasken Technologies Ltd"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SASTASUNDR"
+    company_name: "Sastasundar Ventures Ltd"
+    nse_listed: true
+    sector: "Construction Materials"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SATIA"
+    company_name: "Satia Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SBCL"
+    company_name: "Shivalik Bimetal"
+    nse_listed: true
+    sector: "Electronic Components"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SBICARD"
+    company_name: "SBI Cards"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SBIN"
+    company_name: "State Bank of India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SCHAEFFLER"
+    company_name: "Schaeffler India"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SCHAND"
+    company_name: "S Chand and Company Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SCHNEIDER"
+    company_name: "SCHNEIDER ELECTRIC INFRASTRUCTURE LTD."
+    nse_listed: true
+    sector: "Sugar"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SDBL"
+    company_name: "SOM DISTILLERIES & BREWERIES LTD."
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SEAMECLTD"
+    company_name: "Seamec Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SEJALLTD"
+    company_name: "Sejal Glass"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SELAN"
+    company_name: "Selan Exploration"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SEQUENT"
+    company_name: "Sequent Scien."
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SERVOTECH"
+    company_name: "Servotech"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SESHAPAPER"
+    company_name: "SESHASAYEE PAPER & BOARDS LTD."
+    nse_listed: true
+    sector: "Comm.Printing/Stationery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHAHALLOYS"
+    company_name: "Shah Alloys"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHAILY"
+    company_name: "Shaily Engineer."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHAKTIPUMP"
+    company_name: "Shakti Pumps"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHALBY"
+    company_name: "Shalby Ltd"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHANKARA"
+    company_name: "Shankara Building"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHANTIGEAR"
+    company_name: "Shanthi Gears"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHARDACROP"
+    company_name: "Sharda Cropchem"
+    nse_listed: true
+    sector: "Consumer Electronics"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHARDAMOTR"
+    company_name: "Sharda Motor"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHAREINDIA"
+    company_name: "Share India Sec."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHEMAROO"
+    company_name: "Shemaroo Entertainment Ltd"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHILPAMED"
+    company_name: "SHILPA MEDICARE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHIVALIK"
+    company_name: "Shivalik Rasayan Ltd"
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHIVAMAUTO"
+    company_name: "SHIVAM AUTOTECH LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHIVAMILLS"
+    company_name: "Shiva Mills Ltd"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHK"
+    company_name: "S H Kelkar & Co."
+    nse_listed: true
+    sector: "Internet Software & Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHOPPERSTOP"
+    company_name: "Shoppers Stop"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHREDIGCEM"
+    company_name: "Sh. Digvijay Cem"
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHREECEM"
+    company_name: "Shree Cement"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHREEPUSHK"
+    company_name: "Shree Pushkar Chemicals & Fertilisers Ltd"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHREYANIND"
+    company_name: "SHREYANS INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHREYAS"
+    company_name: "Shreyas Shipping"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHRIPISTON"
+    company_name: "Shriram Pistons"
+    nse_listed: true
+    sector: "Fertilizers"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHRIRAMCIT"
+    company_name: "SHRIRAM CITY UNION FINANCE LTD."
+    nse_listed: true
+    sector: "Other Industrial Goods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHRIRAMPPS"
+    company_name: "Shriram Properties"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SHYAMMETL"
+    company_name: "Shyam Metalics"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIEMENS"
+    company_name: "SIEMENS LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIGACHI"
+    company_name: "Sigachi ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIMBHALS"
+    company_name: "Simbhaoli Sugars Ltd"
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIRCA"
+    company_name: "Sirca Paints"
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIS"
+    company_name: "SIS"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SIYSIL"
+    company_name: "SIYARAM SILK MILLS LTD.-$"
+    nse_listed: true
+    sector: "Other Non-Ferrous Metals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SJS"
+    company_name: "SJS Enterprises"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SKFINDIA"
+    company_name: "SKF India"
+    nse_listed: true
+    sector: "Tea & Coffee"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SKIPPER"
+    company_name: "Skipper"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SKMEGGPROD"
+    company_name: "SKM EGG PRODUCTS EXPORT (INDIA) LTD."
+    nse_listed: true
+    sector: "Edible Oils"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMARTLINK"
+    company_name: "Smartlink Holdings Ltd"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMCGLOBAL"
+    company_name: "SMC Global Securities Ltd"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMLISUZU"
+    company_name: "SML ISUZU LIMITED"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMLT"
+    company_name: "Sarthak Metals"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMSLIFE"
+    company_name: "SMS Lifesciences India Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SMSPHARMA"
+    company_name: "SMS Pharma."
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SNOWMAN"
+    company_name: "Snowman Logistics Ltd"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SOBHA"
+    company_name: "Sobha Limited"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SOLARA"
+    company_name: "Solara Active"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SOLARINDS"
+    company_name: "Solar Industries"
+    nse_listed: true
+    sector: "Transportation - Logistics"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SOMANYCERA"
+    company_name: "Somany Ceramics"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SONACOMS"
+    company_name: "SONA Blw Precision Forgings"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SONATSOFTW"
+    company_name: "SONATA SOFTWARE LTD."
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SOTL"
+    company_name: "Savita Oil TEchnologies"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPAL"
+    company_name: "S P Apparels"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPANDANA"
+    company_name: "Spandana Sphoorthy"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPARC"
+    company_name: "SUN PHARMA ADVANCED RESEARCH COMPANY LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPECIALITY"
+    company_name: "SPECIALITY RESTAURANTS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPENCERS"
+    company_name: "Spencers Retail Ltd"
+    nse_listed: true
+    sector: "Department Stores"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPICEJET"
+    company_name: "Spicejet"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SPLIL"
+    company_name: "SPL Ind"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SREEL"
+    company_name: "Sreeleathers"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SRF"
+    company_name: "SRF Ltd"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SRHHYPOLTD"
+    company_name: "Sr.Rayala.Hypo"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SRIPIPES"
+    company_name: "Srikalahasthi Pipes Limited"
+    nse_listed: true
+    sector: "Biotechnology"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SRPL"
+    company_name: "Shree Ram Proteins"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SRTRANSFIN"
+    company_name: "Shriram Transport"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SSWL"
+    company_name: "Steel Str. Wheel"
+    nse_listed: true
+    sector: "Publishing"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "STCINDIA"
+    company_name: "STC India"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "STEELXIND"
+    company_name: "Steel Exchange"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "STERTOOLS"
+    company_name: "Sterling Tools"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "STLTECH"
+    company_name: "STERLITE TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "STYLAMIND"
+    company_name: "Stylam Ind"
+    nse_listed: true
+    sector: "Forest Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUBEX"
+    company_name: "SUBEX LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUBEXLTD"
+    company_name: "SUBEX LTD."
+    nse_listed: true
+    sector: "Diversified"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUBROS"
+    company_name: "Subros"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUDARSCHEM"
+    company_name: "Sudarshan Chem."
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUMICHEM"
+    company_name: "Sumitomo Chemical India Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNCLAYLTD"
+    company_name: "Sundaram Clayton"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNDRMBRAK"
+    company_name: "SUNDARAM BRAKE LININGS LTD."
+    nse_listed: true
+    sector: "Education"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNDRMFAST"
+    company_name: "Sundram Fasten."
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNFLAG"
+    company_name: "Sunflag Iron"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNPHARMA"
+    company_name: "SUN PHARMACEUTICAL INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUNTECK"
+    company_name: "SUNTECK REALTY LTD."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPERHOUSE"
+    company_name: "SUPERHOUSE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPERSPIN"
+    company_name: "Superspinning mills"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPPETRO"
+    company_name: "Supreme Petroch."
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPRAJIT"
+    company_name: "Suprajit Engg."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPREMEIND"
+    company_name: "Supreme Inds."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUPRIYA"
+    company_name: "Supriya Lifesciences"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SURAJ"
+    company_name: "Suraj Products"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SURYALAXMI"
+    company_name: "SURYALAKSHMI COTTON MILLS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SURYAROSNI"
+    company_name: "Surya Roshni"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SURYODAY"
+    company_name: "Suryoday Bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUTLEJTEX"
+    company_name: "SUTLEJ TEXTILES & INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUULD"
+    company_name: "Suumaya Indust."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUVEN"
+    company_name: "SUVEN LIFE SCIENCES LTD."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SUVENPHAR"
+    company_name: "Suven Pharma"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SWARAJENG"
+    company_name: "Swaraj Engines"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SWELECTES"
+    company_name: "Swelect Energy Systems Limited-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SWSOLAR"
+    company_name: "Sterling and wilson solar"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SYMPHONY"
+    company_name: "Symphony Limited"
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "SYNGENE"
+    company_name: "Syngene International Ltd"
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TAJGVK"
+    company_name: "TAJGVK HOTELS & RESORTS LTD."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TAKE"
+    company_name: "TAKE SOLUTIONS LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TALBROAUTO"
+    company_name: "Talbros Auto."
+    nse_listed: true
+    sector: "Holding Companies"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TANLA"
+    company_name: "Tanla Platforms"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TARC"
+    company_name: "TARC"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TARSONS"
+    company_name: "Tarsons"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATACHEM"
+    company_name: "TATA CHEMICALS LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATACOFFEE"
+    company_name: "TATA COFFEE LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATACOMM"
+    company_name: "TATA COMMUNICATIONS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATACONSUM"
+    company_name: "Tata Consumer"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATAELXSI"
+    company_name: "Tata Elxsi"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATAINVEST"
+    company_name: "Tata Investment"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATAMETALI"
+    company_name: "TATA METALIKS LTD."
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATAMOTORS"
+    company_name: "TATA MOTORS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATAPOWER"
+    company_name: "TATA POWER CO.LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATASTEEL"
+    company_name: "Tata Steel"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATASTLBSL"
+    company_name: "Tata Steel BSL"
+    nse_listed: true
+    sector: "Copper"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATASTLLP"
+    company_name: "Tata Steel Long"
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TATVA"
+    company_name: "Tatva Chintan Pharma"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TBZ"
+    company_name: "TRIBHOVANDAS BHIMJI ZAVERI LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TCNSBRANDS"
+    company_name: "TCNS Clothing Co. Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TCPLPACK"
+    company_name: "TCPL PACKAGING LTD.-$"
+    nse_listed: true
+    sector: "Tea & Coffee"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TCS"
+    company_name: "Tata Consultancy"
+    nse_listed: true
+    sector: "IT"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TDPOWERSYS"
+    company_name: "TD Power Systems"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEAMLEASE"
+    company_name: "TeamLease Services Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TECHM"
+    company_name: "Tech Mahindra"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TECHNOE"
+    company_name: "Techno Electric & Engineering Company Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TECHNOFAB"
+    company_name: "TECHNOFAB ENGINEERING LIMITED"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEGA"
+    company_name: "Tega Ind"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEJASNET"
+    company_name: "Tejas Networks"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEXINFRA"
+    company_name: "TEXMACO INFRASTRUCTURE & HOLDINGS LTD."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEXMOPIPES"
+    company_name: "TEXMO PIPES & PRODUCTS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TEXRAIL"
+    company_name: "TEXMACO RAIL & ENGINEERING LTD."
+    nse_listed: true
+    sector: "Personal Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "THANGAMAYL"
+    company_name: "Thangamayil Jew."
+    nse_listed: true
+    sector: "Realty"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "THEJO"
+    company_name: "Thejo Engg"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "THEMISMED"
+    company_name: "THEMIS MEDICARE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "THERMAX"
+    company_name: "THERMAX LTD."
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "THYROCARE"
+    company_name: "Thyrocare Technologies Ltd"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIDEWATER"
+    company_name: "TIDE WATER OIL (INDIA) LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIIL"
+    company_name: "TECHNOCRAFT INDUSTRIES (INDIA) LTD."
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIINDIA"
+    company_name: "Tube Investments"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIMETECHNO"
+    company_name: "TIME TECHNOPLAST LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIMKEN"
+    company_name: "TIMKEN INDIA LTD."
+    nse_listed: true
+    sector: "Electric Utilities"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TIRUMALCHM"
+    company_name: "Thirumalai Chem."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TNPETRO"
+    company_name: "Tamilnadu Petroproducts"
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TNPL"
+    company_name: "TamilNadu newsprint"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TOKYOPLAST"
+    company_name: "TOKYO PLAST INTERNATIONAL LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TORNTPHARM"
+    company_name: "TORRENT PHARMACEUTICALS LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TORNTPOWER"
+    company_name: "Torrent Power"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TREJHARA"
+    company_name: "Trejhara"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TRENT"
+    company_name: "TRENT LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TRIDENT"
+    company_name: "Trident"
+    nse_listed: true
+    sector: "Other Elect.Equip./ Prod."
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TRIGYN"
+    company_name: "TRIGYN TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TRITURBINE"
+    company_name: "Triveni Turbines"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TRIVENI"
+    company_name: "TRIVENI ENGINEERING & INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TTKHLTCARE"
+    company_name: "TTK Healthcare"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TTKPRESTIG"
+    company_name: "TTK Prestige"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TVSELECT"
+    company_name: "TVS ELECTRONICS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TVSMOTOR"
+    company_name: "TVS Motor Co."
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "TVSSRICHAK"
+    company_name: "TVS Srichakra"
+    nse_listed: true
+    sector: "Agrochemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UBL"
+    company_name: "UNITED BREWERIES LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UCALFUEL"
+    company_name: "Ucal Fuel Sys."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UFLEX"
+    company_name: "Uflex"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UGARSUGAR"
+    company_name: "UGAR SUGAR WORKS LTD.-$"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UJJIVAN"
+    company_name: "Ujjivan Fin"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UJJIVANSFB"
+    company_name: "Ujjivan SFB"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ULTRACEMCO"
+    company_name: "UltraTech Cem."
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UMAEXPORTS"
+    company_name: "Uma exports"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNICHEMLAB"
+    company_name: "Unichem Labs."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNIDT"
+    company_name: "UNITED DRILLING TOOLS LTD."
+    nse_listed: true
+    sector: "Cement & Cement Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNIONBANK"
+    company_name: "Union Bank (I)"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNITEDPOLY"
+    company_name: "United Polyfab"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNITEDTEA"
+    company_name: "United Tea"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "UNIVCABLES"
+    company_name: "UNIVERSAL CABLES LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "USHAMART"
+    company_name: "USHA MARTIN LTD."
+    nse_listed: true
+    sector: "Medical Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VADILALIND"
+    company_name: "VADILAL INDUSTRIES LTD.-$"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VAIBHAVGBL"
+    company_name: "Vaibhav Global"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VAISHALI"
+    company_name: "Vaishali Pharma"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VALIANTORG"
+    company_name: "Valiant Organics Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VASCONEQ"
+    company_name: "Vascon engg"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VBL"
+    company_name: "Varun Beverages Ltd"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VEDANTA"
+    company_name: "Vedanta Ltd"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VENUSREM"
+    company_name: "Venus Remedies"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VERANDA"
+    company_name: "Veranda Learning"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VESUVIUS"
+    company_name: "VESUVIUS INDIA LTD."
+    nse_listed: true
+    sector: "Coal"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VGUARD"
+    company_name: "V-Guard Industri"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIDHIING"
+    company_name: "Vidhi Specialty"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIKASECO"
+    company_name: "Vikas Ecotech"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIMTALABS"
+    company_name: "Vimta Labs"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VINATIORGA"
+    company_name: "VINATI ORGANICS LTD.-$"
+    nse_listed: true
+    sector: "Other Financial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VINDHYATEL"
+    company_name: "VINDHYA TELELINKS LTD."
+    nse_listed: true
+    sector: "Refineries/ Petro-Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VINEETLAB"
+    company_name: "Vineet lab"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VINYLINDIA"
+    company_name: "Vinyl Chemicals"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIPCLOTHING"
+    company_name: "VIP Clothing"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIPCLOTHNG"
+    company_name: "VIP Clothing"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIPIND"
+    company_name: "V.I.P.INDUSTRIES LTD.-$"
+    nse_listed: true
+    sector: "Diversified"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VISAKAIND"
+    company_name: "Visaka Industrie"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VISASTEEL"
+    company_name: "Visa Steel"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VISHAL"
+    company_name: "Vishal Fabrics"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VISHNU"
+    company_name: "Vishnu chemicals"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VISHWARAJ"
+    company_name: "Vishwaraj Sugar Industries Ltd"
+    nse_listed: true
+    sector: "IT Software Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VIVIMEDLAB"
+    company_name: "Vivimed labs"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VLSFINANCE"
+    company_name: "VLS Finance"
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VMART"
+    company_name: "V-MART RETAIL LTD."
+    nse_listed: true
+    sector: "Iron & Steel/Interm.Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VOLTAMP"
+    company_name: "VOLTAMP TRANSFORMERS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VOLTAS"
+    company_name: "Voltas"
+    nse_listed: true
+    sector: "Other Food Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VRLLOG"
+    company_name: "VRL Logistics Ltd"
+    nse_listed: true
+    sector: "Copper"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VSSL"
+    company_name: "Vardhman Special"
+    nse_listed: true
+    sector: "Iron & Steel Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VSTIND"
+    company_name: "VST INDUSTRIES LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VSTTILLERS"
+    company_name: "VST Till. Tract."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "VTL"
+    company_name: "VARDHMAN TEXTILES LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "Virinchi"
+    company_name: "Virinchi"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WABAG"
+    company_name: "Va Tech Wabag"
+    nse_listed: true
+    sector: "Other Apparels & Accessories"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WABCOINDIA"
+    company_name: "WABCO India"
+    nse_listed: true
+    sector: "Pharmaceuticals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WALCHANNAG"
+    company_name: "WALCHANDNAGAR INDUSTRIES LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WANBURY"
+    company_name: "Wanbury"
+    nse_listed: true
+    sector: "Paper & Paper Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WATERBASE"
+    company_name: "WATERBASE LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WEBELSOLAR"
+    company_name: "Webel Solar"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WELENT"
+    company_name: "Welspun Enterprises Ltd"
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WELSPUNIND"
+    company_name: "Welspun India"
+    nse_listed: true
+    sector: "IT Consulting & Software"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WENDT"
+    company_name: "WENDT (INDIA) LTD."
+    nse_listed: true
+    sector: "Auto Parts & Equipment"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WESTLIFE"
+    company_name: "WESTLIFE DEVELOPMENT LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WHEELS"
+    company_name: "Wheels india"
+    nse_listed: true
+    sector: "Plastic Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WHIRLPOOL"
+    company_name: "WHIRLPOOL OF INDIA LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WINDLAS"
+    company_name: "Windlas Biotech"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WINDMACHIN"
+    company_name: "Windsor Machines"
+    nse_listed: true
+    sector: "Aluminium"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WIPRO"
+    company_name: "WIPRO LTD."
+    nse_listed: true
+    sector: "Textiles"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WOCKPHARMA"
+    company_name: "WOCKHARDT LTD."
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WONDERLA"
+    company_name: "Wonderla Holidays"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WPIL"
+    company_name: "WPIL"
+    nse_listed: true
+    sector: "Industrial Machinery"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "WSTCSTPAPR"
+    company_name: "WEST COAST PAPER MILLS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "XCHANGING"
+    company_name: "XCHANGING SOLUTIONS LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "XELPMOC"
+    company_name: "Xelpmoc Design and Tech Ltd"
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "XPROINDIA"
+    company_name: "XPRO India"
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "YESBANK"
+    company_name: "Yes Bank"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZEEL"
+    company_name: "Zee Entertainment"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZEEMEDIA"
+    company_name: "Zee Media"
+    nse_listed: true
+    sector: "Other Industrial Products"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZENITHSTL"
+    company_name: "Zenith Steel Pipe"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZENSARTECH"
+    company_name: "ZENSAR TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Diversified Commercial Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZENTEC"
+    company_name: "ZEN TECHNOLOGIES LTD."
+    nse_listed: true
+    sector: "Specialty Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZOMATO"
+    company_name: "Zomato"
+    nse_listed: true
+    sector: "Comm.Trading & Distribution"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZOTA"
+    company_name: "Zota Healthcare"
+    nse_listed: true
+    sector: "Housing Finance"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZUARI"
+    company_name: "ZUARI AGRO CHEMICALS LTD."
+    nse_listed: true
+    sector: "Construction & Engineering"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZUARIGLOB"
+    company_name: "ZUARI GLOBAL LTD."
+    nse_listed: true
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "ZYDUSWELL"
+    company_name: "ZYDUS WELLNESS LTD.-$"
+    nse_listed: true
+    sector: "Finance (including NBFCs)"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "eclerx"
+    company_name: "eclerx"
+    nse_listed: true
+    sector: "Packaged Foods"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "nirlon"
+    company_name: "nirlon"
+    nse_listed: true
+    sector: "Healthcare Services"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "tanfac"
+    company_name: "tanfac"
+    nse_listed: true
+    sector: "Commodity Chemicals"
+    tags: ["stockpulse_import"]
+
+  - nse_symbol: "tinplate"
+    company_name: "tinplate"
+    nse_listed: true
+    sector: "Hotels"
+    tags: ["stockpulse_import"]
+

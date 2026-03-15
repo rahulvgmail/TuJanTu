@@ -62,6 +62,7 @@ class Settings(BaseSettings):
     rss_dedup_lookback_days: int = 14
     rss_dedup_recent_limit: int = 5000
     symbol_master_seed_path: Path = Path("config/public_sector_banks_seed.yaml")
+    symbol_master_extra_seed_paths: list[str] = ["config/stockpulse_companies_seed.yaml"]
     symbol_master_nse_source_url: str | None = None
     symbol_master_bse_source_url: str | None = None
     symbol_master_refresh_enabled: bool = False

@@ -515,7 +515,7 @@ class MongoCompanyMasterRepository:
         self.collection = db[COMPANY_MASTER_COLLECTION]
 
     async def upsert(self, company: CompanyMaster) -> str:
-        payload = company.model_dump()
+        payload = company.model_dump(exclude_none=True)
         await self.collection.replace_one({"canonical_id": company.canonical_id}, payload, upsert=True)
         return str(company.canonical_id)
 
