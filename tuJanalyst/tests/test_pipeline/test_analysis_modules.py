@@ -102,7 +102,6 @@ def test_deep_analysis_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch) -> N
 
     pipeline = DeepAnalysisPipeline(
         metrics_module=_FakeMetrics(),  # type: ignore[arg-type]
-        web_search_module=_FakeSearch(),  # type: ignore[arg-type]
         synthesis_module=_FakeSynthesis(),  # type: ignore[arg-type]
     )
     monkeypatch.setattr(
@@ -158,7 +157,6 @@ def test_deep_analysis_pipeline_handles_web_failure_but_continues(monkeypatch: p
     synthesis_module = _FakeSynthesis()
     pipeline = DeepAnalysisPipeline(
         metrics_module=_FakeMetrics(),  # type: ignore[arg-type]
-        web_search_module=_FakeSearch(),  # type: ignore[arg-type]
         synthesis_module=synthesis_module,  # type: ignore[arg-type]
     )
 

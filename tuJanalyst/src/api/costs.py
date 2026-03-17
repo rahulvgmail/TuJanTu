@@ -13,6 +13,7 @@ router = APIRouter(prefix="/api/v1/costs", tags=["costs"])
 _DEFAULT_WEB_SEARCH_COST_PER_CALL_USD: dict[str, float] = {
     "brave": 0.005,
     "tavily": 0.005,
+    "duckduckgo": 0.0,
 }
 
 

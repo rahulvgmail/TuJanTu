@@ -376,6 +376,36 @@ class MongoInvestigationRepository:
                 items.append(Investigation.model_validate(cleaned))
         return items
 
+    async def get_recent_web_results(
+        self, company_symbol: str, since_hours: int = 48
+    ) -> list[dict[str, str]]:
+        """Return deduplicated web search results from recent investigations for this company."""
+        from datetime import timedelta
+
+        cutoff = _utc_now() - timedelta(hours=since_hours)
+        cursor = self.collection.find(
+            {
+                "company_symbol": company_symbol,
+                "created_at": {"$gte": cutoff},
+                "web_search_results": {"$exists": True, "$ne": []},
+            },
+            {"web_search_results": 1, "_id": 0},
+        ).sort("created_at", -1)
+
+        seen_urls: set[str] = set()
+        results: list[dict[str, str]] = []
+        async for doc in cursor:
+            for item in doc.get("web_search_results", []):
+                url = str(item.get("source", "")).strip()
+                if url and url not in seen_urls:
+                    seen_urls.add(url)
+                    results.append({
+                        "title": str(item.get("title", "")).strip(),
+                        "url": url,
+                        "snippet": str(item.get("summary", "")).strip(),
+                    })
+        return results
+
     async def get_past_inconclusive(self, company_symbol: str) -> list[Investigation]:
         changed_ids: list[str] = []
         cursor = self.assessments_collection.find(

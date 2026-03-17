@@ -11,7 +11,7 @@ import yaml
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 
-from src.agents.tools import MarketDataTool, TickerWebLookup, WebSearchTool
+from src.agents.tools import MarketDataTool, MultiProviderWebSearch, TickerWebLookup, WebSearchTool
 from src.agents.tools.stockpulse_client import StockPulseClient
 from src.agents.tools.sector_pulse import SectorPulseTool
 from src.agents.tools.stockpulse_data import StockPulseDataTool
@@ -97,7 +97,7 @@ async def lifespan(app: FastAPI):
     logger.info("tuJanalyst starting up...")
     mongo_client = None
     scheduler: AsyncIOScheduler | None = None
-    web_search_tool: WebSearchTool | _NoopWebSearchTool | None = None
+    web_search_tool: WebSearchTool | MultiProviderWebSearch | _NoopWebSearchTool | None = None
     stockpulse_client: StockPulseClient | None = None
 
     try:
@@ -156,24 +156,36 @@ async def lifespan(app: FastAPI):
         except Exception as exc:  # noqa: BLE001
             logger.warning("Failed exchange-source company master sync: %s", exc)
 
-        if settings.web_search_provider == "brave":
-            web_search_tool = WebSearchTool(
-                provider="brave",
-                api_key=settings.brave_api_key or "",
+        def _make_web_search_tool(provider: str) -> WebSearchTool | None:
+            """Create a WebSearchTool for a given provider name, or None if misconfigured."""
+            common = dict(
                 max_results=settings.web_search_max_results,
                 timeout_seconds=settings.web_search_timeout_seconds,
                 circuit_breaker_failure_threshold=settings.web_search_circuit_breaker_failure_threshold,
                 circuit_breaker_recovery_seconds=settings.web_search_circuit_breaker_recovery_seconds,
             )
-        elif settings.web_search_provider == "tavily":
-            web_search_tool = WebSearchTool(
-                provider="tavily",
-                api_key=settings.tavily_api_key or "",
-                max_results=settings.web_search_max_results,
-                timeout_seconds=settings.web_search_timeout_seconds,
-                circuit_breaker_failure_threshold=settings.web_search_circuit_breaker_failure_threshold,
-                circuit_breaker_recovery_seconds=settings.web_search_circuit_breaker_recovery_seconds,
-            )
+            if provider == "duckduckgo":
+                return WebSearchTool(provider="duckduckgo", **common)
+            if provider == "brave" and settings.brave_api_key:
+                return WebSearchTool(provider="brave", api_key=settings.brave_api_key, **common)
+            if provider == "tavily" and settings.tavily_api_key:
+                return WebSearchTool(provider="tavily", api_key=settings.tavily_api_key, **common)
+            return None
+
+        if settings.web_search_providers:
+            # Multi-provider fallback mode
+            tools = [t for p in settings.web_search_providers if (t := _make_web_search_tool(p)) is not None]
+            if tools:
+                web_search_tool = MultiProviderWebSearch(tools)
+                logger.info(
+                    "Multi-provider web search enabled: providers=%s",
+                    [t.provider for t in tools],
+                )
+            else:
+                web_search_tool = _NoopWebSearchTool()
+        elif settings.web_search_provider != "none":
+            single = _make_web_search_tool(settings.web_search_provider)
+            web_search_tool = single if single else _NoopWebSearchTool()
         else:
             web_search_tool = _NoopWebSearchTool()
 
@@ -269,6 +281,8 @@ async def lifespan(app: FastAPI):
                 model_name=settings.analysis_model,
                 stockpulse_data=stockpulse_data_tool,
                 sector_pulse_tool=sector_pulse_tool,
+                web_search_cache_hours=settings.web_search_cache_hours,
+                web_search_cache_min_results=settings.web_search_cache_min_results,
             )
         else:
             logger.info("Layer 3 analysis disabled by configuration.")

@@ -14,7 +14,7 @@ from src.models.company import WatchlistConfig
 
 LLMProvider = Literal["anthropic", "openai", "azure", "local"]
 NotificationMethod = Literal["slack", "email", "none"]
-WebSearchProvider = Literal["brave", "tavily", "none"]
+WebSearchProvider = Literal["brave", "tavily", "duckduckgo", "none"]
 
 
 class Settings(BaseSettings):
@@ -52,6 +52,9 @@ class Settings(BaseSettings):
     web_search_max_results: int = 5
     web_search_circuit_breaker_failure_threshold: int = 3
     web_search_circuit_breaker_recovery_seconds: int = 120
+    web_search_providers: list[str] = []  # Ordered fallback list, e.g. ["duckduckgo", "brave"]
+    web_search_cache_hours: int = 48
+    web_search_cache_min_results: int = 5
 
     # Trigger ingestion
     nse_rss_url: str

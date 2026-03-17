@@ -1,7 +1,8 @@
-"""Web search tool with Brave and Tavily provider adapters."""
+"""Web search tool with DuckDuckGo, Brave, and Tavily provider adapters."""
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import time
 from collections.abc import Callable
@@ -11,7 +12,7 @@ import httpx
 
 from src.utils.circuit_breaker import CircuitBreaker
 
-SearchProvider = Literal["brave", "tavily"]
+SearchProvider = Literal["brave", "tavily", "duckduckgo"]
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ class WebSearchTool:
     def __init__(
         self,
         provider: SearchProvider,
-        api_key: str,
+        api_key: str = "",
         *,
         max_results: int = 5,
         timeout_seconds: int = 15,
@@ -58,6 +59,10 @@ class WebSearchTool:
 
         result_count = max_results or self.max_results
         try:
+            if self.provider == "duckduckgo":
+                results = await self._search_duckduckgo(trimmed, result_count)
+                self.circuit_breaker.record_success()
+                return results
             if self.provider == "brave":
                 results = await self._search_brave(trimmed, result_count)
                 self.circuit_breaker.record_success()
@@ -133,3 +138,45 @@ class WebSearchTool:
             if title and url:
                 normalized.append({"title": title, "url": url, "snippet": snippet})
         return normalized
+
+    async def _search_duckduckgo(self, query: str, max_results: int) -> list[dict[str, str]]:
+        from duckduckgo_search import DDGS
+
+        def _sync_search() -> list[dict[str, str]]:
+            with DDGS() as ddgs:
+                rows = ddgs.text(query, max_results=max_results)
+            normalized: list[dict[str, str]] = []
+            for row in rows:
+                title = str(row.get("title", "")).strip()
+                url = str(row.get("href", "")).strip()
+                snippet = str(row.get("body", "")).strip()
+                if title and url:
+                    normalized.append({"title": title, "url": url, "snippet": snippet})
+            return normalized
+
+        return await asyncio.to_thread(_sync_search)
+
+
+class MultiProviderWebSearch:
+    """Try providers in order, falling back on failure. Circuit breaker per provider."""
+
+    def __init__(self, providers: list[WebSearchTool]):
+        if not providers:
+            raise ValueError("MultiProviderWebSearch requires at least one provider")
+        self.providers = providers
+
+    async def search(self, query: str, *, max_results: int | None = None) -> list[dict[str, str]]:
+        """Try each provider in order; return first non-empty result."""
+        for tool in self.providers:
+            try:
+                results = await tool.search(query, max_results=max_results)
+                if results:
+                    return results
+            except Exception:  # noqa: BLE001
+                continue
+        return []
+
+    async def close(self) -> None:
+        """Close all underlying providers."""
+        for tool in self.providers:
+            await tool.close()

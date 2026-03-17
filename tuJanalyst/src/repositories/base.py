@@ -85,6 +85,10 @@ class InvestigationRepository(Protocol):
 
     async def get_past_inconclusive(self, company_symbol: str) -> list[Investigation]: ...
 
+    async def get_recent_web_results(
+        self, company_symbol: str, since_hours: int = 48
+    ) -> list[dict[str, str]]: ...
+
 
 class AssessmentRepository(Protocol):
     """Data access contract for Layer 4 assessments."""

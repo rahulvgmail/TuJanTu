@@ -41,6 +41,8 @@ class DeepAnalyzer:
         analysis_pipeline: DeepAnalysisPipeline | None = None,
         web_search_module: WebSearchModule | None = None,
         model_name: str = "analysis-pipeline",
+        web_search_cache_hours: int = 48,
+        web_search_cache_min_results: int = 5,
     ):
         self.investigation_repo = investigation_repo
         self.vector_repo = vector_repo
@@ -52,6 +54,8 @@ class DeepAnalyzer:
         self.pipeline = analysis_pipeline or DeepAnalysisPipeline()
         self.web_search_module = web_search_module or WebSearchModule()
         self.model_name = model_name
+        self.web_search_cache_hours = web_search_cache_hours
+        self.web_search_cache_min_results = web_search_cache_min_results
 
     async def analyze(self, trigger: Any) -> Investigation:
         """Produce and persist an Investigation from a gate-passed trigger."""
@@ -237,6 +241,41 @@ class DeepAnalyzer:
         return context
 
     async def _run_web_search(self, trigger: Any, doc_summary: str) -> tuple[list[WebSearchResult], int, int, int]:
+        # Phase 3: check for cached web results from recent investigations
+        company_symbol = (
+            getattr(trigger, "resolved_nse_symbol", None)
+            or getattr(trigger, "company_symbol", None)
+            or "UNKNOWN"
+        )
+        cached_results: list[dict[str, str]] = []
+        if company_symbol != "UNKNOWN":
+            try:
+                cached_results = await self.investigation_repo.get_recent_web_results(
+                    company_symbol, since_hours=self.web_search_cache_hours
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Web result cache lookup failed: symbol=%s error=%s", company_symbol, exc)
+
+        if len(cached_results) >= self.web_search_cache_min_results:
+            logger.info(
+                "Using %d cached web results for %s; skipping fresh search",
+                len(cached_results),
+                company_symbol,
+            )
+            findings = [
+                WebSearchResult(
+                    query="(cached)",
+                    source=row.get("url", ""),
+                    title=row.get("title", ""),
+                    summary=row.get("snippet", ""),
+                    relevance="medium",
+                    sentiment="neutral",
+                )
+                for row in cached_results
+                if row.get("url")
+            ]
+            return findings, 0, 0, 0
+
         query_input_tokens = 0
         query_output_tokens = 0
         try:
@@ -252,7 +291,12 @@ class DeepAnalyzer:
                 base_delay_seconds=0.2,
                 should_retry=is_transient_error,
             )
-            queries = self._parse_json_list(getattr(query_prediction, "search_queries_json", "[]"))[:5]
+            queries = self._parse_json_list(getattr(query_prediction, "search_queries_json", "[]"))[:3]
+            # If the doc already contains rich financial data, a single corroboration query suffices
+            financial_terms = {"revenue", "profit", "ebitda", "crore", "margin", "order"}
+            doc_lower = doc_summary.lower()
+            if sum(1 for term in financial_terms if term in doc_lower) >= 3:
+                queries = queries[:1]
         except Exception as exc:  # noqa: BLE001
             logger.warning("Web search query generation failed: trigger_id=%s error=%s", trigger.trigger_id, exc)
             queries = []

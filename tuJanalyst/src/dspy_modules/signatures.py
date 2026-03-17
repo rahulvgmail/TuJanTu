@@ -69,7 +69,9 @@ class WebSearchQueryGeneration(dspy.Signature):
     Generate targeted web-search queries for validating and enriching an investigation.
 
     Instructions:
-    - Generate 3-5 high-signal queries focused on company-specific developments.
+    - Generate 1-3 high-signal queries focused on company-specific developments.
+    - Generate fewer queries when the trigger context already contains concrete financial data.
+    - Do NOT generate queries for basic company background or information already in the trigger.
     - Include recent-period context (quarter, year, order/update specifics) when possible.
     - Prioritize queries likely to return primary reporting (exchange filings, reputable business media).
 
@@ -81,7 +83,7 @@ class WebSearchQueryGeneration(dspy.Signature):
     company_name: str = dspy.InputField(desc="Company name")
     trigger_context: str = dspy.InputField(desc="Short context from trigger/doc analysis")
 
-    search_queries_json: str = dspy.OutputField(desc="JSON array of 3-5 search query strings")
+    search_queries_json: str = dspy.OutputField(desc="JSON array of 1-3 search query strings")
 
 
 class WebResultSynthesis(dspy.Signature):

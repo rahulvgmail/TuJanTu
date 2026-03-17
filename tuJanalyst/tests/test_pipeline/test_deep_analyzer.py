@@ -28,6 +28,9 @@ class _InvestigationRepo:
     async def get_past_inconclusive(self, company_symbol: str) -> list[Investigation]:
         return self.inconclusive_by_symbol.get(company_symbol, [])
 
+    async def get_recent_web_results(self, company_symbol: str, since_hours: int = 48) -> list[dict[str, str]]:
+        return []
+
 
 class _VectorRepo:
     async def search(self, query: str, n_results: int = 5, where: dict | None = None):  # noqa: ARG002
@@ -96,8 +99,14 @@ async def test_deep_analyzer_analyze_builds_and_saves_investigation() -> None:
     repo = _InvestigationRepo()
     doc_repo = _DocRepo(
         {
-            "doc-1": SimpleNamespace(extracted_text="Revenue grew 20%", source_url="https://example.test/doc1"),
-            "doc-2": SimpleNamespace(extracted_text="Order inflow improved", source_url="https://example.test/doc2"),
+            "doc-1": SimpleNamespace(
+                extracted_text="Revenue grew 20% year on year to Rs 1200 crore in Q3 FY26 driven by strong execution across all segments",
+                source_url="https://example.test/doc1",
+            ),
+            "doc-2": SimpleNamespace(
+                extracted_text="Order inflow improved significantly with new orders worth Rs 800 crore received during the quarter",
+                source_url="https://example.test/doc2",
+            ),
         }
     )
     pipeline = _AnalysisPipeline(
@@ -166,7 +175,7 @@ async def test_deep_analyzer_handles_web_search_failures_gracefully() -> None:
     )
     trigger = TriggerEvent(
         source=TriggerSource.BSE_RSS,
-        raw_content="Trigger content",
+        raw_content="ABB India Limited has reported quarterly results with revenue growth of fifteen percent and improved EBITDA margins reflecting strong operational performance across all business segments in the current fiscal year",
         company_symbol="ABB",
         company_name="ABB India",
     )
@@ -200,7 +209,7 @@ async def test_deep_analyzer_handles_missing_company_symbol_context() -> None:
     )
     trigger = TriggerEvent(
         source=TriggerSource.NSE_RSS,
-        raw_content="No symbol trigger",
+        raw_content="Corporate announcement regarding quarterly financial results with revenue and profit details for the current quarter along with forward guidance for the remaining fiscal year and operational commentary from management",
         company_symbol=None,
         company_name=None,
     )
@@ -235,7 +244,7 @@ async def test_deep_analyzer_continues_when_market_data_fails() -> None:
     )
     trigger = TriggerEvent(
         source=TriggerSource.NSE_RSS,
-        raw_content="Market-data edge case",
+        raw_content="ABB India Limited quarterly results announcement with detailed revenue breakdown and margin analysis along with order book commentary and management outlook for the upcoming quarters in the fiscal year",
         company_symbol="ABB",
         company_name="ABB India",
     )
@@ -270,7 +279,7 @@ async def test_deep_analyzer_retries_transient_pipeline_failures() -> None:
     )
     trigger = TriggerEvent(
         source=TriggerSource.BSE_RSS,
-        raw_content="Retry case",
+        raw_content="Siemens Limited has disclosed quarterly financial results including revenue growth and order inflow improvement with detailed commentary on margin expansion and forward guidance for the remaining quarters of the fiscal year",
         company_symbol="SIEMENS",
         company_name="Siemens Limited",
     )

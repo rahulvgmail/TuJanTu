@@ -105,12 +105,10 @@ class DeepAnalysisPipeline(dspy.Module):
         self,
         *,
         metrics_module: MetricsExtractionModule | None = None,
-        web_search_module: WebSearchModule | None = None,
         synthesis_module: SynthesisModule | None = None,
     ):
         super().__init__()
         self.metrics_module = metrics_module or MetricsExtractionModule()
-        self.web_search_module = web_search_module or WebSearchModule()
         self.web_result_synthesizer = dspy.Predict(WebResultSynthesis)
         self.synthesis_module = synthesis_module or SynthesisModule()
 
@@ -139,16 +137,6 @@ class DeepAnalysisPipeline(dspy.Module):
             result.management_highlights_json = str(getattr(metrics_prediction, "management_highlights_json", "[]"))
         except Exception as exc:  # noqa: BLE001
             result.errors.append(f"metrics_extraction_failed: {exc}")
-
-        try:
-            search_prediction = self.web_search_module(
-                company_symbol=company_symbol,
-                company_name=company_name,
-                trigger_context=document_text[:2000],
-            )
-            result.search_queries_json = str(getattr(search_prediction, "search_queries_json", "[]"))
-        except Exception as exc:  # noqa: BLE001
-            result.errors.append(f"search_query_generation_failed: {exc}")
 
         try:
             web_prediction = self.web_result_synthesizer(
