@@ -177,6 +177,21 @@ class PipelineOrchestrator:
             llm_latency_seconds=float(getattr(assessment, "processing_time_seconds", 0.0)),
         )
 
+        # Skip Layer 5 report if recommendation is 'none' or confidence too low
+        confidence = float(getattr(assessment, "confidence", 0.0))
+        if recommendation == "none" or confidence < 0.5:
+            logger.info(
+                "layer4_low_conviction_stop",
+                recommendation=recommendation,
+                confidence=confidence,
+            )
+            await self.trigger_repo.update_status(
+                trigger.trigger_id,
+                TriggerStatus.ASSESSED,
+                f"No actionable recommendation (rec={recommendation}, confidence={confidence:.2f})",
+            )
+            return
+
         # Post recommendation to StockPulse and update color
         if self.stockpulse_notifier and assessment:
             try:

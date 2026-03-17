@@ -236,6 +236,12 @@ companies:
 global_keywords:
   - "insider trading"
   - "SEBI order"
+  - "SEBI penalty"
   - "fraud"
-  - "default"
-  - "bankruptcy"
+  - "loan default"
+  - "debt default"
+  - "credit downgrade"
+
+# These broad terms were removed because they match too many routine filings:
+# - "default" (matches "by default", routine NCLT language)
+# - "bankruptcy" (matches routine CIRP/insolvency procedural updates)

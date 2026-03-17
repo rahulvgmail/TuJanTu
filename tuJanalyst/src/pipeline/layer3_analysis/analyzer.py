@@ -68,6 +68,21 @@ class DeepAnalyzer:
         )
 
         document_text = await self._collect_document_text(trigger)
+
+        # Early exit: skip analysis if trigger + documents have too little content
+        combined_text = f"{getattr(trigger, 'raw_content', '')} {document_text}".strip()
+        if len(combined_text.split()) < 30:
+            logger.info(
+                "layer3_insufficient_content: trigger_id=%s words=%d",
+                trigger.trigger_id,
+                len(combined_text.split()),
+            )
+            investigation.significance = SignificanceLevel.NOISE
+            investigation.significance_reasoning = "Insufficient content for meaningful analysis"
+            investigation.is_significant = False
+            await self.investigation_repo.save(investigation)
+            return investigation
+
         historical_context = await self._gather_historical_context(investigation.company_symbol)
         investigation.historical_context = historical_context
 

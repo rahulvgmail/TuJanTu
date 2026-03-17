@@ -6,14 +6,35 @@ import dspy
 
 
 class GateClassification(dspy.Signature):
-    """Classify whether an announcement is worth deeper investment analysis."""
+    """Classify whether a corporate announcement warrants deeper investment analysis.
+
+    REJECT the following categories — they are routine/procedural and do not contain
+    actionable investment signals:
+    - Routine regulatory filings: ALM reports, trading window closures, compliance certificates
+    - Procedural corporate actions: postal ballot results, e-voting outcomes, AGM/EGM notices
+      (unless accompanied by material resolutions like demerger/merger/acquisition)
+    - NCLT/insolvency procedural updates: hearing dates, appointment of IRP/RP, routine
+      CIRP progress updates, scheme of arrangement filings (unless containing concrete
+      financial terms, recovery amounts, or timeline changes)
+    - Board meeting intimations without outcome (pre-meeting notices)
+    - Record date notifications, book closure notices
+    - Change in registered office, company secretary appointments
+    - Listing/relisting/name change formalities
+
+    ACCEPT only announcements that contain or strongly imply:
+    - Material financial data: revenue, profit, margins, order wins with values
+    - Significant corporate events: M&A with terms, fundraising, stake changes >5%
+    - Regulatory actions with financial impact: SEBI penalties, tax demands with amounts
+    - Credit rating changes, debt restructuring with concrete terms
+    - Management guidance, earnings surprises, profit warnings
+    """
 
     announcement_text: str = dspy.InputField(desc="Corporate announcement text")
     company_name: str = dspy.InputField(desc="Company name")
     sector: str = dspy.InputField(desc="Company sector")
     technical_context: str = dspy.InputField(desc="Technical analysis context from StockPulse. May be empty.", default="")
 
-    is_worth_investigating: bool = dspy.OutputField(desc="True if this should go to Layer 3")
+    is_worth_investigating: bool = dspy.OutputField(desc="True ONLY if the announcement contains material financial or strategic information. False for routine/procedural filings.")
     reason: str = dspy.OutputField(desc="Short reason for pass/reject decision")
 
 
@@ -97,7 +118,17 @@ class InvestigationSynthesis(dspy.Signature):
       increases significance. Technical weakness alongside positive fundamentals may indicate
       the market hasn't priced in the news yet.
     - Assign significance as one of: high, medium, low, noise.
-    - Set `is_significant` true only if evidence suggests material impact potential.
+    - Significance criteria:
+      - high: concrete financial data with clear impact (earnings beat/miss, large order win,
+        M&A with terms, credit downgrade, regulatory penalty with amount)
+      - medium: meaningful but partial data (management commentary with directional guidance,
+        stake changes, restructuring with some terms)
+      - low: vague or generic information, minor procedural updates with some data
+      - noise: routine filings, compliance notices, procedural updates, boilerplate disclosures
+    - Set `is_significant` true ONLY for high or medium significance.
+    - If the document is primarily a routine regulatory filing, compliance certificate,
+      procedural NCLT/CIRP update, or board meeting notice without concrete outcomes,
+      classify as noise regardless of the company or sector.
 
     Output format requirements:
     - `key_findings_json`, `red_flags_json`, and `positive_signals_json` must be JSON arrays of strings.
@@ -130,8 +161,12 @@ class DecisionEvaluation(dspy.Signature):
     - Consider current recommendation, new investigation evidence, and historical context.
     - Explicitly account for past inconclusive investigations in final reasoning.
     - Choose recommendation from: buy, sell, hold, none.
+    - Use `none` when the evidence is insufficient, ambiguous, or based on routine
+      disclosures without actionable data. Do NOT force a buy/sell/hold when there is
+      no clear basis — defaulting to `none` is correct when evidence is weak.
     - Choose timeframe from: short_term, medium_term, long_term.
     - Keep confidence calibrated; avoid unjustified extreme values.
+    - Confidence below 0.5 should strongly suggest `none` as the recommendation.
     - Keep reasoning decision-first and evidence-backed:
       1) state verdict,
       2) cite strongest positive signals,
