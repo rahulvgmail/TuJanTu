@@ -31,6 +31,8 @@ _TRACKING_QUERY_KEYS = {
     "source",
 }
 _NSE_SCRIP_CODE_FROM_URL = re.compile(r"(?:^|_)(\d{5,10})(?:_|\.|$)")
+_NSE_SYMBOL_FROM_URL = re.compile(r"/(?:corporate/(?:xbrl/)?)?([A-Z][A-Z0-9]{1,19})_\d{6,}")
+_BSE_NAME_SCRIP_RE = re.compile(r"^(.+?)\s*\((\d{5,7})\)\s*$")
 _TITLE_COMPANY_SEPARATORS = (" - ", " – ", ":")
 
 
@@ -227,7 +229,7 @@ class ExchangeRSSPoller:
             raw_content=raw_content,
             existing_symbol=company_symbol,
         )
-        company_name = self._infer_company_name(title=title, existing_name=company_name)
+        company_name = self._infer_company_name(title=title, raw_content=raw_content, existing_name=company_name)
         published_at = self._parse_date(
             self._pick_str(
                 row,
@@ -392,13 +394,23 @@ class ExchangeRSSPoller:
             inferred_scrip = self._extract_nse_scrip_code_from_url(source_url)
             if inferred_scrip:
                 return inferred_scrip
+            # Extract alphabetical symbol from NSE URL: /corporate/SYMBOL_date_...
+            nse_sym_match = _NSE_SYMBOL_FROM_URL.search(source_url)
+            if nse_sym_match:
+                return nse_sym_match.group(1).upper()
+
+        if source == TriggerSource.BSE_RSS:
+            # Extract BSE scrip code from "Company Name (NNNNNN)" in raw_content
+            bse_match = _BSE_NAME_SCRIP_RE.match((raw_content or "").split("\n")[0].strip())
+            if bse_match:
+                return bse_match.group(2)
 
         inline_symbol = self._extract_inline_symbol(text=f"{title} {raw_content}")
         if inline_symbol:
             return inline_symbol
         return None
 
-    def _infer_company_name(self, *, title: str, existing_name: str | None) -> str | None:
+    def _infer_company_name(self, *, title: str, raw_content: str = "", existing_name: str | None) -> str | None:
         if existing_name:
             return existing_name.strip()
 
@@ -408,6 +420,14 @@ class ExchangeRSSPoller:
             candidate = title.split(separator, 1)[0].strip()
             if candidate:
                 return candidate
+
+        # Extract company name from "Company Name (BSE code)" in raw_content first line
+        first_line = (raw_content or "").split("\n")[0].strip()
+        if first_line:
+            bse_match = _BSE_NAME_SCRIP_RE.match(first_line)
+            if bse_match:
+                return bse_match.group(1).strip()
+
         return None
 
     def _extract_nse_scrip_code_from_url(self, source_url: str) -> str | None:

@@ -177,9 +177,11 @@ class PipelineOrchestrator:
             llm_latency_seconds=float(getattr(assessment, "processing_time_seconds", 0.0)),
         )
 
-        # Skip Layer 5 report if recommendation is 'none' or confidence too low
+        # Skip Layer 5 report unless recommendation is buy or sell.
+        # Hold and none are not actionable — no report needed.
         confidence = float(getattr(assessment, "confidence", 0.0))
-        if recommendation == "none" or confidence < 0.5:
+        is_non_actionable = recommendation not in ("buy", "sell") or confidence < 0.5
+        if is_non_actionable:
             logger.info(
                 "layer4_low_conviction_stop",
                 recommendation=recommendation,

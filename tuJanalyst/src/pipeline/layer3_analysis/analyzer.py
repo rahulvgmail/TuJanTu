@@ -19,6 +19,7 @@ from src.models.investigation import (
 )
 from src.agents.tools.sector_pulse import SectorPulseTool
 from src.agents.tools.stockpulse_data import StockPulseDataTool
+from src.repositories.base import CompanyMasterRepository
 from src.utils.retry import is_transient_error, retry_in_thread
 from src.utils.token_usage import run_with_dspy_usage
 
@@ -36,6 +37,7 @@ class DeepAnalyzer:
         doc_repo: Any,
         web_search: Any,
         market_data: Any,
+        company_master_repo: CompanyMasterRepository | None = None,
         stockpulse_data: StockPulseDataTool | None = None,
         sector_pulse_tool: SectorPulseTool | None = None,
         analysis_pipeline: DeepAnalysisPipeline | None = None,
@@ -49,6 +51,7 @@ class DeepAnalyzer:
         self.doc_repo = doc_repo
         self.web_search = web_search
         self.market_data = market_data
+        self.company_master_repo = company_master_repo
         self.stockpulse_data = stockpulse_data
         self.sector_pulse_tool = sector_pulse_tool
         self.pipeline = analysis_pipeline or DeepAnalysisPipeline()
@@ -65,10 +68,14 @@ class DeepAnalyzer:
             or getattr(trigger, "company_symbol", None)
             or "UNKNOWN"
         )
+        company_name = trigger.company_name or None
+        # Resolve company_name from company_master if missing or still "Unknown Company"
+        if (not company_name or company_name == "Unknown Company") and self.company_master_repo:
+            company_name = await self._resolve_company_name(str(canonical_symbol).upper())
         investigation = Investigation(
             trigger_id=trigger.trigger_id,
             company_symbol=str(canonical_symbol).upper(),
-            company_name=trigger.company_name or "Unknown Company",
+            company_name=company_name or "Unknown Company",
         )
 
         document_text = await self._collect_document_text(trigger)
@@ -193,6 +200,23 @@ class DeepAnalyzer:
             investigation.total_output_tokens,
         )
         return investigation
+
+    async def _resolve_company_name(self, symbol: str) -> str | None:
+        """Look up canonical company_name from company_master by symbol."""
+        if not symbol or symbol == "UNKNOWN":
+            return None
+        try:
+            company = await self.company_master_repo.get_by_nse_symbol(symbol)
+            if company and company.company_name and company.company_name != "Unknown Company":
+                return company.company_name
+            # Try BSE scrip code if symbol is numeric
+            if symbol.isdigit():
+                company = await self.company_master_repo.get_by_bse_scrip_code(symbol)
+                if company and company.company_name and company.company_name != "Unknown Company":
+                    return company.company_name
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Company name lookup failed: symbol=%s error=%s", symbol, exc)
+        return None
 
     async def _collect_document_text(self, trigger: Any) -> str:
         if not getattr(trigger, "document_ids", None):

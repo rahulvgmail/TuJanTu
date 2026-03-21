@@ -278,6 +278,7 @@ async def lifespan(app: FastAPI):
                 doc_repo=document_repo,
                 web_search=web_search_tool,
                 market_data=market_data_tool,
+                company_master_repo=company_master_repo,
                 model_name=settings.analysis_model,
                 stockpulse_data=stockpulse_data_tool,
                 sector_pulse_tool=sector_pulse_tool,

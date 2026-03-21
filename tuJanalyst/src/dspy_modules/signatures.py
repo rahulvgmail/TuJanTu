@@ -163,12 +163,17 @@ class DecisionEvaluation(dspy.Signature):
     - Consider current recommendation, new investigation evidence, and historical context.
     - Explicitly account for past inconclusive investigations in final reasoning.
     - Choose recommendation from: buy, sell, hold, none.
-    - Use `none` when the evidence is insufficient, ambiguous, or based on routine
-      disclosures without actionable data. Do NOT force a buy/sell/hold when there is
-      no clear basis — defaulting to `none` is correct when evidence is weak.
+    - IMPORTANT: Only `buy` and `sell` generate reports. `hold` and `none` are filtered
+      out and will NOT produce a report.
+    - Use `hold` or `none` when evidence is insufficient, ambiguous, routine, or when
+      no clear directional signal exists. Both are equivalent to "no action needed".
+    - Reserve `buy` for clear positive catalysts with concrete data (earnings beats,
+      large order wins, upgrades with specific terms).
+    - Reserve `sell` for clear negative catalysts (earnings misses, downgrades,
+      regulatory penalties, debt defaults, equity destruction).
     - Choose timeframe from: short_term, medium_term, long_term.
     - Keep confidence calibrated; avoid unjustified extreme values.
-    - Confidence below 0.5 should strongly suggest `none` as the recommendation.
+    - Confidence below 0.5 should always result in `hold` or `none`.
     - Keep reasoning decision-first and evidence-backed:
       1) state verdict,
       2) cite strongest positive signals,
