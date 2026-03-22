@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -60,7 +61,11 @@ class SymbolMasterSync:
         session = self.session or httpx.AsyncClient(
             timeout=_DEFAULT_TIMEOUT_SECONDS,
             follow_redirects=True,
-            headers={"User-Agent": "Mozilla/5.0", "Accept": "text/csv,application/json,text/plain,*/*"},
+            headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+                "Accept": "application/json,text/csv,text/plain,*/*",
+                "Referer": "https://www.bseindia.com/",
+            },
         )
         upserted = 0
         try:
@@ -71,7 +76,8 @@ class SymbolMasterSync:
                     upserted += 1
             if bse_url:
                 bse_text = await self._fetch_text(session, bse_url)
-                for row in self._parse_bse_master_csv(bse_text):
+                bse_rows = self._parse_bse_master(bse_text)
+                for row in bse_rows:
                     await self._upsert_exchange_row(row, source="bse_master")
                     upserted += 1
         finally:
@@ -137,6 +143,47 @@ class SymbolMasterSync:
                     "bse_listed": False,
                     "tags": ["exchange_master", "nse_listed"],
                     "metadata": {"nse_series": self._pick(row, ["SERIES", "Series"])},
+                }
+            )
+        return parsed
+
+    def _parse_bse_master(self, text: str) -> list[dict[str, Any]]:
+        """Parse BSE master data from JSON (API) or CSV format."""
+        stripped = text.strip()
+        if stripped.startswith("[") or stripped.startswith("{"):
+            return self._parse_bse_master_json(stripped)
+        return self._parse_bse_master_csv(text)
+
+    def _parse_bse_master_json(self, text: str) -> list[dict[str, Any]]:
+        """Parse BSE ListofScripData JSON API response."""
+        data = json.loads(text)
+        if not isinstance(data, list):
+            return []
+        parsed: list[dict[str, Any]] = []
+        for row in data:
+            if not isinstance(row, dict):
+                continue
+            bse_scrip_code = str(row.get("SCRIP_CD") or "").strip()
+            company_name = (
+                str(row.get("Issuer_Name") or row.get("Scrip_Name") or "").strip()
+            )
+            nse_symbol = str(row.get("scrip_id") or "").strip() or None
+            isin = str(row.get("ISIN_NUMBER") or "").strip() or None
+            if not bse_scrip_code and not company_name:
+                continue
+            parsed.append(
+                {
+                    "nse_symbol": nse_symbol,
+                    "bse_scrip_code": bse_scrip_code,
+                    "company_name": company_name or nse_symbol or bse_scrip_code or "Unknown Company",
+                    "isin": isin,
+                    "nse_listed": bool(nse_symbol),
+                    "bse_listed": True,
+                    "tags": ["exchange_master", "bse_listed"],
+                    "metadata": {
+                        "bse_group": str(row.get("GROUP") or ""),
+                        "bse_segment": str(row.get("Segment") or ""),
+                    },
                 }
             )
         return parsed
