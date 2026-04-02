@@ -228,11 +228,13 @@ async def lifespan(app: FastAPI):
         dspy_ticker_resolver = None
         if settings.enable_symbol_dspy_fallback:
             try:
+                dspy_search_tool = web_search_tool if not isinstance(web_search_tool, _NoopWebSearchTool) else None
                 dspy_ticker_resolver = DspyTickerFallbackResolver(
                     provider=settings.llm_provider,
                     model=settings.symbol_resolution_model or settings.gate_model,
                     api_key=settings.resolved_llm_api_key,
                     base_url=settings.llm_base_url,
+                    search_tool=dspy_search_tool,
                 )
             except Exception as exc:  # noqa: BLE001
                 logger.warning("Failed to initialize DSPy ticker fallback resolver: %s", exc)

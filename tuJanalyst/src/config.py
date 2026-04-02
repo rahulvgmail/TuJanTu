@@ -71,7 +71,7 @@ class Settings(BaseSettings):
     symbol_master_refresh_enabled: bool = False
     symbol_master_refresh_interval_hours: int = 24
     enable_symbol_web_fallback: bool = True
-    enable_symbol_dspy_fallback: bool = False
+    enable_symbol_dspy_fallback: bool = True
     symbol_resolution_model: str | None = None
     symbol_fuzzy_threshold: float = 0.92
     symbol_review_threshold: float = 0.9

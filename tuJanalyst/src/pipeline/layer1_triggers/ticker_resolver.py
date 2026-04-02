@@ -165,7 +165,13 @@ class TickerResolver:
         nse_symbol = str(raw_result.get("nse_symbol") or "").strip().upper()
         bse_code = str(raw_result.get("bse_scrip_code") or "").strip()
         isin = str(raw_result.get("isin") or "").strip().upper()
+        dspy_company_name = str(raw_result.get("company_name") or "").strip()
+        dspy_confidence = min(float(raw_result.get("confidence") or 0.7), 0.85)
 
+        if not nse_symbol and not bse_code and not isin:
+            return None
+
+        # Try to match against company_master first
         match: CompanyMaster | None = None
         if nse_symbol:
             match = await self.company_master_repo.get_by_nse_symbol(nse_symbol)
@@ -173,14 +179,27 @@ class TickerResolver:
             match = await self.company_master_repo.get_by_bse_scrip_code(bse_code)
         if match is None and isin:
             match = await self.company_master_repo.get_by_isin(isin)
-        if match is None:
-            return None
 
-        return self._build_resolved(
-            match,
+        if match is not None:
+            return self._build_resolved(
+                match,
+                method=ResolutionMethod.DSPY,
+                confidence=dspy_confidence,
+                evidence=[f"dspy_react:{raw_result.get('reason', 'web_search')}"],
+            )
+
+        # No company_master match — build result directly from DSPy output
+        # This handles companies not yet in the master (new listings, micro-caps)
+        return ResolutionResult(
             method=ResolutionMethod.DSPY,
-            confidence=0.7,
-            evidence=["dspy_fallback"],
+            confidence=dspy_confidence,
+            resolved=True,
+            review_required=True,
+            nse_symbol=nse_symbol or None,
+            bse_scrip_code=bse_code or None,
+            isin=isin or None,
+            company_name=dspy_company_name or None,
+            evidence=[f"dspy_react_unverified:{raw_result.get('reason', 'web_search')}"],
         )
 
     def _build_resolved(
