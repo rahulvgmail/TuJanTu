@@ -10,7 +10,12 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 COPY pyproject.toml uv.lock* ./
 
 # Install dependencies into a virtual environment
+# Install CPU-only PyTorch first to avoid pulling CUDA (saves ~2GB)
 RUN uv venv /opt/venv && \
+    uv pip install --python /opt/venv/bin/python \
+        torch --index-url https://download.pytorch.org/whl/cpu && \
+    uv pip install --python /opt/venv/bin/python --no-deps \
+        sentence-transformers && \
     uv pip install --python /opt/venv/bin/python -r pyproject.toml
 
 # Stage 2: Runtime
